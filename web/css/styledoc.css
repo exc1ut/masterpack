@@ -1,0 +1,149 @@
+body
+{
+  background-image: url(fon.jpg.jpg);
+}
+img{
+	width: 200px;
+	height: 50px;
+}
+.navbar a{
+   position:all;
+   font-size: 20px;
+   text-decoration: none;
+   color: black;
+   margin: 0  20px;
+   border-radius:4px ;  
+}
+.navbar{
+    width: 100%;
+    height: 50px;
+    background-color: grey;
+    -webkit-animation: scale-up-ver-top 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+     animation: scale-up-ver-top 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+@-webkit-keyframes scale-up-ver-top {
+  0% {
+    -webkit-transform: scaleY(0.4);
+            transform: scaleY(0.4);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+  }
+}
+@keyframes scale-up-ver-top {
+  0% {
+    -webkit-transform: scaleY(0.4);
+            transform: scaleY(0.4);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+    -webkit-transform-origin: 100% 0%;
+            transform-origin: 100% 0%;
+  }
+}
+.col1{	
+	width: 200px;
+    background-color: #B70606;
+    opacity: .8;
+    height: 520px;
+    float: left;
+}
+.col2{
+	height: 520px;
+	float: right;
+	width: 1133px; 
+    background-color: grey;
+    opacity: .7;
+}
+.d-flex p{
+	font-size: 18px;
+    color: white;
+}
+.d-flex2 p{
+	font-size: 17px;
+	color: white;
+	display: inline;
+    padding: 15px;
+}
+.d-flex3{
+    color: white;
+    display: inline;	
+    padding-left: 10px;
+} 
+.d-flex3 p{
+	padding: 35px;
+}
+.button{
+  border-radius: 4px;
+  background-color: #f4511e;
+  border:none;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  padding: 20px;
+  width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 10px 20px;
+}
+.button span{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+.button span:after{
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+.button:hover span{
+  padding-right: 25px;
+}
+.button:hover span:after{
+  opacity: 1;
+}
+section{
+	height:10px;
+}
+button{
+  border-radius: 4px;
+  background-color: #f4511e;
+  border:none;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  padding: 1px;
+  width: 80px;
+}
+button span{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+button span:after{
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -5px;
+  transition: 0.5s;
+}
+button:hover span{
+  padding-right: 25px;
+}
+button:hover span:after{
+  opacity: 1;
+}

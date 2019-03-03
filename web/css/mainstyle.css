@@ -1,0 +1,64 @@
+body{
+    background-image: url(images/fon.jpg.jpg);
+    width: 100% !important;
+}
+
+header{
+    display: flex;
+    justify-content: center;
+}
+.img img{
+    height: 130px;
+    width: 400px;
+}
+.container{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.block-flex{
+    display: flex;
+    justify-content: center;
+}
+        .d-flex{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 0 auto;
+        }
+        .red{
+            display: flex;
+            justify-content: center; 
+            height: 150px;
+            width: 300px;
+            background: url(images/red.jpg) no-repeat right center;
+            margin:12px;
+            background-size: cover;
+            align-items: center;
+        }
+.red h1{
+    color: white;
+    text-decoration: none;
+    background-color: grey;
+    opacity: .9;
+    width: 100%;
+    text-align: center;
+}
+ .blue{
+    display: flex;
+    justify-content: center;
+    height: 150px;
+    width: 625px;
+    background-image: url(images/red.jpg);
+    margin: 12px;
+    background-size: cover;
+    align-items: center;
+ } 
+ .blue h1{
+    color: white;
+    text-decoration: none;
+    background-color: grey;
+    opacity: .9;
+    width: 100%;
+    text-align: center;
+ }
