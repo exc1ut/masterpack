@@ -40,7 +40,6 @@ class DogovorTable extends \yii\db\ActiveRecord
         return [
             [['tovar', 'kratkoe_naimenovanie', 'measure', 'postavshik_id'], 'required'],
             [['tovar', 'kratkoe_naimenovanie', 'measure'], 'string'],
-            [['cost1', 'nds', 'cost2', 'usd1', 'usd2', 'postavshik_id'], 'integer'],
             [['postavshik_id'], 'exist', 'skipOnError' => true, 'targetClass' => Dogovor::className(), 'targetAttribute' => ['postavshik_id' => 'id']],
         ];
     }

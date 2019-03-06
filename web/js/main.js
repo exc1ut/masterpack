@@ -86,8 +86,9 @@ function addRow()
 
     var table = document.getElementById('table');
     var rownumb = input.value;
-    $('tbody').remove();
+    $('#tbody').remove();
     var tbdy = document.createElement('tbody');
+    tbdy.setAttribute('id','tbody');
     for(var i=0;i<rownumb;i++)
     {
         var tr = document.createElement('tr');
@@ -95,6 +96,7 @@ function addRow()
         var td = document.createElement('td');
         var select = document.createElement('select');
         select.setAttribute('data-name','id');
+        select.setAttribute('name','id[]');
         select.setAttribute('onchange','loadSortedItems(this,'+i+');');
         var option = document.createElement('option');
         option.text = "select";
@@ -266,6 +268,7 @@ function loadSortedItems(e,tr) {
     var td = document.createElement('td');
     var select = document.createElement('select');
     select.setAttribute('data-name','id');
+    select.setAttribute('name','id[]');
     select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
     for(var key in json.id)
     {
@@ -400,8 +403,121 @@ function loadSortedItems(e,tr) {
     row[0].appendChild(td);
 
         console.log(row);
+    });}
+// Otchet
+    $('#chkveg').multiselect({
+
+        includeSelectAllOption: true
     });
-}
+
+    $('#btnget').click(function(){
+
+        alert($('#chkveg').val());
+});
+
+    function addOtchet(model_name)
+    {
+        var clients = $('#chkveg').val().join(",");
+
+        var startDate = $('#start_date').val();
+        var endDate = $('#end_date').val();
+        var url = 'http://myproject/site/getotchet?client='+clients+'&start_date='+startDate+'&end_date='+endDate+'&model_name='+model_name;
+        console.log(url);
+        fetch(url).then(res=>res.json()).then(json => {
+            console.log(json);
+
+        function addTh(text)
+        {
+            var th = document.createElement('th');
+            var p = document.createElement('p');
+            var t = document.createTextNode(text);
+            p.appendChild(t);
+            th.appendChild(p);
+            tr.appendChild(th);
+        }
+        function addColoumn(text)
+        {
+            var td = document.createElement('td');
+            var p = document.createElement('p');
+            var t = document.createTextNode(text);
+            p.appendChild(t);
+            td.appendChild(p);
+            tr.appendChild(td);
+        }
+        var table = document.getElementById('table');
+        var rownumb = json[0].length;
+
+        $('tbody').remove();
+        var tbdy = document.createElement('tbody');
+
+        var tr = document.createElement('tr');
+        addTh('Id');
+        addTh('Поставщик');
+        addTh('Договор');
+        addTh('Номер счет фактуры');
+        addTh('Тип');
+        addTh('Вес');
+        addTh('Формат');
+        addTh('Дата');
+        addTh('Время');
+        addTh('Цена');
+        tbdy.appendChild(tr);
+
+
+        var tr = document.createElement('tr');
+
+        addColoumn('Итог');
+        addColoumn('');
+        addColoumn('');
+        addColoumn('');
+        addColoumn('');
+        addColoumn(json[1].ves);
+        addColoumn('');
+        addColoumn('');
+        addColoumn('');
+        addColoumn(json[1].cost);
+        tbdy.appendChild(tr);
+
+
+        for(var i=0;i<rownumb;i++)
+        {
+            var tr = document.createElement('tr');
+            addColoumn(json[0][i].id);
+            addColoumn(json[0][i].client);
+            addColoumn(json[0][i].dogovor_nomer);
+            addColoumn(json[0][i].schet);
+            addColoumn(json[0][i].tip.join(", "));
+            addColoumn(json[0][i].ves.join(", "));
+            addColoumn(json[0][i].format);
+            addColoumn(json[0][i].date);
+            addColoumn(json[0][i].time);
+            addColoumn(json[0][i].cost.join(", "));
+
+
+            tbdy.appendChild(tr);
+
+        }
+        var tr = document.createElement('tr');
+
+        addColoumn('Итог');
+        addColoumn('');
+        addColoumn('');
+        addColoumn('');
+        addColoumn('');
+        addColoumn(json[1].ves);
+        addColoumn('');
+        addColoumn('');
+        addColoumn('');
+        addColoumn(json[1].cost);
+        tbdy.appendChild(tr);
+
+        table.appendChild(tbdy);
+
+
+
+        });
+
+    }
 
 
 

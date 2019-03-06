@@ -6,6 +6,7 @@ use app\models\Dogovor;
 use app\models\Dogovortable;
 use app\models\Postavshik;
 use app\models\PostavshikSchetFaktura;
+use app\models\Rashod;
 use app\models\SkladSirya;
 use Codeception\Module\Cli;
 use Yii;
@@ -82,12 +83,10 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
-
         $model->password = '';
         return $this->render('login', [
             'model' => $model,
@@ -231,7 +230,6 @@ class SiteController extends Controller
         $dogovors = $postavshikid->dogovors;
 
         $items =  ArrayHelper::map($dogovors, 'id', 'kratkoe_naimenovanie');
-        var_dump($items);
         return json_encode($items);
     }
 
@@ -271,6 +269,7 @@ class SiteController extends Controller
                 'time' => $time,
             ];
         }
+
         return $this->render('sklad',[
             'model'=>$array,
         ]);
@@ -320,8 +319,63 @@ class SiteController extends Controller
     public function actionRashod()
     {
         $model = new Dogovor();
+        $sklad_model = new SkladSirya();
+        Yii::$app->formatter->locale = 'ru-RU';
+        $sklad_sirya = new Rashod();
+        $sklad_sirya = $sklad_sirya->find()->all();
+        foreach($sklad_sirya as $sklad)
+        {
+            Yii::$app->formatter->locale = 'ru-RU';
+            $sk =  new Rashod();
+            $sk = $sk->findOne($sklad["id"]);
+            $factura = $sk->schetid->dogovor->client->name;
+            $id = $sklad["id"];
+            $postavshik = $sk->schetid->dogovor->client->name;
+            $dogovor_nomer = $sk->schetid->dogovor->dogovor_nomer;
+            $dogovor_date = $sk->schetid->dogovor->date;
+            $dogovor_date_ru = Yii::$app->formatter->asDate($dogovor_date);
+            $schet_factura_nomer = $sk->schetid->schet_faktura_nomer;
+            $tip = $sklad["kratkoe_naimenovanie"];
+            $ves = $sklad["ves"];
+            $format = $sklad["format"];
+            $date = $sklad["date"];
+            $dater = Yii::$app->formatter->asDate($date);
+            $time = $sklad["time"];
+            $array[] = [
+                'id' => $id,
+                'postavshik' => $postavshik,
+                'dogovor_nomer' => $dogovor_nomer,
+                'dogovor_date_ru' => $dogovor_date_ru,
+                'schet_factura_noemer' => $schet_factura_nomer,
+                'tip' => $tip,
+                'ves' => $ves,
+                'format' => $format,
+                'dater' => $dater,
+                'time' => $time,
+            ];
+        }
+        if($_POST)
+        {
+            foreach($_POST["id"] as $id)
+            {
+                $rashod_model = new Rashod();
+                $query = $sklad_model->findOne($id);
+                $rashod_model->id = $query->id;
+                $rashod_model->postavshik_schet_faktura_id = $query->postavshik_schet_faktura_id;
+                $rashod_model->kratkoe_naimenovanie = $query->kratkoe_naimenovanie;
+                $rashod_model->format = $query->format;
+                $rashod_model->ves = $query->ves;
+                $rashod_model->date = $query->date;
+                $rashod_model->is_come = 0;
+                $rashod_model->time = $query->time;
+                $rashod_model->save() or var_dump($rashod_model->errors);
+                $query->delete();
+                $this->redirect('rashod');
+            }
+        }
         return $this->render('rashod',[
-            'model'=>$model
+            'model'=>$model,
+            'items'=>$array,
         ]);
     }
 
@@ -608,8 +662,105 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionAbout()
+    public function actionOtchet()
     {
-        return $this->render('about');
+        $model_name = "rashod";
+        $client_model = new ClientRegistration();
+        $clients = $client_model->find()->all();
+        $items = ArrayHelper::map($clients, 'id', 'name');
+        return $this->render('otchetpage', [
+                'model' => $client_model,
+                'items' => $items,
+                'model_name' => $model_name
+            ]
+            );
     }
+    public function actionRashodpage()
+    {
+        $model_name = "rashod";
+        $client_model = new ClientRegistration();
+        $clients = $client_model->find()->all();
+        $items = ArrayHelper::map($clients, 'id', 'name');
+        return $this->render('otchet', [
+                'model' => $client_model,
+                'items' => $items,
+                'model_name' => $model_name
+            ]
+        );
+    }
+    public function actionPrihodpage()
+    {
+        $model_name = "prihod";
+        $client_model = new ClientRegistration();
+        $clients = $client_model->find()->all();
+        $items = ArrayHelper::map($clients, 'id', 'name');
+        return $this->render('otchet', [
+                'model' => $client_model,
+                'items' => $items,
+                'model_name' => $model_name,
+            ]
+        );
+    }
+    public function actionGetotchet($client,$start_date=0,$end_date=0,$model_name)
+    {
+        $values = explode(",",$client);
+        $model = new Dogovor();
+        $items = [];
+        $queries = $model->find()->where(['between', 'date',$start_date, $end_date])->andWhere(['postavshik'=>$values])->all();
+        $itog = [];
+        $itog["ves"] = 0;
+        $itog["cost"] = 0;
+        $items = [];
+        $i = 0;
+        foreach($queries as $key=>$query)
+        {
+
+
+
+
+            foreach($query->tip as $schet)
+            {
+                $model_n=($model_name == "rashod")?$schet->rashod:$schet->sklad;
+                foreach($model_n as $sklad)
+                {
+                    $ves = [];
+                    $cost = [];
+                    $tip_all = [];
+                    $kn = [];
+                    $id = [];
+
+                    $client = $query->client->name;
+
+
+                    foreach($query->dogovors as $dogovor)
+                    {
+                        $cost[] = $dogovor->cost1;
+                        $itog["cost"] += array_sum($cost);
+                        $kn[] = $dogovor->kratkoe_naimenovanie;
+                    }
+                    $id[] = $sklad->id;
+                    $ves[] = $sklad->ves;
+                    $tip_all[] = $sklad->kratkoe_naimenovanie;
+                    $itog["ves"] += array_sum($ves);
+                    $items[$i]["dogovor_nomer"]=$query->dogovor_nomer;
+                    $items[$i]["cost"] = $cost;
+                    $items[$i]["client"] = $query->client->name;
+                    $items[$i]["id"] = $sklad->id;
+                    $items[$i]["ves"] = $ves;
+                    $items[$i]["tip"] = $tip_all;
+                    $items[$i]["cost"] = $cost;
+                    $items[$i]["schet"] = $schet->schet_faktura_nomer;
+                    $items[$i]["format"] = $sklad->format;
+                    $items[$i]["date"] = $sklad->date;
+                    $items[$i]["time"] = $sklad->time;
+                    $i++;
+                }
+            }
+
+
+        }
+        $req = [$items,$itog];
+        return json_encode($req);
+    }
+
 }

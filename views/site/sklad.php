@@ -31,12 +31,12 @@ $this->registerCssFile('https://handsontable.com/static/css/main.css');
                 <span>Приход</span>
             </button>
         </a>
-        <a href="#">
+        <a href="<?= Url::to('rashod')?>">
             <button class="button">
                 <span>Расход</span>
             </button>
         </a>
-        <a href="#">
+        <a href="<?= Url::to('otchet')?>">
             <button class="button">
                 <span>Отчет</span>
             </button>
@@ -62,6 +62,7 @@ $this->registerCssFile('https://handsontable.com/static/css/main.css');
             <th>Формат</th>
             <th>Дата</th>
             <th>Время</th>
+            <?if($model !== null):?>
             <? foreach($model as $item):?>
                 <tr>
                     <td><?=$item["id"]?></td>
@@ -76,6 +77,7 @@ $this->registerCssFile('https://handsontable.com/static/css/main.css');
 
                 </tr>
             <?  endforeach; ?>
+        <? endif;?>
         </tr>\
     </table>
 </div>
