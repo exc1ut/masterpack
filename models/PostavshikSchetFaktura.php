@@ -59,9 +59,9 @@ class PostavshikSchetFaktura extends \yii\db\ActiveRecord
     {
         return $this->hasMany(SkladSirya::className(), ['postavshik_schet_faktura_id' => 'id']);
     }
-    public function getRashod()
+    public function getOstatok()
     {
-        return $this->hasMany(Rashod::className(), ['postavshik_schet_faktura_id' => 'id']);
+        return $this->hasMany(Ostatok::className(), ['postavshik_schet_faktura_id' => 'id']);
     }
 
 }

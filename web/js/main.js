@@ -43,7 +43,7 @@ $('.selected').on('change',function loadDogovors() {
     console.log('123');
     var id = $(this).val(); //extract the id of selected category
     console.log(id);
-    var ajax2 = $.ajax({
+     $.ajax({
         method: 'GET',
         dataType: 'text',
         url: '../site/getdogovor?id=' + id,
@@ -51,8 +51,6 @@ $('.selected').on('change',function loadDogovors() {
             console.log(response);
             var response = JSON.parse(response);
             var select = document.getElementById("skladsirya-postavshik_schet_faktura_id");
-            var length = select.length;
-            console.log(length);
             $('.optiondogovor').remove();
             $.each(response, function (index, value) {
 
@@ -71,6 +69,8 @@ $('.selected').on('change',function loadDogovors() {
         }
     });
 });
+
+
 
 function addRow()
 {
@@ -180,20 +180,9 @@ function addRow()
         tr.appendChild(td);
 
         var td = document.createElement('td');
-        var select = document.createElement('select');
-        select.setAttribute('data-name','ves');
-        select.setAttribute('onchange','loadSortedItems(this,'+i+');');
-        var option = document.createElement('option');
-        option.text = "select";
-        select.appendChild(option);
-        for(var key in json.ves)
-        {
-            var option = document.createElement('option');
-            option.text = json.ves[key];
-            option.value = key;
-            select.appendChild(option);
-        }
-        td.appendChild(select);
+        var input = document.createElement('input');
+        input.setAttribute('name','ves[]');
+        td.appendChild(input);
         tr.appendChild(td);
 
         var td = document.createElement('td');
@@ -254,7 +243,7 @@ function addRow()
     table.appendChild(tbdy);
 })
 }
-function loadSortedItems(e,tr) {
+    function loadSortedItems(e,tr) {
     var dataName = e.getAttribute('data-name');
     request[tr] ? request[tr] += dataName + '=' + e.value + '&' : request[tr] = dataName + '=' + e.value + '&';
     console.log(request, tr);
@@ -345,17 +334,9 @@ function loadSortedItems(e,tr) {
     row[0].appendChild(td);
 
     var td = document.createElement('td');
-    var select = document.createElement('select');
-    select.setAttribute('data-name','ves');
-    select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
-    for(var key in json.ves)
-    {
-        var option = document.createElement('option');
-        option.text = json.ves[key];
-        option.value = key;
-        select.appendChild(option);
-    }
-    td.appendChild(select);
+    var input = document.createElement('input');
+    input.setAttribute('name','ves[]');
+    td.appendChild(input);
     row[0].appendChild(td);
 
     var td = document.createElement('td');
@@ -404,17 +385,17 @@ function loadSortedItems(e,tr) {
 
         console.log(row);
     });}
-// Otchet
-    $('#chkveg').multiselect({
+    //Multi Select
+$('#chkveg').multiselect({
 
-        includeSelectAllOption: true
-    });
-
-    $('#btnget').click(function(){
-
-        alert($('#chkveg').val());
+    includeSelectAllOption: true
 });
 
+$('#btnget').click(function(){
+
+    alert($('#chkveg').val());
+});
+    //Otchet function
     function addOtchet(model_name)
     {
         var clients = $('#chkveg').val().join(",");
@@ -486,12 +467,12 @@ function loadSortedItems(e,tr) {
             addColoumn(json[0][i].client);
             addColoumn(json[0][i].dogovor_nomer);
             addColoumn(json[0][i].schet);
-            addColoumn(json[0][i].tip.join(", "));
-            addColoumn(json[0][i].ves.join(", "));
+            addColoumn(json[0][i].tip);
+            addColoumn(json[0][i].ves);
             addColoumn(json[0][i].format);
             addColoumn(json[0][i].date);
             addColoumn(json[0][i].time);
-            addColoumn(json[0][i].cost.join(", "));
+            addColoumn(json[0][i].cost);
 
 
             tbdy.appendChild(tr);
