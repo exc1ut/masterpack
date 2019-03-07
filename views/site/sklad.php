@@ -36,7 +36,7 @@ $this->registerCssFile('https://handsontable.com/static/css/main.css');
                 <span>Расход</span>
             </button>
         </a>
-        <a href="<?= Url::to('prihodpage')?>">
+        <a href="<?= Url::to('otchet')?>">
             <button class="button">
                 <span>Отчет</span>
             </button>

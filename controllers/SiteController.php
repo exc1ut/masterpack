@@ -317,9 +317,11 @@ class SiteController extends Controller
         $sklad_model = new SkladSirya();
         if($_POST)
         {
+
             foreach($_POST["id"] as $key=>$id)
             {
                 $rashod_model = new Ostatok();
+                $rm = new Rashod();
                 $rashod_query = $rashod_model->findOne($id);
                 $query = $sklad_model->findOne($id);
                 if($rashod_query->id !== $query->id)
@@ -332,7 +334,19 @@ class SiteController extends Controller
                     $rashod_model->date = $query->date;
                     $rashod_model->is_come = 0;
                     $rashod_model->time = $query->time;
-                    $rashod_model->save() or var_dump($rashod_model->errors);
+
+                    $rashod_model->save() or var_dump($rm->errors);
+
+                    $rm->id = $query->id;
+                    $rm->postavshik_schet_faktura_id = $query->postavshik_schet_faktura_id;
+                    $rm->kratkoe_naimenovanie = $query->kratkoe_naimenovanie;
+                    $rm->format = $query->format;
+                    $rm->ves = $_POST["ves"][$key];
+                    $rm->date = $query->date;
+                    $rm->is_come = 0;
+                    $rm->time = $query->time;
+
+                    $rm->save() or var_dump($rm->errors);
                 }
             }
             $this->redirect('rashod');
@@ -618,7 +632,7 @@ class SiteController extends Controller
         $client_model = new ClientRegistration();
         $clients = $client_model->find()->all();
         $items = ArrayHelper::map($clients, 'id', 'name');
-        return $this->render('otchet', [
+        return $this->render('otchetpage', [
                 'model' => $client_model,
                 'items' => $items,
                 'model_name' => $model_name
@@ -634,7 +648,7 @@ class SiteController extends Controller
         return $this->render('otchet', [
                 'model' => $client_model,
                 'items' => $items,
-                'model_name' => $model_name
+                'model_name' => $model_name,
             ]
         );
     }
@@ -670,7 +684,18 @@ class SiteController extends Controller
 
             foreach($query->tip as $schet)
             {
-                $model_n=($model_name == "ostatok")?$schet->ostatok:$schet->sklad;
+                if($model_name == "ostatok")
+                {
+                    $model_n=$schet->ostatok;
+                }
+                elseif($model_name == "rashod")
+                {
+                    $model_n = $schet->rashod;
+                }
+                else
+                {
+                    $model_n = $schet->sklad;
+                }
                 foreach($model_n as $sklad)
                 {
                     $ves = [];
