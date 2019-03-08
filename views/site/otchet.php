@@ -1,6 +1,7 @@
 <?
 use yii\helpers\Html;
 use app\assets\SkladAsset;
+use yii\helpers\Url;
 SkladAsset::register($this);
 $this->registerJsFile('/js/jquery.js');
 $this->registerCssFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
@@ -35,4 +36,9 @@ $this->registerJsFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootst
 <div >
     <table id="table" border="1">
     </table>
+</div>
+
+<div><? if($model_name == "ostatok"):?>
+        <a href="<?=Url::toRoute('table')?>"><button> Change view to table</button></a>
+    <? endif;?>
 </div>

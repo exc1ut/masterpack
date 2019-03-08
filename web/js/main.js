@@ -499,7 +499,79 @@ $('#btnget').click(function(){
         });
 
     }
+    function showTable()
+    {
+        var tip = $('#tip').val();
+        var format = $('#format').val();
+        var date = $('#dateTable').val();
+        var url = 'http://myproject/site/gettable?format='+format+'&tip='+tip+'&date='+date;
+        fetch(url).then(res => res.json()).then(json => {
+            console.log(json);
 
+
+            function addTh(text)
+            {
+                var th = document.createElement('th');
+                var p = document.createElement('p');
+                var t = document.createTextNode(text);
+                p.appendChild(t);
+                th.appendChild(p);
+                tr.appendChild(th);
+            }
+            function addColoumn(text)
+            {
+                var td = document.createElement('td');
+                var p = document.createElement('p');
+                var t = document.createTextNode(text);
+                p.appendChild(t);
+                td.appendChild(p);
+                tr.appendChild(td);
+            }
+            var table = document.getElementById('table');
+            var rownumb = json.body.length;
+
+            $('tbody').remove();
+            var tbdy = document.createElement('tbody');
+
+            var tr = document.createElement('tr');
+            addTh('');
+            for(var key in json.head)
+            {
+                addTh(json.head[key]);
+            }
+            addTh('Total');
+            tbdy.appendChild(tr);
+
+            var tr = document.createElement('tr');
+
+            for(var key in json.body)
+            {
+                for(var key2 in json.body[key])
+                {
+                    addColoumn(json.body[key][key2]);
+                }
+                addColoumn(json.row_sum[key]);
+            }
+
+            tbdy.appendChild(tr);
+            var tr = document.createElement('tr');
+
+            addColoumn('Итог');
+            for(var key in json.sum)
+            {
+                addColoumn(json.sum[key]);
+            }
+
+
+            tbdy.appendChild(tr);
+
+            table.appendChild(tbdy);
+
+
+
+
+        })
+    }
 
 
 

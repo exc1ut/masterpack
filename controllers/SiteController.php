@@ -752,4 +752,64 @@ class SiteController extends Controller
         );
 
     }
+    public function actionTable()
+    {
+        $postavshik = new Ostatok();
+        $allpostavshik = $postavshik->find()->all();
+        $kn =  ArrayHelper::map($allpostavshik, 'kratkoe_naimenovanie', 'kratkoe_naimenovanie');
+        $format =  ArrayHelper::map($allpostavshik, 'format', 'format');
+        return $this->render('table',[
+            'model'=>$postavshik,
+            'kn'=>$kn,
+            'format'=>$format
+        ]);
+    }
+    public function actionGettable($format,$tip,$date)
+    {
+        $model = new Ostatok();
+        $queries = $model->find()->where(['format'=>$format])->andWhere(['kratkoe_naimenovanie'=>$tip])->andWhere(['date'=>$date])->all();
+        foreach ($queries as $key=>$query)
+        {
+            $table["head"][$query->id] = $query->format;
+        }
+        foreach($queries as $numb => $query)
+        {
+            foreach ($table["head"] as $key => $format)
+            {
+                $table["body"][$numb][0] = $query->kratkoe_naimenovanie;
+                if($query->id == $key)
+                {
+                    $table["body"][$numb][] = $query->ves;
+                }
+                else {
+                    $table["body"][$numb][] = '';
+                }
+
+            }
+
+        }
+
+
+        //sum column
+
+        for($j=0,$sum=0;$j<count($table["head"]);$j++,$sum=0)
+        {
+
+            for($i=0; $i<count($table["body"]) ; $i++)
+            {
+                $sum += $table["body"][$i][$j+1];
+            }
+            $table["sum"][] = $sum;
+        }
+        //sum row
+
+            foreach($table["body"] as $key=>$value)
+            {
+                $table["row_sum"][] = array_sum($table["body"][$key]);
+            }
+                $table["sum"][] = array_sum($table["row_sum"]);
+        return json_encode($table);
+
+    }
+
 }
