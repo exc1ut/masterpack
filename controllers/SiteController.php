@@ -368,7 +368,6 @@ class SiteController extends Controller
         $schet =  ArrayHelper::map($schet_model->find()->all(), 'id', 'schet_faktura_nomer');
         $dogovor_model = new Dogovor();
         $dogovor =  ArrayHelper::map($dogovor_model->find()->all(), 'id', 'dogovor_nomer');
-
         $arr = [
             'clients'=>$clients,
             'tip'=>$tip,

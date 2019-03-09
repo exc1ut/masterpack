@@ -1,21 +1,28 @@
 <?php
 
-use app\assets\PrihodAsset;
+use app\assets\SkladAsset;
 use yii\helpers\Html;
-PrihodAsset::register($this);
+use yii\helpers\Url;
+SkladAsset::register($this);
+$this->registerCssFile('/css/table.css');
 ?>
+
+
 <div class="navbar">
-    <a href="#">Рег.дог</a>
-    <a href="#">Склад сырья</a>
-    <a href="#">Склад-1</a>
-    <a href="#">Склад-2</a>
-    <a href="#">Склад ГП</a>
-    <a href="#">Склад допюсырья</a>
+    <img src="/images/logo.png">
+    <a href="<?= Url::toRoute(['site/dogovor'])?>">Рег.дог</a>
+    <a href="<?= Url::toRoute(['site/registration'])?>">Рег.поставшика</a>
+    <a href="<?= Url::toRoute(['site/registration'])?>">Рег.клиента</a>
+    <a href="<?= Url::toRoute(['site/sklad'])?>">Склад сырья</a>
+    <a href="lala.html">Склад-1</a>
+    <a href="">Склад-2</a>
+    <a href="">Склад ГП</a>
+    <a href="">Склад допюсырья</a>
 </div>
 <form method="post" action="prihod">
 <div class="sidenav">
     <div id="mySidenav">
-        <button type="submit"><a href="#" id="about" >Принять</a></button>
+        <a href="#" id="about" ><button type="submit">Принять</button></a>
         <a href="#" id="blog" >Очистить</a>
         <a href="#" id="projects" >Назад</a>
     </div>
@@ -56,6 +63,21 @@ PrihodAsset::register($this);
         <h1>Тип Продукта</h1>
 
 
+        <div class="da5">
+            <p>Тип</p>
+            <?= Html::activeDropDownList($sklad, 'postavshik_schet_faktura_id[]',[],[
+                'prompt'=>'Select',
+                'class'=>'odk',
+            ]) ?>
+        </div>
+        <div class="da6">
+            <p>Формат</p>
+            <input type="text" name="SkladSirya[format][]" placeholder="Формат Бумаги(мм)">
+        </div>
+        <div class="da7">
+            <p>Вес</p>
+            <input type="text" name="SkladSirya[ves][]" placeholder="Вес Бумаги(кг)">
+        </div>
         <div class="da5">
             <p>Тип</p>
             <?= Html::activeDropDownList($sklad, 'postavshik_schet_faktura_id[]',[],[

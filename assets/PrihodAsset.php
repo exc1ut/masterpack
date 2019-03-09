@@ -20,7 +20,7 @@ class PrihodAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/prihod.css'
+        'css/otchet.css'
     ];
     public $js = [
         'js/jquery.js',

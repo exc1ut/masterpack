@@ -20,10 +20,9 @@ class PublicAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/styledoc.css',
+        'css/main.css',
     ];
-    public $js = [
-        'js/jquery.js',
-        'js/main.js'
+    public $depends = [
+        'yii\bootstrap\BootstrapAsset',
     ];
 }

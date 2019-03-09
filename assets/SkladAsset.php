@@ -21,7 +21,7 @@ class SkladAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/bootstrap-multiselect.css',
-        'css/sklad.css',
+        'css/main.css',
     ];
     public $js = [
         'js/jquery.js',

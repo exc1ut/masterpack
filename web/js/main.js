@@ -86,9 +86,43 @@ function addRow()
 
     var table = document.getElementById('table');
     var rownumb = input.value;
+
+        function addTh(text)
+        {
+            var th = document.createElement('th');
+            var p = document.createElement('p');
+            var t = document.createTextNode(text);
+            p.appendChild(t);
+            th.appendChild(p);
+            tr.appendChild(th);
+        }
+
+        // <th>Поставшик</th>
+        // <th>Номер дата договора</th>
+        // <th>Номер счет-фактуры</th>
+        // <th>Тип</th>
+        // <th>Вес</th>
+        // <th>Формат</th>
+        // <th>Дата</th>
+        // <th>Время</th>
+
+
     $('#tbody').remove();
     var tbdy = document.createElement('tbody');
     tbdy.setAttribute('id','tbody');
+
+        var tr = document.createElement('tr');
+        addTh('Id')
+        addTh('Поставшик')
+        addTh('Номер дата договора')
+        addTh('Номер счет-фактуры')
+        addTh('Тип')
+        addTh('Вес')
+        addTh('Формат')
+        addTh('Дата')
+        addTh('Время')
+        tbdy.appendChild(tr);
+
     for(var i=0;i<rownumb;i++)
     {
         var tr = document.createElement('tr');
@@ -248,6 +282,7 @@ function addRow()
     request[tr] ? request[tr] += dataName + '=' + e.value + '&' : request[tr] = dataName + '=' + e.value + '&';
     console.log(request, tr);
     var url = 'http://myproject/site/getsorteditems?' + request[tr];
+    console.log(url);
     fetch(url).then(res=>res.json()).then(json => {
         console.log(json)
         console.log(request);
@@ -410,27 +445,23 @@ $('#btnget').click(function(){
         function addTh(text)
         {
             var th = document.createElement('th');
-            var p = document.createElement('p');
             var t = document.createTextNode(text);
-            p.appendChild(t);
-            th.appendChild(p);
+            th.appendChild(t);
             tr.appendChild(th);
         }
         function addColoumn(text)
         {
             var td = document.createElement('td');
-            var p = document.createElement('p');
             var t = document.createTextNode(text);
-            p.appendChild(t);
-            td.appendChild(p);
+            td.appendChild(t);
             tr.appendChild(td);
         }
         var table = document.getElementById('table');
         var rownumb = json[0].length;
 
-        $('tbody').remove();
+        $('#tbody').remove();
         var tbdy = document.createElement('tbody');
-
+        tbdy.setAttribute('id','tbody');
         var tr = document.createElement('tr');
         addTh('Id');
         addTh('Поставщик');
