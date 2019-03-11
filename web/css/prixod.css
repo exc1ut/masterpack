@@ -1,0 +1,109 @@
+body
+{
+  background-image: url(fon.jpg.jpg);
+}
+.colums{
+  margin-left: 75px;
+}
+select{
+  margin: 0 auto;
+  width: 100px;
+  height: 30px;
+  margin-left: 15px;
+}
+input{
+  margin-left: 5px;
+}
+p{
+  color: white;
+  font-size: 18px;
+}
+.col-md-12{
+  height: 300px;
+  background-color: grey;
+  opacity: .8;
+}
+.table {
+  margin: 20px auto;
+  background-color: white;
+  border-collapse: collapse;
+}
+.table, .td, .th {
+  width: 1500px;
+  border: 2px solid black;
+}
+.q{
+   margin-left: 130px;
+}
+.q1{
+  margin-left: 220px;
+  margin-top: -38px;
+}
+.q2{
+  margin-left: 420px;
+  margin-top: -38px;
+}
+.q3{
+  margin-left:  650px;
+  margin-top: -38px;
+}
+.q4{
+  margin-left: 810px;
+  margin-top: -38px;
+}
+.q5{
+  margin-left: 940px;
+  margin-top: -38px;
+}
+.q6{
+  margin-left: 1050px;
+  margin-top: -38px;
+}
+.q7{
+  margin-left: 1150px;
+  margin-top: -38px;
+}
+.q8{
+  margin-left: 1330px;
+  margin-top: -38px;
+}
+button{
+  width: 150px;
+}
+.send{
+  border-radius: 4px;
+  background-color: #f4511e;
+  border:none;
+  color: black;
+  text-align: center;
+  font-size: 14px;
+  padding: 10px;
+  width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 10px 20px;
+}
+.send span{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+.send span:after{
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+.send:hover span{
+  padding-right: 25px;
+}
+.send:hover span:after{
+  opacity: 1;
+}
+.send{
+  margin-left: 1340px;
+  margin-top: 100px;
+}

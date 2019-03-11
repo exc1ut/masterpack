@@ -753,6 +753,62 @@ class SiteController extends Controller
     }
     public function actionTable()
     {
+        function in_array_r($needle, $haystack, $strict = false) {
+            foreach ($haystack as $item) {
+                if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && in_array_r($needle, $item, $strict))) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        $model = new Ostatok();
+        $query = $model->find()->all();
+
+        $headers = [];
+        foreach($query as $key=>$value)
+        {
+
+            if (!in_array($value->format, $headers)) {
+                $headers[] = $value->format;
+            }
+        }
+        sort($headers);
+
+        $rows = [];
+        foreach($query as $key=>$value)
+        {
+            if (!in_array_r($value->kratkoe_naimenovanie, $rows)) {
+
+            $rows[$key][0] = $value->kratkoe_naimenovanie;
+            foreach ($headers as $key2=>$header)
+            {
+                $formats = $model->find()->where(['kratkoe_naimenovanie' => $value->kratkoe_naimenovanie])->andWhere(['format'=>$header])->all();
+
+
+                $formatscount = count($formats);
+
+                $rows[$key][] = ($formatscount !== 0)? $formatscount:'';
+
+            }
+                $rows[$key][] = array_sum($rows[$key]);
+            }
+
+
+        }
+        $rows["itog"][0] = "Итог";
+        for($j=0,$sum=0;$j<count($headers)+1;$j++,$sum=0)
+        {
+
+            for($i=0; $i<count($rows) ; $i++)
+            {
+                $sum += $rows[$i][$j+1];
+            }
+            $rows["itog"][] = $sum;
+        }
+
+
         $postavshik = new Ostatok();
         $allpostavshik = $postavshik->find()->all();
         $kn =  ArrayHelper::map($allpostavshik, 'kratkoe_naimenovanie', 'kratkoe_naimenovanie');
@@ -760,53 +816,71 @@ class SiteController extends Controller
         return $this->render('table',[
             'model'=>$postavshik,
             'kn'=>$kn,
-            'format'=>$format
+            'format'=>$format,
+            'rows'=>$rows,
+            'headers'=>$headers,
         ]);
     }
     public function actionGettable($format,$tip,$date)
     {
+        $ft = explode(",",$format);
+        $tip = explode(",",$tip);
+
+        function in_array_r($needle, $haystack, $strict = false) {
+            foreach ($haystack as $item) {
+                if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && in_array_r($needle, $item, $strict))) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         $model = new Ostatok();
-        $queries = $model->find()->where(['format'=>$format])->andWhere(['kratkoe_naimenovanie'=>$tip])->andWhere(['date'=>$date])->all();
-        foreach ($queries as $key=>$query)
+        $query = $model->find()->where(["format"=>$ft])->andWhere(["kratkoe_naimenovanie"=>$tip])->andWhere(["date"=>$date])->all();
+
+        $headers = [];
+        foreach($query as $key=>$value)
         {
-            $table["head"][$query->id] = $query->format;
+
+            if (!in_array($value->format, $headers)) {
+                $headers[] = $value->format;
+            }
         }
-        foreach($queries as $numb => $query)
+        sort($headers);
+
+        $rows = [];
+        foreach($query as $key=>$value)
         {
-            foreach ($table["head"] as $key => $format)
-            {
-                $table["body"][$numb][0] = $query->kratkoe_naimenovanie;
-                if($query->id == $key)
+            if (!in_array_r($value->kratkoe_naimenovanie, $rows)) {
+
+                $rows[$key][0] = $value->kratkoe_naimenovanie;
+                foreach ($headers as $key2=>$header)
                 {
-                    $table["body"][$numb][] = $query->ves;
-                }
-                else {
-                    $table["body"][$numb][] = '';
-                }
+                    $formats = $model->find()->where(['kratkoe_naimenovanie' => $value->kratkoe_naimenovanie])->andWhere(['format'=>$header])->all();
 
+
+                    $formatscount = count($formats);
+
+                    $rows[$key][] = ($formatscount !== 0)? $formatscount:'';
+
+                }
+                $rows[$key][] = array_sum($rows[$key]);
             }
 
+
         }
-
-
-        //sum column
-
-        for($j=0,$sum=0;$j<count($table["head"]);$j++,$sum=0)
+        $rows["itog"][0] = "Итог";
+        for($j=0,$sum=0;$j<count($headers)+1;$j++,$sum=0)
         {
 
-            for($i=0; $i<count($table["body"]) ; $i++)
+            for($i=0; $i<count($rows) ; $i++)
             {
-                $sum += $table["body"][$i][$j+1];
+                $sum += $rows[$i][$j+1];
             }
-            $table["sum"][] = $sum;
+            $rows["itog"][] = $sum;
         }
-        //sum row
-
-            foreach($table["body"] as $key=>$value)
-            {
-                $table["row_sum"][] = array_sum($table["body"][$key]);
-            }
-                $table["sum"][] = array_sum($table["row_sum"]);
+        $table = [$rows,$headers];
         return json_encode($table);
 
     }
