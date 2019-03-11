@@ -425,6 +425,10 @@ $('#chkveg').multiselect({
 
     includeSelectAllOption: true
 });
+$('#format').multiselect({
+
+    includeSelectAllOption: true
+});
 
 $('#btnget').click(function(){
 
@@ -532,10 +536,11 @@ $('#btnget').click(function(){
     }
     function showTable()
     {
-        var tip = $('#tip').val();
-        var format = $('#format').val();
+        var tip = $('#chkveg').val().join(",");
+        var format = $('#format').val().join(",");
         var date = $('#dateTable').val();
         var url = 'http://myproject/site/gettable?format='+format+'&tip='+tip+'&date='+date;
+        console.log(url);
         fetch(url).then(res => res.json()).then(json => {
             console.log(json);
 
@@ -559,42 +564,32 @@ $('#btnget').click(function(){
                 tr.appendChild(td);
             }
             var table = document.getElementById('table');
-            var rownumb = json.body.length;
 
             $('tbody').remove();
             var tbdy = document.createElement('tbody');
 
             var tr = document.createElement('tr');
-            addTh('');
-            for(var key in json.head)
+            addTh('Format/Tip');
+            for(var key in json[1])
             {
-                addTh(json.head[key]);
+                addTh(json[1][key]);
             }
             addTh('Total');
             tbdy.appendChild(tr);
-
-            var tr = document.createElement('tr');
-
-            for(var key in json.body)
+            for(var key in json[0])
             {
-                for(var key2 in json.body[key])
-                {
-                    addColoumn(json.body[key][key2]);
+                var tr = document.createElement('tr');
+                for(var key2 in json[0][key]) {
+
+                    addColoumn(json[0][key][key2]);
+
                 }
-                addColoumn(json.row_sum[key]);
-            }
-
-            tbdy.appendChild(tr);
-            var tr = document.createElement('tr');
-
-            addColoumn('Итог');
-            for(var key in json.sum)
-            {
-                addColoumn(json.sum[key]);
+                tbdy.appendChild(tr);
             }
 
 
-            tbdy.appendChild(tr);
+
+
 
             table.appendChild(tbdy);
 
