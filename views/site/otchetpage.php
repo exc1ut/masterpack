@@ -37,14 +37,14 @@ $this->registerCssFile('https://handsontable.com/static/css/main.css');
                 <span>Расход</span>
             </button>
         </a>
-        <a href="<?= Url::toRoute(['/site/ostatok'])?>">
+        <a href="<?= Url::toRoute(['/site/table'])?>">
             <button class="button">
                 <span>Остаток</span>
             </button>
         </a>
     </div>
 </section>
-<table>
+<table id="excelTable">
         <tr>
             <th>Id</th>
             <th>Поставшик</th>
@@ -62,7 +62,7 @@ $this->registerCssFile('https://handsontable.com/static/css/main.css');
                             <td><?=$ok["id"]?></td>
                             <td><?=$ok["postavshik"]?></td>
                             <td><?=$ok["dogovor_nomer"]?> от <?=$ok["dogovor_date_ru"]?></td>
-                            <td><?=$ok["schet_factura_noemer"]?></td>
+                            <td><?=$ok["schet_factura_noemer"]?>  от <?=$ok["dates"]?></td>
                             <td><?=$ok["tip"]?></td>
                             <td><?=$ok["ves"]?></td>
                             <td><?=$ok["format"]?></td>
@@ -78,7 +78,7 @@ $this->registerCssFile('https://handsontable.com/static/css/main.css');
                             <td><?=$rh["id"]?></td>
                             <td><?=$rh["postavshik"]?></td>
                             <td><?=$rh["dogovor_nomer"]?> от <?=$rh["dogovor_date_ru"]?></td>
-                            <td><?=$rh["schet_factura_noemer"]?></td>
+                            <td><?=$rh["schet_factura_noemer"]?> от <?=$rh["dates"]?></td>
                             <td><?=$rh["tip"]?></td>
                             <td><?=$rh["ves"]?></td>
                             <td><?=$rh["format"]?></td>
@@ -94,7 +94,7 @@ $this->registerCssFile('https://handsontable.com/static/css/main.css');
                             <td><?=$pr["id"]?></td>
                             <td><?=$pr["postavshik"]?></td>
                             <td><?=$pr["dogovor_nomer"]?> от <?=$pr["dogovor_date_ru"]?></td>
-                            <td><?=$pr["schet_factura_noemer"]?></td>
+                            <td><?=$pr["schet_factura_noemer"]?>  от <?=$pr["dates"]?></td>
                             <td><?=$pr["tip"]?></td>
                             <td><?=$pr["ves"]?></td>
                             <td><?=$pr["format"]?></td>

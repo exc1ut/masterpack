@@ -214,9 +214,20 @@ function addRow()
         tr.appendChild(td);
 
         var td = document.createElement('td');
-        var input = document.createElement('input');
-        input.setAttribute('name','ves[]');
-        td.appendChild(input);
+        var select = document.createElement('select');
+        select.setAttribute('data-name','format');
+        select.setAttribute('onchange','loadSortedItems(this,'+i+');');
+        var option = document.createElement('option');
+        option.text = "select";
+        select.appendChild(option);
+        for(var key in json.ves)
+        {
+            var option = document.createElement('option');
+            option.text = json.ves[key];
+            option.value = key;
+            select.appendChild(option);
+        }
+        td.appendChild(select);
         tr.appendChild(td);
 
         var td = document.createElement('td');
@@ -368,11 +379,21 @@ function addRow()
 
     row[0].appendChild(td);
 
-    var td = document.createElement('td');
-    var input = document.createElement('input');
-    input.setAttribute('name','ves[]');
-    td.appendChild(input);
-    row[0].appendChild(td);
+
+        var td = document.createElement('td');
+        var select = document.createElement('select');
+        select.setAttribute('data-name','format');
+        select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        for(var key in json.ves)
+        {
+            var option = document.createElement('option');
+            option.text = json.ves[key];
+            option.value = key;
+            select.appendChild(option);
+        }
+        td.appendChild(select);
+        row[0].appendChild(td);
+
 
     var td = document.createElement('td');
     var select = document.createElement('select');
@@ -478,7 +499,7 @@ $('#btnget').click(function(){
         addTh('Время');
         addTh('Цена');
         tbdy.appendChild(tr);
-
+        console.log('hello')
 
         var tr = document.createElement('tr');
 
@@ -526,10 +547,10 @@ $('#btnget').click(function(){
         addColoumn('');
         addColoumn(json[1].cost);
         tbdy.appendChild(tr);
+            console.log(tbdy);
+            table.appendChild(tbdy);
 
-        table.appendChild(tbdy);
-
-
+            $("#table").tableExport({formats: ["xlsx"]})
 
         });
 

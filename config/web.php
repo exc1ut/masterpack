@@ -16,6 +16,9 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'LmKkW_MSMPefuE28qGbjGh5XlUnwZ-QK',
         ],
+        'assetManager' => [
+            'linkAssets' => true,
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

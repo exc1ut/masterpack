@@ -248,11 +248,15 @@ class SiteController extends Controller
             $dogovor_date = $sk->schetid->dogovor->date;
             $dogovor_date_ru = Yii::$app->formatter->asDate($dogovor_date);
             $schet_factura_nomer = $sk->schetid->schet_faktura_nomer;
+
             $tip = $sklad["kratkoe_naimenovanie"];
             $ves = $sklad["ves"];
             $format = $sklad["format"];
             $date = $sklad["date"];
             $dater = Yii::$app->formatter->asDate($date);
+            $schet_factura_date = $sk->schetid->date;
+            $dates = Yii::$app->formatter->asDate($schet_factura_date);
+
             $time = $sklad["time"];
             $array[] = [
                 'id' => $id,
@@ -264,6 +268,7 @@ class SiteController extends Controller
                 'ves' => $ves,
                 'format' => $format,
                 'dater' => $dater,
+                'dates' => $dates,
                 'time' => $time,
             ];
         }
@@ -648,6 +653,8 @@ class SiteController extends Controller
             $date = $sklad["date"];
             $dater = Yii::$app->formatter->asDate($date);
             $time = $sklad["time"];
+            $schet_factura_date = $sk->schetid->date;
+            $dates = Yii::$app->formatter->asDate($schet_factura_date);
             $array[] = [
                 'id' => $id,
                 'postavshik' => $postavshik,
@@ -658,6 +665,7 @@ class SiteController extends Controller
                 'ves' => $ves,
                 'format' => $format,
                 'dater' => $dater,
+                'dates' => $dates,
                 'time' => $time,
             ];
         }
@@ -683,6 +691,9 @@ class SiteController extends Controller
             $date = $sklad["date"];
             $dater = Yii::$app->formatter->asDate($date);
             $time = $sklad["time"];
+
+            $schet_factura_date = $sk->schetid->date;
+            $dates = Yii::$app->formatter->asDate($schet_factura_date);
             $ostatok[] = [
                 'id' => $id,
                 'postavshik' => $postavshik,
@@ -693,6 +704,7 @@ class SiteController extends Controller
                 'ves' => $ves,
                 'format' => $format,
                 'dater' => $dater,
+                'dates' => $dates,
                 'time' => $time,
             ];
         }
@@ -718,6 +730,8 @@ class SiteController extends Controller
             $date = $sklad["date"];
             $dater = Yii::$app->formatter->asDate($date);
             $time = $sklad["time"];
+            $schet_factura_date = $sk->schetid->date;
+            $dates = Yii::$app->formatter->asDate($schet_factura_date);
             $rashod[] = [
                 'id' => $id,
                 'postavshik' => $postavshik,
@@ -727,6 +741,7 @@ class SiteController extends Controller
                 'tip' => $tip,
                 'ves' => $ves,
                 'format' => $format,
+                'dates' => $dates,
                 'dater' => $dater,
                 'time' => $time,
             ];
@@ -893,8 +908,11 @@ class SiteController extends Controller
             {
                 $formats = $model->find()->where(['kratkoe_naimenovanie' => $value->kratkoe_naimenovanie])->andWhere(['format'=>$header])->all();
 
-
-                $formatscount = count($formats);
+                $formatscount = 0;
+                foreach ($formats as $format)
+                {
+                    $formatscount += $format->ves;
+                }
 
                 $rows[$key][] = ($formatscount !== 0)? $formatscount:'';
 
@@ -967,7 +985,11 @@ class SiteController extends Controller
                     $formats = $model->find()->where(['kratkoe_naimenovanie' => $value->kratkoe_naimenovanie])->andWhere(['format'=>$header])->all();
 
 
-                    $formatscount = count($formats);
+                    $formatscount = 0;
+                    foreach ($formats as $format)
+                    {
+                        $formatscount += $format->ves;
+                    }
 
                     $rows[$key][] = ($formatscount !== 0)? $formatscount:'';
 

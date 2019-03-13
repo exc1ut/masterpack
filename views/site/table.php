@@ -3,9 +3,8 @@ use yii\helpers\Html;
 use app\assets\SkladAsset;
 SkladAsset::register($this);
 
+$this->registerCssFile('/css/bootstrap.css');
 $this->registerJsFile('/js/jquery.js');
-$this->registerCssFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
-$this->registerJsFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js');
 $this->registerCssFile('/css/schet.css');
 $this->registerCssFile('/css/ostatok_table.css');
 ?>

@@ -22,7 +22,14 @@ class PublicAsset extends AssetBundle
     public $css = [
         'css/main.css',
     ];
-    public $depends = [
-        'yii\bootstrap\BootstrapAsset',
+    public $js = [
+        'js/jquery.js',
+        'js/bootstrap.js',
+        'js/bootstrap-multiselect.js',
+        'js/main.js',
+        'js/xlsx.core.js',
+        'js/FileSaver.js',
+        'js/tableexport.js',
+        'js/Excel.js'
     ];
 }

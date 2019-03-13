@@ -3,11 +3,13 @@
 use app\assets\SkladAsset;
 use yii\helpers\Url;
 use yii\helpers\Html;
-SkladAsset::register($this);
+$this->registerCssFile('/css/bootstrap.css');
 $this->registerCssFile('https://cdn.jsdelivr.net/npm/handsontable-pro@latest/dist/handsontable.full.min.css');
 $this->registerCssFile('https://handsontable.com/static/css/main.css');
 $this->registerCssFile('/css/schet.css');
 $this->registerCssFile('/css/main.css');
+
+SkladAsset::register($this);
 ?>
 
 
@@ -54,8 +56,9 @@ $this->registerCssFile('/css/main.css');
         </div>
     </div>
 </section>
-<div class="table">
+<div id="excelTable" class="table">
     <table>
+        <thead>
         <tr>
             <th>Id</th>
             <th>Поставшик</th>
@@ -67,13 +70,14 @@ $this->registerCssFile('/css/main.css');
             <th>Дата</th>
             <th>Время</th>
         </tr>
+        </thead>
         <?if($model !== null):?>
                     <? foreach($model as $item):?>
                         <tr>
                             <td><?=$item["id"]?></td>
                             <td><?=$item["postavshik"]?></td>
                             <td><?=$item["dogovor_nomer"]?> от <?=$item["dogovor_date_ru"]?></td>
-                            <td><?=$item["schet_factura_noemer"]?></td>
+                            <td><?=$item["schet_factura_noemer"]?> от <?=$item["dates"]?></td>
                             <td><?=$item["tip"]?></td>
                             <td><?=$item["ves"]?></td>
                             <td><?=$item["format"]?></td>

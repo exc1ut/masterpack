@@ -1,9 +1,10 @@
 <?php
 
-use app\assets\SkladAsset;
+use app\assets\PublicAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
-SkladAsset::register($this);
+PublicAsset::register($this);
+$this->registerCssFile('/css/main.css');
 $this->registerCssFile('/css/table.css');
 ?>
 

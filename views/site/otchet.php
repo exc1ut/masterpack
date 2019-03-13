@@ -4,8 +4,6 @@ use app\assets\SkladAsset;
 use yii\helpers\Url;
 SkladAsset::register($this);
 $this->registerJsFile('/js/jquery.js');
-$this->registerCssFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
-$this->registerJsFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js');
 $this->registerCssFile('https://handsontable.com/static/css/main.css');
 $this->registerCssFile('/css/schetprixod.css');
 ?>
@@ -13,7 +11,7 @@ $this->registerCssFile('/css/schetprixod.css');
 
 
 <div class="navbar">
-    <a href="header.html"> <img src="/images/logo.png"><?
+    <a href="<?= Url::toRoute(['/'])?>"> <img src="/images/logo.png"></a>
     <a href="<?= Url::toRoute(['site/dogovor'])?>">Рег.дог</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.поставшика</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.клиента</a>
@@ -60,9 +58,9 @@ $this->registerCssFile('/css/schetprixod.css');
 
 </div>
 <div>
-    <table id="table" class="table">
+<table id="table" class="table">
 
-    </table>
+</table>
 </div>
 
 

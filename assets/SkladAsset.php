@@ -20,12 +20,18 @@ class SkladAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'css/bootstrap.css',
         'css/bootstrap-multiselect.css',
         'css/main.css',
     ];
     public $js = [
         'js/jquery.js',
+        'js/bootstrap.js',
         'js/bootstrap-multiselect.js',
         'js/main.js',
+        'js/xlsx.core.js',
+        'js/FileSaver.js',
+        'js/tableexport.js',
+        'js/Excel.js'
     ];
 }

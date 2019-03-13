@@ -1,0 +1,1 @@
+$("#excelTable").tableExport({formats:["xlsx"]});
