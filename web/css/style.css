@@ -1,0 +1,76 @@
+body
+{
+	background-image: url(fon.jpg.jpg);
+	
+
+}
+#body
+{
+
+}
+.logo img{
+	margin-left: 5%;
+	width: 50%;
+	height: 50%;
+	padding-left: 280px;
+	
+}
+h1{
+	text-align: center;
+	font-size: 27px;
+	font-family: century gothic;
+}
+.loginbox{
+	width: 350px;
+	height: 350px;
+	background: rgba(0,0,0,0.3);
+	color: rgb(0.0.0);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-20%);
+    box-sizing: border-box;  
+    padding: 70px 30px;
+}
+.loginbox p{
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+	color: rgba(0,0,0,0.3);
+	font-family: century gothic;
+}
+.loginbox input{
+	width: 90%;
+	margin-bottom: 20px;
+	color: rgba(0,0,0,0.4);
+	font-family: century gothic;
+}
+.loginbox a
+{
+	background-color: red;
+	text-decoration: none;
+	border:none;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	outline: none;
+	height: 40px;
+	color: black;
+	font-size: 20px;
+	font-family: century gothic;
+}
+.loginbox input[type="submit"]
+{
+	border:none;
+	outline: none;
+	height: 40px;
+	background: #fb2525;
+	color: #fff;
+	font-size: 18px;
+	border-radius: 20px;
+	font-family: century gothic;
+}
+.loginbox input[type="submit"]:hover
+{
+	cursor: pointer;
+
+}

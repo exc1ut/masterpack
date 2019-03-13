@@ -1,0 +1,23 @@
+#chkveg{
+	background-color: yellow;
+}
+.row1{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.row2{
+	justify-content: center;
+	display: flex;
+	margin-top: 10px;
+}
+.multiselect-native-select
+{
+	margin: 10px !important;
+}
+#dateTable{
+	margin: 10px;
+}
+.bt{
+	margin: 10px;
+}

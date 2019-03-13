@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Расход</title>
+	<!-- Latest compiled and minified CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+   <!-- jQuery library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+   <!-- Latest compiled JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://handsontable.com/static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<link rel="stylesheet" type="text/css" href="prixod.css">
+	<SCRIPT language="javascript">
+      function addRow(tableID) {
+
+        var table = document.getElementById(tableID);
+
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+
+        var colCount = table.rows[0].cells.length;
+
+        for (var i = 0; i < colCount; i++) {
+
+          var newcell = row.insertCell(i);
+
+          newcell.innerHTML = table.rows[0].cells[i].innerHTML;
+          //alert(newcell.childNodes);
+          switch (newcell.childNodes[0].type) {
+            case "text":
+              newcell.childNodes[0].value = "";
+              break;
+           }
+        }
+      }
+    </SCRIPT>
+</head>
+<body>
+	<div class="navbar">
+	   <a href="header.html"> <img src="logo.png"></a>
+       <a href="index3.html">Рег.дог</a>
+       <a href="index2.html">Рег.поставшика</a>
+       <a href="inex4.html">Рег.клиента</a>
+       <a href="schet.html">Склад сырья</a>
+       <a href="sklad1.html">Склад-1</a>
+       <a href="#">Склад-2</a>
+       <a href="#">Склад ГП</a>
+       <a href="#">Склад допюсырья</a>
+    </div>
+        <div class="col-md-12">
+        	<input type="button" value="Add Row" onclick="addRow('dateTable')"/>
+			<table class="colums" id="dateTable">
+				<tr>
+            <div class="q">      
+                <p>Id</p>
+            </div>
+            <div class="q1">    
+                <p>Номер Договора</p>
+            </div>
+            <div class="q2">    
+                <p> Номер Счёт Фактуры</p>
+            </div>
+            <div class="q3">    
+                <p>Поставшик</p>
+            </div>
+            <div class="q4"> 
+              <p>Формат</p>
+            </div>
+            <div class="q5">    
+                <p>Тип</p>
+            </div>
+            <div class="q6">    
+                <p>Вес</p>
+            </div>
+            <div class="q7">    
+                <p>Дата(От)</p>
+            </div>
+					<td>
+   						<select>
+   							<option selected>Show all</option>
+   							<option value="1">1</option>
+   							<option value="2">2</option>
+   							<option value="3">3</option>
+   							<option value="4">4</option>
+   						</select>
+   					</td>
+ 					<td>
+  						<select style="width: 200px;">
+  							<option selected>Show all</option>
+  							<option value="1">1</option>
+  							<option value="2">2</option>
+  							<option value="3">3</option>
+  							<option value="4">4</option>
+  							<option value="5">5</option>
+  							<option value="6">6</option>
+  						</select>
+  					</td>
+ 					<td>
+   						
+   						<select style="width: 200px;">
+  							<option selected>Show all</option>
+  							<option value="1">12345</option>
+  							<option value="2">67890</option>
+  							<option value="3">12348</option>
+  							<option value="4">75321</option>
+  							<option value="5">12357</option>
+  							<option value="6">45698</option>
+  						</select>
+	 				</td>
+	 				<td>
+				  	  	
+   						<select style="width:150px;">
+  							<option selected>Show all</option>
+  							<option value="1">Baraka</option>
+  							<option value="2">Axmad</option>
+  							<option value="3">Bobur</option>
+  							<option value="4">Umid</option>
+  							<option value="5">Rasul</option>
+  							<option value="6">Rakhmatullokh</option>
+  						</select>
+ 					<td>  						
+   						<select>
+  							<option selected>Show all</option>
+  							<option value="1">bm210</option>
+  							<option value="2">bm200</option>
+  							<option value="3">bm120</option>
+  							<option value="4">bm100</option>
+  							<option value="5">bm220</option>
+  							<option value="6">bm150</option>
+  						</select>
+  					</td>
+ 					<td>   				
+   						<select>
+  							<option selected>Show all</option>
+  							<option value="1">sdfs</option>
+  							<option value="2">bsafsa</option>
+  							<option value="3">bmfdsgfdh</option>
+  							<option value="4">bmdgsdsd</option>
+  							<option value="5">bm2qwsa</option>
+  							<option value="6">bmasouo</option>
+  						</select>
+	 				</td>
+	 				<td> 	
+   						<select>
+  							<option selected>Show all</option>
+  							<option value="1">1200</option>
+  							<option value="2">2000</option>
+  							<option value="3">1500</option>
+  							<option value="4">3000</option>
+  							<option value="5">1220</option>
+  							<option value="6">4050</option>
+  						</select>
+ 					<td>	
+   						<input type="date" name="data">
+  					</td>
+		 			</tr>
+		 	</table>
+       <button class="send"><span>Отправить</span></button>
+		</div>	
+		<div>
+	<table class="table">
+  <tr>
+    <th class="th">Id</th>
+    <th class="th">Номер дата договора</th>
+    <th class="th">Номер счет-фактуры</th>
+    <th class="th">Порядковый номер рулона</th>
+    <th class="th">Поставшик</th>
+    <th class="th">Тип</th>
+    <th class="th">Формат</th>
+    <th class="th">Вес</th>
+    <th class="th">Дата</th>
+    <th class="th">Время</th>
+  </tr>
+  <tr>
+    <td class="td"> 1</td>
+    <td class="td">№12 от 7 января 2019</td>
+    <th class="th">№23</th>
+    <th class="th">00001</th>
+    <th class="th">OOO "Sifat-Barakat</th>
+    <th class="th">bm120</th>
+    <th class="th">1800</th>
+    <th class="th">-1100</th>
+    <th class="th">13 Фев 2019</th>
+    <th class="th">09:29</th>
+  </tr>
+  <tr>
+    <td class="td"> 1</td>
+    <td class="td">№12 от 7 января 2019</td>
+    <th class="th">№23</th>
+    <th class="th">00001</th>
+    <th class="th">OOO "Sifat-Barakat</th>
+    <th class="th">bm120</th>
+    <th class="th">1800</th>
+    <th class="th">-1100</th>
+    <th class="th">13 Фев 2019</th>
+    <th class="th">09:29</th>
+  </tr>
+</table>
+</div>
+</body>
+</html>

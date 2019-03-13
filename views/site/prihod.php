@@ -9,7 +9,7 @@ $this->registerCssFile('/css/table.css');
 
 
 <div class="navbar">
-    <img src="/images/logo.png">
+  <a href="header.html"> <img src="/images/logo.png">
     <a href="<?= Url::toRoute(['site/dogovor'])?>">Рег.дог</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.поставшика</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.клиента</a>
@@ -21,11 +21,11 @@ $this->registerCssFile('/css/table.css');
 </div>
 <form method="post" action="prihod">
 <div class="sidenav">
-    <div id="mySidenav">
-        <a href="#" id="about" ><button type="submit">Принять</button></a>
-        <a href="#" id="blog" >Очистить</a>
-        <a href="#" id="projects" >Назад</a>
+    <a href="#" id="about"  class="about">
+     <div id="mySidenav">
+       <button type="submit">Принять</button>
     </div>
+</a>
 </div>
 
     <?=Html :: hiddenInput(\Yii :: $app->getRequest()->csrfParam, \Yii :: $app->getRequest()->getCsrfToken(), []);?>
@@ -72,26 +72,11 @@ $this->registerCssFile('/css/table.css');
         </div>
         <div class="da6">
             <p>Формат</p>
-            <input type="text" name="SkladSirya[format][]" placeholder="Формат Бумаги(мм)">
+            <input type="text" name="SkladSirya[format][]" placeholder="">
         </div>
         <div class="da7">
             <p>Вес</p>
-            <input type="text" name="SkladSirya[ves][]" placeholder="Вес Бумаги(кг)">
-        </div>
-        <div class="da5">
-            <p>Тип</p>
-            <?= Html::activeDropDownList($sklad, 'postavshik_schet_faktura_id[]',[],[
-                'prompt'=>'Select',
-                'class'=>'odk',
-            ]) ?>
-        </div>
-        <div class="da6">
-            <p>Формат</p>
-            <input type="text" name="SkladSirya[format][]" placeholder="Формат Бумаги(мм)">
-        </div>
-        <div class="da7">
-            <p>Вес</p>
-            <input type="text" name="SkladSirya[ves][]" placeholder="Вес Бумаги(кг)">
+            <input type="text" name="SkladSirya[ves][]" placeholder="">
         </div>
     </div>
 </div>

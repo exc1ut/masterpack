@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Рег.Договора </title>
+ <!-- Latest compiled and minified CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+   <!-- jQuery library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+   <!-- Latest compiled JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="index.css">
+	 <link rel="stylesheet" type="text/css" href="main.css">
+	 	<SCRIPT language="javascript">
+      function addRow(tableID) {
+
+        var table = document.getElementById(tableID);
+
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+
+        var colCount = table.rows[0].cells.length;
+
+        for (var i = 0; i < colCount; i++) {
+
+          var newcell = row.insertCell(i);
+
+          newcell.innerHTML = table.rows[0].cells[i].innerHTML;
+          //alert(newcell.childNodes);
+          switch (newcell.childNodes[0].type) {
+            case "text":
+              newcell.childNodes[0].value = "";
+              break;
+           }
+        }
+      }
+    </SCRIPT>
+</head>
+<body>
+      		<div class="navbar">
+      			<img src="logo.png">
+   	       		<a href="index3.html">Рег.дог</a>
+   	       		<a href="index2.html">Рег.поставшика</a>
+   	       		<a href="inex4.html">Рег.клиента</a>
+   	       		<a href="schet.html">Склад сырья</a>
+   	       		<a href="lala.html">Склад-1</a>
+   	       		<a href="">Склад-2</a>
+   	       		<a href="">Склад ГП</a>
+   	       		<a href="">Склад допюсырья</a>
+ 			</div> 
+ 			<div class="container">
+ 				<div class="row">
+ 					<div class="col-md-2">
+ 						<p>Имя</p>
+ 						<input type="text" name="name">
+ 						<p>Договор №</p>
+ 						<input type="text" name="договор">
+        			 	<p>Дата</p>
+          				<input type="date" name="date">
+          				<p></p>
+          				<input type="button" value="Добавить товар" onclick="addRow('dateTable')"/>
+          				<button class="button">
+          					<span>Сохранить</span>
+          				</button>
+          				<button class="button">
+          					<span>Назад</span>
+          				</button>
+ 					</div>
+ 					<div class="col-md-10">
+ 						<table class="columns" id="dateTable">
+ 							<tr>
+ 								<div class="main">
+ 									<p> Наим.Товара </p>
+ 								</div>
+ 								<div class="krat">
+                					<p> Краткое</p>
+                				</div>
+                				<div class="krat2">
+                					<p>наим</p>
+                				</div>	
+                				<div class="izmer">
+                					<p> Ед.изм.</p> 
+                				</div>
+                				<div class="cena1">	
+                					<p> Цена 1 </p>
+                				</div>
+                				<div class="nds">	
+                					<p> НДС </p>
+                				</div>
+                				<div class="cena2">	
+                					<p> Цена 2 </p>
+                				</div>
+                				<div class="usd1">	
+                					<p> USD 1 </p>
+                				</div>
+                				<div class="usd2">	
+                					<p> USD 2 </p>
+                				</div>
+
+                				<td>
+                					<input type="text" name="name" style="width: 180px;">
+                				</td>
+                				<td>
+                					<input type="text" name="kratkiy" style="width:80px;">
+                				</td>
+                				<td>
+                					<input type="text" name="izmer" style="width:80px;">
+                				</td>
+                				<td>
+                					<input type="text" name="cena1" style="width:80px;">
+                				</td>
+                				<td>
+                					<input type="text" name="nds" style="width: 80px;">
+                				</td>
+                				<td>
+                					<input type="text" name="cena2" style="width: 80px;">
+                				</td>
+                				<td>
+                					<input type="text" name="usd1" style="width: 80px;">
+                				</td>
+                				<td>
+                					<input type="text" name="usd2" style="width: 80px;">
+                				</td>
+ 							</tr>
+ 						</table>
+ 					</div>
+ 				</div>
+ 			</div>
+</body>
+</html>

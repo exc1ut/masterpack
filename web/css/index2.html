@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example</title>
+	<link rel="stylesheet" type="text/css" href="index2.css">
+	<link rel="stylesheet" type="text/css" href="main.css">
+
+   <!-- Latest compiled and minified CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+   <!-- jQuery library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+   <!-- Latest compiled JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      <SCRIPT language="javascript">
+      function addRow(tableID) {
+
+        var table = document.getElementById(tableID);
+
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+
+        var colCount = table.rows[0].cells.length;
+
+        for (var i = 0; i < colCount; i++) {
+
+          var newcell = row.insertCell(i);
+
+          newcell.innerHTML = table.rows[0].cells[i].innerHTML;
+          //alert(newcell.childNodes);
+          switch (newcell.childNodes[0].type) {
+            case "text":
+              newcell.childNodes[0].value = "";
+              break;
+           }
+        }
+      }
+    </SCRIPT>
+</head>
+<body style="background-image:  url(fon.jpg.jpg);">
+	<div class="navbar">
+      			<img src="logo.png">
+   	       		<a href="index3.html">Рег.дог</a>
+              <a href="index2.html">Рег.поставшика</a>
+   	       		<a href="inex4.html">Рег.клиента</a>
+   	       		<a href="schet.html">Склад сырья</a>
+   	       		<a href="lala.html">Склад-1</a>
+   	       		<a href="">Склад-2</a>
+   	       		<a href="">Склад ГП</a>
+   	       		<a href="">Склад допюсырья</a>
+ 			</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-1">
+				
+			</div>
+			<div class="col-md-3">
+					<p>Имя</p>
+   					<input type="text" name="name">
+   					<p>Адрес</p>
+   					<input type="text" name="adres">
+   					<p>ИНН</p>
+   					<input type="number" name="inn">
+   					<p>ОКЭД</p>
+   					<input type="number" name="oked">
+   					<p></p>
+	    	  		<input type="button" value="Добавить счёт" onclick="addRow('dateTable')"/>
+	    	  		<button class="button">
+ 					<span>Сохранить</span>
+ 				</button>
+ 				<button class="button">
+ 					<span>Назад</span>
+ 				</button>
+			</div>
+			<div class="col-md-7">
+				<table class="columns" id="dateTable">
+					<tr>
+                  <div class="bank">
+                     <p>Банк</p>
+                  </div>
+                  <div class="mfo">   
+                     <p>МФО</p>
+                  </div>
+                  <div class="schet">   
+                     <p>Счёт</p>
+                  </div>   
+						  <td>			
+   							<input type="text" name="name" style="width: 200px; margin-bottom: 10px;">
+              </td>
+   						<td>
+   							<input type="text" name="adres" style="width: 100px; margin-bottom: 10px;">
+   						</td>
+   						<td>
+   							<input type="number" name="inn" style="width: 200px; margin-bottom: 10px;">
+		 				  </td>
+		 			</tr>
+		 		</table>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

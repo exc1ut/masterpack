@@ -1,0 +1,174 @@
+body
+{
+  background-image: url(fon.jpg.jpg);
+}
+.colums{
+  margin-left: 10px;
+}
+select{
+  margin: 0 auto;
+  height: 30px;
+  margin-left:40px;
+}
+input{
+  margin: 0 auto;
+  height: 30px;
+  margin-left: 40px;
+}
+p{
+  color: white;
+  font-size: 18px;
+}
+.col-md-10{
+  margin-top: -15px;
+  height: 250px;
+  background-color: grey;
+  opacity: .8;
+}
+.q{
+   margin-left: 50px;
+}
+.q1{
+  margin-left: 290px;
+  margin-top: -38px;
+}
+.q2{
+  margin-left: 480px;
+  margin-top: -38px;
+}
+.q3{
+  margin-left: 690px;
+  margin-top: -38px;
+}
+.table {
+  margin: 20px auto;
+  background-color: white;
+  border-collapse: collapse;
+  width: 1300px;
+}
+.th{
+  width: 10px;
+   border: 2px solid black;
+}
+.tr{
+  background-color:yellow;
+}
+
+.send{
+  border-radius: 4px;
+  background-color: #f4511e;
+  border:none;
+  color: black;
+  text-align: center;
+  font-size: 14px;
+  padding: 10px;
+  width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 10px 20px;
+}
+.send a{
+  text-decoration: none;
+  color: white;
+}
+.send span{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+.send span:after{
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+.send:hover span{
+  padding-right: 25px;
+}
+.send:hover span:after{
+  opacity: 1;
+}
+.send{
+  margin-left: 900px;
+}
+.multiselect {
+  width: 200px;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes {
+  overflow-y: scroll;
+  height: 100px;
+  display: none;
+  position: absolute;
+  width: 200px;
+  background-color: white;
+  margin-left: 40px;
+  border: 1px #dadada solid;
+}
+
+#checkboxes label {
+  display: block;
+}
+
+#checkboxes label:hover {
+  background-color: #1e90ff;
+}
+.multiselect1 {
+  width: 200px; 
+}
+
+.selectBox1 {
+  position: relative;
+}
+
+.selectBox1 select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect1 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes1 {
+  overflow-y: scroll;
+  height: 100px;
+  display: none;
+  position: absolute;
+  width: 200px;
+  background-color: white;
+  margin-left: 40px;
+  border: 1px #dadada solid;
+}
+
+#checkboxes1 label {
+  display: block;
+}
+
+#checkboxes1 label:hover {
+  background-color: #1e90ff;
+}

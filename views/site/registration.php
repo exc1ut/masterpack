@@ -8,7 +8,7 @@ $this->registerCssFile('/css/index2.css');
 ?>
 
 <div class="navbar">
-    <img src="/images/logo.png">
+    <a href="header.html"> <img src="/images/logo.png"></a>
     <a href="<?= Url::toRoute(['site/dogovor'])?>">Рег.дог</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.поставшика</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.клиента</a>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Остаток</title>
+		<!-- Latest compiled and minified CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+   <!-- jQuery library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+   <!-- Latest compiled JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://handsontable.com/static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<link rel="stylesheet" type="text/css" href="ostatok.css">
+
+</head>
+<body>
+		<div class="navbar">
+	   <a href="header.html"> <img src="logo.png"></a>
+       <a href="index3.html">Рег.дог</a>
+       <a href="index2.html">Рег.поставшика</a>
+       <a href="inex4.html">Рег.клиента</a>
+       <a href="schet.html">Склад сырья</a>
+       <a href="sklad1.html">Склад-1</a>
+       <a href="#">Склад-2</a>
+       <a href="#">Склад ГП</a>
+       <a href="#">Склад допюсырья</a>
+    </div>
+    <div class="col-md-1">
+    	
+    </div>
+    <div class="col-md-10">
+    	<table>
+    		<tr>
+    			<div class="q">
+    				<p>Поставшик</p>
+    			</div>
+    			<div class="q1">
+    				<p>Тип</p>
+    			</div>
+    			<div class="q2">
+    				<p>Дата(От)</p>
+    			</div>
+    			<div class="q3">
+    				<p>Дата(До)</p>
+    			</div>
+    		<td>
+    <form>
+  		<div class="multiselect">
+    		<div class="selectBox" onclick="showCheckboxes()">
+      			<select>
+    		    	<option>Select an option</option>
+	      		</select>
+      				<div class="overSelect"></div>
+   			</div>
+   				<div id="checkboxes">
+   					<label for="one">
+       				<input type="checkbox" id="one" />Baraka</label>
+      				<label for="two">
+        			<input type="checkbox" id="two" />Second checkbox</label>
+      				<label for="three">
+   					<input type="checkbox" id="three" />Third checkbox</label>
+    			</div>
+  		</div>
+	</form>
+          </td> 
+          <td>
+    <form>
+  		<div class="multiselect1">
+    		<div class="selectBox1" onclick="showCheckboxes1()">
+      			<select>
+    		    	<option>Select an option</option>
+	      		</select>
+      				<div class="overSelect1"></div>
+   			</div>
+   				<div id="checkboxes1">
+   					<label for="one">
+       				<input type="checkbox" id="one1" />Baraka</label>
+      				<label for="two">
+        			<input type="checkbox" id="two1" />Second checkbox</label>
+      				<label for="three">
+   					<input type="checkbox" id="three1" />Third checkbox</label>
+    			</div>
+  		</div>
+	</form>
+          </td> 
+             <td>
+             	<input type="date" name="data">
+             </td>
+             <td>
+             	<input type="date" name="data">
+             </td>
+    		</tr>
+    	</table>
+    	 <button class="send"><span><a href="#">Table</a></span></button>
+    </div>
+    <div class="col-md-1">
+
+    </div>
+    <div>
+    	<table class="table">
+    		<tr class="tr">
+    			<th class="th">No</th>
+    			<th class="th">Поставщик</th>
+    			<th class="th">Тип</th>
+    			<th class="th">Формат</th>
+    			<th class="th">Остаток</th>
+    		</tr>
+       		<tr class="tr1">
+    			<th class="th">Итого</th>
+    			<th class="th"></th>
+    			<th class="th"></th>
+    			<th class="th"></th>
+    			<th class="th">50000</th>
+    		</tr>
+        	<tr class="tr2">
+    			<th class="th">1</th>
+    			<th class="th">Baraka</th>
+    			<th class="th">km120</th>
+    			<th class="th">1200</th>
+    			<th class="th">500</th>
+    		</tr>
+  		   	<tr>
+    			<th class="th">2</th>
+    			<th class="th">Axmad</th>
+    			<th class="th">km100</th>
+    			<th class="th">1700</th>
+    			<th class="th">0</th>
+    		</tr>
+   	    	<tr>
+    			<th class="th">3</th>
+    			<th class="th">Rasul</th>
+    			<th class="th">s100</th>
+    			<th class="th">950</th>
+    			<th class="th">100</th>
+    		</tr>
+      		<tr>
+    			<th class="th">4</th>
+    			<th class="th">Поставщик</th>
+    			<th class="th">Тип</th>
+    			<th class="th">Формат</th>
+    			<th class="th">Остаток</th>
+    		</tr>
+   		  	<tr>
+    			<th class="th">5</th>
+    			<th class="th">Поставщик</th>
+    			<th class="th">Тип</th>
+    			<th class="th">Формат</th>
+    			<th class="th">Остаток</th>
+    		</tr>
+    	</table>
+    </div>
+    <script>
+		var expanded = false;
+  	var checkboxes = document.getElementById("checkboxes");
+
+	function showCheckboxes(event) {
+	
+  	if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  	} 
+  		else {
+    		checkboxes.style.display = "none";
+    	expanded = false;
+  			}
+	}
+			var expanded = false;
+  	var checkboxes1 = document.getElementById("checkboxes1");
+
+	function showCheckboxes1(event) {
+	
+  	if (!expanded) {
+    checkboxes1.style.display = "block";
+    expanded = true;
+  	} 
+  		else {
+    		checkboxes1.style.display = "none";
+    	expanded = false;
+  			}
+	}
+</script>
+</body>
+</html>

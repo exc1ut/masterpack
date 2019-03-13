@@ -13,7 +13,7 @@ $this->title = 'My Yii Application';
 <header class="img">
     <div class="container">
         <div class="block-flex">
-            <img src="/images/logo.png"  class="rotate-vert-center">
+           <a href="header.html"> <img src="/images/logo.png"  class="rotate-vert-center"></a>
         </div>
     </div>
 </header>

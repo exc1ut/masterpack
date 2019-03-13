@@ -1,0 +1,90 @@
+.col-md-3{
+	background-color: #B70606;
+	opacity: .8;
+}
+.col-md-3 p{
+	color: white;
+}
+.col-md-7{
+	background-color: grey;
+	opacity: .8;
+	height: 389px;
+}
+.col-md-7 p{
+	text-align: center;
+	color: white;
+}
+.button{
+  border-radius: 4px;
+  background-color: #f4511e;
+  border:none;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  padding: 10px;
+  width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 10px 20px;
+}
+.button span{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+.button span:after{
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+.button:hover span{
+  padding-right: 25px;
+}
+.button:hover span:after{
+  opacity: 1;
+}
+button{
+  border-radius: 4px;
+  background-color: #f4511e;
+  border:none;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  padding: 1px;
+  width: 80px;
+}
+button span{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+button span:after{
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -5px;
+  transition: 0.5s;
+}
+button:hover span{
+  padding-right: 25px;
+}
+button:hover span:after{
+  opacity: 1;
+}
+.bank input{
+	width: 200px;
+}
+.mfo input{
+	margin-left: 10px;
+   width: 100px;
+}
+.schet input{
+	margin-left: 10px;
+	width: 200px;
+}

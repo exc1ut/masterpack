@@ -627,6 +627,114 @@ class SiteController extends Controller
         }
     public function actionOtchet()
     {
+        Yii::$app->formatter->locale = 'ru-RU';
+        $sklad_sirya = new SkladSirya();
+        $sklad_sirya = $sklad_sirya->find()->all();
+        foreach($sklad_sirya as $sklad)
+        {
+            Yii::$app->formatter->locale = 'ru-RU';
+            $sk =  new SkladSirya();
+            $sk = $sk->findOne($sklad["id"]);
+            $factura = $sk->schetid->dogovor->client->name;
+            $id = $sklad["id"];
+            $postavshik = $sk->schetid->dogovor->client->name;
+            $dogovor_nomer = $sk->schetid->dogovor->dogovor_nomer;
+            $dogovor_date = $sk->schetid->dogovor->date;
+            $dogovor_date_ru = Yii::$app->formatter->asDate($dogovor_date);
+            $schet_factura_nomer = $sk->schetid->schet_faktura_nomer;
+            $tip = $sklad["kratkoe_naimenovanie"];
+            $ves = $sklad["ves"];
+            $format = $sklad["format"];
+            $date = $sklad["date"];
+            $dater = Yii::$app->formatter->asDate($date);
+            $time = $sklad["time"];
+            $array[] = [
+                'id' => $id,
+                'postavshik' => $postavshik,
+                'dogovor_nomer' => $dogovor_nomer,
+                'dogovor_date_ru' => $dogovor_date_ru,
+                'schet_factura_noemer' => $schet_factura_nomer,
+                'tip' => $tip,
+                'ves' => $ves,
+                'format' => $format,
+                'dater' => $dater,
+                'time' => $time,
+            ];
+        }
+
+
+        $ost = new Ostatok();
+        $ost = $ost->find()->all();
+        foreach($ost as $sklad)
+        {
+            Yii::$app->formatter->locale = 'ru-RU';
+            $sk =  new SkladSirya();
+            $sk = $sk->findOne($sklad["id"]);
+            $factura = $sk->schetid->dogovor->client->name;
+            $id = $sklad["id"];
+            $postavshik = $sk->schetid->dogovor->client->name;
+            $dogovor_nomer = $sk->schetid->dogovor->dogovor_nomer;
+            $dogovor_date = $sk->schetid->dogovor->date;
+            $dogovor_date_ru = Yii::$app->formatter->asDate($dogovor_date);
+            $schet_factura_nomer = $sk->schetid->schet_faktura_nomer;
+            $tip = $sklad["kratkoe_naimenovanie"];
+            $ves = $sklad["ves"];
+            $format = $sklad["format"];
+            $date = $sklad["date"];
+            $dater = Yii::$app->formatter->asDate($date);
+            $time = $sklad["time"];
+            $ostatok[] = [
+                'id' => $id,
+                'postavshik' => $postavshik,
+                'dogovor_nomer' => $dogovor_nomer,
+                'dogovor_date_ru' => $dogovor_date_ru,
+                'schet_factura_noemer' => $schet_factura_nomer,
+                'tip' => $tip,
+                'ves' => $ves,
+                'format' => $format,
+                'dater' => $dater,
+                'time' => $time,
+            ];
+        }
+
+
+        $rsh = new Rashod();
+        $rsh = $rsh->find()->all();
+        foreach($sklad_sirya as $sklad)
+        {
+            Yii::$app->formatter->locale = 'ru-RU';
+            $sk =  new SkladSirya();
+            $sk = $sk->findOne($sklad["id"]);
+            $factura = $sk->schetid->dogovor->client->name;
+            $id = $sklad["id"];
+            $postavshik = $sk->schetid->dogovor->client->name;
+            $dogovor_nomer = $sk->schetid->dogovor->dogovor_nomer;
+            $dogovor_date = $sk->schetid->dogovor->date;
+            $dogovor_date_ru = Yii::$app->formatter->asDate($dogovor_date);
+            $schet_factura_nomer = $sk->schetid->schet_faktura_nomer;
+            $tip = $sklad["kratkoe_naimenovanie"];
+            $ves = $sklad["ves"];
+            $format = $sklad["format"];
+            $date = $sklad["date"];
+            $dater = Yii::$app->formatter->asDate($date);
+            $time = $sklad["time"];
+            $rashod[] = [
+                'id' => $id,
+                'postavshik' => $postavshik,
+                'dogovor_nomer' => $dogovor_nomer,
+                'dogovor_date_ru' => $dogovor_date_ru,
+                'schet_factura_noemer' => $schet_factura_nomer,
+                'tip' => $tip,
+                'ves' => $ves,
+                'format' => $format,
+                'dater' => $dater,
+                'time' => $time,
+            ];
+        }
+
+        
+
+
         $model_name = "rashod";
         $client_model = new ClientRegistration();
         $clients = $client_model->find()->all();
@@ -634,7 +742,10 @@ class SiteController extends Controller
         return $this->render('otchetpage', [
                 'model' => $client_model,
                 'items' => $items,
-                'model_name' => $model_name
+                'model_name' => $model_name,
+                'ostatok' => $ostatok,
+                'prihod' => $array,
+                'rashod' => $rashod,
             ]
             );
     }
@@ -677,10 +788,6 @@ class SiteController extends Controller
         $i = 0;
         foreach($queries as $key=>$query)
         {
-
-
-
-
             foreach($query->tip as $schet)
             {
                 if($model_name == "ostatok")

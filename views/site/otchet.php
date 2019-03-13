@@ -13,7 +13,7 @@ $this->registerCssFile('/css/schetprixod.css');
 
 
 <div class="navbar">
-    <img src="/images/logo.png">
+    <a href="header.html"> <img src="/images/logo.png"><?
     <a href="<?= Url::toRoute(['site/dogovor'])?>">Рег.дог</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.поставшика</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.клиента</a>
@@ -53,6 +53,10 @@ $this->registerCssFile('/css/schetprixod.css');
         </tr>
     </table>
     <button class="send" onclick="addOtchet('<?=$model_name?>')"><span>Синхронизовать</span></button>
+    <? if($model_name == "ostatok"):?>
+       <a href="<?=Url::toRoute('site/table')?>"><button> Change view to table</button></a>-->
+   <? endif;?>
+</div>
 
 </div>
 <div>
@@ -64,7 +68,3 @@ $this->registerCssFile('/css/schetprixod.css');
 
 
 
-<?// if($model_name == "ostatok"):?>
-<!--        <a href="--><?//=Url::toRoute('table')?><!--"><button> Change view to table</button></a>-->
-<!--    --><?// endif;?>
-<!--</div>-->

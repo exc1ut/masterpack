@@ -2,13 +2,19 @@
 use yii\helpers\Html;
 use app\assets\SkladAsset;
 SkladAsset::register($this);
+
 $this->registerJsFile('/js/jquery.js');
 $this->registerCssFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
 $this->registerJsFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js');
+$this->registerCssFile('/css/schet.css');
+$this->registerCssFile('/css/ostatok_table.css');
 ?>
 
-
-
+<div class="container">
+ <div class="row1">
+ 	<a href="header.html"><img src="/images/logo.png"></a>
+ </div>
+ <div class="row2">
 <select id="chkveg" multiple="multiple">-->
     <? foreach($kn as $key => $item):?>
         <option value="<?=$key?>"><?=$item?></option>
@@ -23,7 +29,8 @@ $this->registerJsFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootst
 </select>
 
 <input type="date" id="dateTable">
-<button onclick="showTable();">Add row</button>
+<button class="bt" onclick="showTable();">Add row</button>
+</div>
 <div >
     <table id="table" border="1">
         <tbody>
@@ -51,4 +58,5 @@ $this->registerJsFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootst
         <?endforeach;?>
         </tbody>
     </table>
+</div>
 </div>
