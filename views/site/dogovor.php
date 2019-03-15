@@ -1,10 +1,9 @@
 <?php
 
-use app\assets\PublicAsset;
+use app\assets\DogovorAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
-PublicAsset::register($this);
-$this->registerCssFile('/css/index.css')
+DogovorAsset::register($this);
 ?>
 
 
@@ -40,7 +39,7 @@ $this->registerCssFile('/css/index.css')
             <p>Дата</p>
             <input type="date" name="Dogovor[date]">
             <p></p>
-            <input type="button" value="Добавить товар" onclick="addRow('dateTable')"/>
+            <input type="button" value="Добавить товар" onclick="add('dateTable')"/>
             <button class="button" type="submit">
                 <span>Сохранить</span>
             </button>
@@ -110,7 +109,7 @@ $this->registerCssFile('/css/index.css')
 </div>
 </form>
 <script>
-    function addRow(tableID) {
+    function add(tableID) {
 
         var table = document.getElementById(tableID);
 

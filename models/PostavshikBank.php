@@ -30,10 +30,10 @@ class PostavshikBank extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['bank_name', 'bank_mfo', 'schet', 'date'], 'required'],
+            [['bank_name', 'bank_mfo', 'schet', 'date'], 'required','skipOnEmpty' => true],
             [['bank_name'], 'string'],
             [['bank_mfo', 'schet', 'postavshik_id'], 'integer'],
-            [['date'], 'safe'],
+            [['bank_name', 'bank_mfo', 'schet', 'date'], 'safe'],
         ];
     }
 

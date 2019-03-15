@@ -15,7 +15,7 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class PrihodAsset extends AssetBundle
+class DogovorAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
@@ -23,7 +23,7 @@ class PrihodAsset extends AssetBundle
         'css/bootstrap.css',
         'css/bootstrap-multiselect.css',
         'css/main.css',
-        '/css/index2.css'
+        'css/index.css',
     ];
     public $js = [
         'js/jquery.js',
@@ -34,6 +34,5 @@ class PrihodAsset extends AssetBundle
         'js/FileSaver.js',
         'js/tableexport.js',
         'js/Excel.js'
-
     ];
 }

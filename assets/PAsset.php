@@ -15,15 +15,13 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class PrihodAsset extends AssetBundle
+class PAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
-    public $css = [
-        'css/bootstrap.css',
-        'css/bootstrap-multiselect.css',
+    public $css = [ 
         'css/main.css',
-        '/css/index2.css'
+        'css/table.css',
     ];
     public $js = [
         'js/jquery.js',

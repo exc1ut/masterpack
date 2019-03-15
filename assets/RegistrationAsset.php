@@ -15,15 +15,15 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class PrihodAsset extends AssetBundle
+class RegistrationAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'css/index2.css',
+        'css/main.css',
         'css/bootstrap.css',
         'css/bootstrap-multiselect.css',
-        'css/main.css',
-        '/css/index2.css'
     ];
     public $js = [
         'js/jquery.js',

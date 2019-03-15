@@ -31,7 +31,7 @@ $this->registerCssFile('/css/ostatok_table.css');
 <button class="bt" onclick="showTable();">Add row</button>
 </div>
 <div >
-    <table id="table" border="1">
+    <table id="excelTable" border="1">
         <tbody>
         <tr>
         <th>

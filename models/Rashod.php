@@ -32,7 +32,7 @@ class Rashod extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['postavshik_schet_faktura_id', 'kratkoe_naimenovanie', 'format', 'ves', 'date', 'is_come', 'time'], 'required'],
+            [['postavshik_schet_faktura_id', 'kratkoe_naimenovanie', 'format', 'ves', 'date', 'is_come', 'time'], 'required','skipOnEmpty' => true],
             [['postavshik_schet_faktura_id', 'format', 'ves', 'is_come'], 'integer'],
             [['date'], 'safe'],
             [['kratkoe_naimenovanie', 'time'], 'string', 'max' => 255],

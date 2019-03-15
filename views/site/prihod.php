@@ -1,16 +1,14 @@
 <?php
 
-use app\assets\PublicAsset;
+use app\assets\PAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
-PublicAsset::register($this);
-$this->registerCssFile('/css/main.css');
-$this->registerCssFile('/css/table.css');
+PAsset::register($this);
+
 ?>
 
-
 <div class="navbar">
-  <a href="header.html"> <img src="/images/logo.png">
+  <a href="<?= Url::toRoute(['/'])?>"> <img src="/images/logo.png"></a>
     <a href="<?= Url::toRoute(['site/dogovor'])?>">Рег.дог</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.поставшика</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.клиента</a>
@@ -47,6 +45,7 @@ $this->registerCssFile('/css/table.css');
                 'class'=>'selected',
             ]) ?>
         </div>
+
         <div class="da2">
             <p>Счет-Фактура</p>
             <input type="text" name="PostavshikSchetFaktura[schet_faktura_nomer]" placeholder="Фактура">
@@ -60,10 +59,11 @@ $this->registerCssFile('/css/table.css');
             <input type="text" name="PostavshikSchetFaktura[auto]" placeholder="Введите № автомашины">
         </div>
     </div>
-    <div class="col2">
+    <div id="skladItems" id class="col2">
         <h1>Тип Продукта</h1>
 
-
+        <button onclick="addPrihod(event);">Add</button>
+        <div id="skladItem">
         <div class="da5">
             <p>Тип</p>
             <?= Html::activeDropDownList($sklad, 'postavshik_schet_faktura_id[]',[],[
@@ -72,12 +72,13 @@ $this->registerCssFile('/css/table.css');
             ]) ?>
         </div>
         <div class="da6">
-            <p>Формат</p>
+            <p>Формат</p>v
             <input type="text" name="SkladSirya[format][]" placeholder="">
         </div>
         <div class="da7">
             <p>Вес</p>
             <input type="text" name="SkladSirya[ves][]" placeholder="">
+        </div>
         </div>
     </div>
 </div>

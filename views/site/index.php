@@ -30,17 +30,17 @@ $this->title = 'My Yii Application';
             </a>
             <a href=""></a>
             <a href="<?= Url::toRoute(['site/registration'])?>">
-                <div class="red">
+                <div class="red1">
                     <h1>Регистрация клиента</h1>
                 </div>
             </a>
             <a href="<?= Url::toRoute(['site/dogovor'])?>">
-                <div class="red">
+                <div class="red2">
                     <h1>Регистрация договора</h1>
                 </div>
             </a>
             <a href="<?= Url::toRoute(['site/sklad'])?>">
-                <div class="red">
+                <div class="red3">
                     <h1>Склад сырья</h1>
                 </div>
             </a>
@@ -50,17 +50,17 @@ $this->title = 'My Yii Application';
                 </div>
             </a>
             <a href="#">
-                <div class="red">
+                <div class="red4">
                     <h1>Промежуточный склад-2</h1>
                 </div>
             </a>
             <a href="#">
-                <div class="red">
+                <div class="red5">
                     <h1>Склад ГП</h1>
                 </div>
             </a>
             <a href="#">
-                <div class="red">
+                <div class="red6">
                     <h1>Склад доп. сырья</h1>
                 </div>
             </a>

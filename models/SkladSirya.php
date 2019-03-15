@@ -31,7 +31,7 @@ class SkladSirya extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['postavshik_schet_faktura_id', 'kratkoe_naimenovanie', 'format', 'ves', 'date', 'is_come'], 'required'],
+            [['postavshik_schet_faktura_id', 'kratkoe_naimenovanie', 'format', 'ves', 'date', 'is_come'], 'required','skipOnEmpty' => true],
             [['id', 'format', 'ves', 'is_come'], 'integer'],
             [['kratkoe_naimenovanie'], 'string'],
             [['date'], 'safe'],

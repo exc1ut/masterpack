@@ -38,7 +38,8 @@ class DogovorTable extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tovar', 'kratkoe_naimenovanie', 'measure', 'postavshik_id'], 'required'],
+            [['tovar', 'kratkoe_naimenovanie', 'measure', 'postavshik_id'], 'required','skipOnEmpty' => true],
+            [['tovar', 'kratkoe_naimenovanie', 'measure', 'postavshik_id','nds','cost2','usd1','usd2'], 'safe'],
             [['tovar', 'kratkoe_naimenovanie', 'measure'], 'string'],
             [['postavshik_id'], 'exist', 'skipOnError' => true, 'targetClass' => Dogovor::className(), 'targetAttribute' => ['postavshik_id' => 'id']],
         ];

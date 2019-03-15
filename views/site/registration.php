@@ -1,10 +1,10 @@
 <?php
 
-use app\assets\PublicAsset;
+use app\assets\RegistrationAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
-PublicAsset::register($this);
-$this->registerCssFile('/css/index2.css');
+
+RegistrationAsset::register($this);
 ?>
 
 <div class="navbar">
@@ -35,7 +35,7 @@ $this->registerCssFile('/css/index2.css');
             <p>ОКЭД</p>
             <input type="number" name="ClientRegistration[oked]">
             <p></p>
-            <input type="button" value="Добавить счёт" onclick="addRow('dateTable')"/>
+            <input type="button" value="Добавить счёт" onclick="add('dateTable')"/>
             <button class="button" type="submit">
                 <span>Сохранить</span>
             </button>
@@ -170,7 +170,7 @@ $this->registerCssFile('/css/index2.css');
 <!--</script>-->
 </form>
 <script>
-    function addRow(tableID) {
+    function add(tableID) {
 
         var table = document.getElementById(tableID);
 

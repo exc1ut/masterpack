@@ -49,9 +49,14 @@ $('.selected').on('change',function loadDogovors() {
         url: '../site/getdogovor?id=' + id,
         success: function (response) {
             console.log(response);
-            var response = JSON.parse(response);
-            var select = document.getElementById("skladsirya-postavshik_schet_faktura_id");
             $('.optiondogovor').remove();
+            var response = JSON.parse(response);
+            var select = document.getElementsByClassName("odk");
+            var length = select.length;
+            console.log(select);
+            for(var i=0;i<length;i++)
+            {
+            
             $.each(response, function (index, value) {
 
                 var option = document.createElement("option");
@@ -60,13 +65,15 @@ $('.selected').on('change',function loadDogovors() {
                 option.className = "optiondogovor"
 
                 try {
-                    select.options.add(option);
+                    select[i].options.add(option);
                 }
                 catch (e) {
                     alert(e);
                 }
             });
+            }
         }
+
     });
 });
 
@@ -584,7 +591,7 @@ $('#btnget').click(function(){
                 td.appendChild(p);
                 tr.appendChild(td);
             }
-            var table = document.getElementById('table');
+            var table = document.getElementById('excelTable');
 
             $('tbody').remove();
             var tbdy = document.createElement('tbody');
@@ -613,13 +620,24 @@ $('#btnget').click(function(){
 
 
             table.appendChild(tbdy);
-
+            $("#table").tableExport({formats: ["xlsx"]});0
 
 
 
         })
     }
 
+    function addPrihod(event)
+    {
+        event.preventDefault();
+        
+
+        $('#skladItem').clone().appendTo("#skladItems");
+        
+
+        // appendTo('#skladItems');
+        // col2[0].appendChild($skladItems[0]);   
+    }
 
 
 

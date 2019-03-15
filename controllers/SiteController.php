@@ -142,6 +142,7 @@ class SiteController extends Controller
             $dogovor->dogovor_nomer = $_POST["Dogovor"]["dogovor_nomer"];
             $dogovor->save() or print_r($dogovor->errors);
 
+
             for($i=0;$i<$count;$i++)
             {
                 $dogovortable = new DogovorTable();
@@ -156,8 +157,11 @@ class SiteController extends Controller
                 $dogovortable->postavshik_id = $dogovor->id;
                 $dogovortable->date = $date;
                 $dogovortable->time = $time;
+                if($_POST["DogovorTable"]["kratkoe_naimenovanie"][$i]!== "")
+                {
 
                 $dogovortable->save() or print_r($dogovortable->errors);
+                }
             }
         }
 
@@ -202,7 +206,10 @@ class SiteController extends Controller
                 $posbank->schet = $_POST["PostavshikBank"]["schet"][$i];
                 $posbank->postavshik_id = $clientreg->id;
                 $posbank->date = $date;
-                $posbank->save() or print_r($posbank->errors);
+                if($_POST["PostavshikBank"]["bank_mfo"][$i]!== "")
+                {
+                    $posbank->save() or print_r($posbank->errors);
+                }
 
             }
         }

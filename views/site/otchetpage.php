@@ -1,10 +1,10 @@
 <?
 use yii\helpers\Html;
-use app\assets\PrihodAsset;
 use yii\helpers\Url;
-PrihodAsset::register($this);
 $this->registerCssFile('https://cdn.jsdelivr.net/npm/handsontable-pro@latest/dist/handsontable.full.min.css');
 $this->registerCssFile('https://handsontable.com/static/css/main.css');
+$this->registerCssFile('/css/otchet.css');
+
 ?>
 
 
