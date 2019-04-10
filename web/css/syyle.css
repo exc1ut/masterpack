@@ -1,15 +1,14 @@
-body{
-    background-image: url(../images/fon.jpg);
-    width: 100% !important;
-}
+
 
 header{
     display: flex;
     justify-content: center;
 }
 .img img{
-    height: 130px;
-    width: 400px;
+    height: 80px;
+    width: 230px;
+    margin-bottom: 30px;
+    margin-top: 15px;
 }
 .container
 {
@@ -20,7 +19,6 @@ header{
 .block-flex{
     display: flex;
     justify-content: center;
-    background-color: rgba(255,255,255,0.5);
 }
         .d-flex{
             display: flex;
@@ -31,7 +29,7 @@ header{
         .red{
             display: flex;
             justify-content: center; 
-            height: 200px;
+            height: 180px;
             width: 300px;
             margin:1px;
             background-size: cover;
@@ -43,7 +41,7 @@ header{
         .red1{
             display: flex;
             justify-content: center; 
-            height: 200px;
+            height: 180px;
             width: 400px;
             margin:1px;
             background-size: cover;
@@ -80,7 +78,7 @@ header{
         .red2{
             display: flex;
             justify-content: center; 
-            height: 200px;
+            height: 180px;
             width: 300px;
             margin:1px;
             background-size: cover;
@@ -92,7 +90,7 @@ header{
         .red3{
             display: flex;
             justify-content: center; 
-            height: 150px;
+            height: 140px;
             width: 400px;
             margin:1px;
             background-size: cover;
@@ -104,7 +102,7 @@ header{
         .red4{
             display: flex;
             justify-content: center; 
-            height: 180px;
+            height: 150px;
             width: 400px;
             margin:1px;
             background-size: cover;
@@ -116,7 +114,7 @@ header{
         .red5{
             display: flex;
             justify-content: center; 
-            height: 180px;
+            height: 150px;
             width: 300px;
             margin:1px;
             background-size: cover;
@@ -129,7 +127,7 @@ header{
         .red6{
             display: flex;
             justify-content: center; 
-            height: 180px;
+            height: 150px;
             width: 300px;
             margin:1px;
             background-size: cover;
@@ -208,7 +206,7 @@ header{
  .blue{
     display: flex;
     justify-content: center;
-    height: 150px;
+    height: 140px;
     width: 600px;
     background-image: url(images/red.jpg);
     margin: 1px;

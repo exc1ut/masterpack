@@ -20,11 +20,15 @@ use app\models\ContactForm;
 use yii\helpers\ArrayHelper;
 use app\models\ClientRegistration;
 use app\models\PostavshikBank;
+
+
+
 class SiteController extends Controller
 {
     /**
      * {@inheritdoc}
      */
+
     public function behaviors()
     {
         return [
@@ -312,8 +316,10 @@ class SiteController extends Controller
                 $dg = $dogovor->findOne($_POST["SkladSirya"]["postavshik_schet_faktura_id"][$i]);
                 $sirya->kratkoe_naimenovanie = $dg["kratkoe_naimenovanie"];
                 $sirya->time = $time;
-                $sirya->save() or print_r($sirya->errors);
-
+                if($_POST["SkladSirya"]["postavshik_schet_faktura_id"][$i]!== "")
+                {
+                    $sirya->save() or print_r($sirya->errors);
+                }
             }
         }
 
@@ -326,40 +332,28 @@ class SiteController extends Controller
     }
     public function actionRashod()
     {
+
         $sklad_model = new SkladSirya();
         if($_POST)
         {
-
             foreach($_POST["id"] as $key=>$id)
             {
-                $rashod_model = new Ostatok();
                 $rm = new Rashod();
-                $rashod_query = $rashod_model->findOne($id);
                 $query = $sklad_model->findOne($id);
-                if($rashod_query->id !== $query->id)
-                {
-                    $rashod_model->id = $query->id;
-                    $rashod_model->postavshik_schet_faktura_id = $query->postavshik_schet_faktura_id;
-                    $rashod_model->kratkoe_naimenovanie = $query->kratkoe_naimenovanie;
-                    $rashod_model->format = $query->format;
-                    $rashod_model->ves = $query->ves - $_POST["ves"][$key];
-                    $rashod_model->date = $query->date;
-                    $rashod_model->is_come = 0;
-                    $rashod_model->time = $query->time;
-
-                    $rashod_model->save() or var_dump($rm->errors);
-
                     $rm->id = $query->id;
                     $rm->postavshik_schet_faktura_id = $query->postavshik_schet_faktura_id;
                     $rm->kratkoe_naimenovanie = $query->kratkoe_naimenovanie;
                     $rm->format = $query->format;
-                    $rm->ves = $_POST["ves"][$key];
+                    $rm->ves = $query->ves;
                     $rm->date = $query->date;
                     $rm->is_come = 0;
                     $rm->time = $query->time;
-
+                    if($_POST["id"][$key]!== 'select')
+                {
+                    $query->delete();
                     $rm->save() or var_dump($rm->errors);
                 }
+                    
             }
             $this->redirect('rashod');
         }
@@ -892,7 +886,7 @@ class SiteController extends Controller
             return false;
         }
 
-        $model = new Ostatok();
+        $model = new SkladSirya();
         $query = $model->find()->all();
 
         $headers = [];
@@ -941,7 +935,7 @@ class SiteController extends Controller
         }
 
 
-        $postavshik = new Ostatok();
+        $postavshik = new SkladSirya();
         $allpostavshik = $postavshik->find()->all();
         $kn =  ArrayHelper::map($allpostavshik, 'kratkoe_naimenovanie', 'kratkoe_naimenovanie');
         $format =  ArrayHelper::map($allpostavshik, 'format', 'format');
@@ -968,7 +962,7 @@ class SiteController extends Controller
             return false;
         }
 
-        $model = new Ostatok();
+        $model = new SkladSirya();
         $query = $model->find()->where(["format"=>$ft])->andWhere(["kratkoe_naimenovanie"=>$tip])->andWhere(["date"=>$date])->all();
 
         $headers = [];
@@ -1020,5 +1014,50 @@ class SiteController extends Controller
         return json_encode($table);
 
     }
+    public function actionAddbank()
+    {
+        $clientreg = new ClientRegistration();
+        $date = Date("Y-m-d");
+        $postavshikItems = $clientreg->find()->all();
+        $items =  ArrayHelper::map($postavshikItems, 'id', 'name');
+
+        $count = count($_POST["PostavshikBank"]["bank_name"]);
+
+        if(!empty($_POST))
+        {
+                for($i=0;$i<$count;$i++)
+            {
+                $posbank = new PostavshikBank();
+                $posbank->bank_name = $_POST["PostavshikBank"]["bank_name"][$i];
+                $posbank->bank_mfo = $_POST["PostavshikBank"]["bank_mfo"][$i];
+                $posbank->schet = $_POST["PostavshikBank"]["schet"][$i];
+                $posbank->postavshik_id = $_POST["PostavshikBank"]["postavshik_id"];
+                $posbank->date = $date;
+                if($_POST["PostavshikBank"]["bank_mfo"][$i]!== "")
+                {
+                    $posbank->save() or print_r($posbank->errors);
+                }
+
+            }
+        }
+        $model = new PostavshikBank();
+
+        return $this->render('addbank',[
+            'model' =>  $model,
+            'items' => $items,
+        ]);
+    }
+    public function actionUnique($name)
+    {
+            $result = ClientRegistration::find()->where(["name"=>$name])->one();
+            if ($result) {
+                $validate = true;
+                return json_encode($validate);
+            } else {
+                $validate = false;
+                return json_encode($validate);
+    }
+    
+}
 
 }

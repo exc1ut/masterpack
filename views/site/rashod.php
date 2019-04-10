@@ -12,7 +12,7 @@ $this->registerCssFile('/css/prixod.css');
 
 
 <div class="navbar">
-    <a href="header.html"> <img src="/images/logo.png"></a>
+    <a href="<?= Url::toRoute(['/'])?>">Главный</a>
     <a href="<?= Url::toRoute(['site/dogovor'])?>">Рег.дог</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.поставшика</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.клиента</a>

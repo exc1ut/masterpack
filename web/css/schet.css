@@ -1,7 +1,4 @@
-body
-{
-  background-image: url(fon.jpg.jpg);
-}
+
 img{
 	width: 400px !important;
 	height: 180px !important;
@@ -22,10 +19,25 @@ img{
 	justify-content: center;
   margin-top: 50px;
 }
+button{
+  border-radius: 4px;
+  background-color: rgba(255,255,255,0.8);
+  border:1px solid rgba(183,6,6,0.8);
+  color: #B70606;
+  font-family: century gothic;
+  text-align: center;
+  font-size: 14px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px 30px;
+  margin-left: 250%;
+}
 .button{
   border-radius: 4px;
   background-color: rgba(255,255,255,0.8);
-  border:none;
+  border:1px solid rgba(183,6,6,0.8);
   color: #B70606;
   font-family: century gothic;
   text-align: center;
@@ -59,21 +71,22 @@ img{
 th
 {
   font-family: century gothic;
-  color: rgba(255,255,255,1); 
+  color:black ; 
 }
 td
 {
   font-family: century gothic;
-  color: rgba(255,255,255,1);
+  color:black;
 }
 
 table {
   margin: 20px auto;
-  background-color: rgba(183,6,6,0.6);
-  border-collapse: collapse;
+  background-color:white;
+  border-radius: 4px;
 }
 
 table, td, th {
   width: 1000px;
-  border: 2px solid black;
+  border: 2px solid rgba(183,6,6,0.8);
+  padding: .3rem .3rem;
 }

@@ -1,72 +1,41 @@
-body
-{
-  background-image: url(fon.jpg.jpg);
-}
+
 .colums{
-  margin-left: 10px;
+  margin: 10px;
 }
-select{
-  margin: 0 auto;
+
+td{
   width: 100px;
   height: 30px;
-  margin-left: 15px;
 }
 input{
-  margin-left: 5px;
+  margin-right:.5rem;
 }
 p{
   color: white;
   font-size: 18px;
 }
-.col-md-12{
-  height: 300px;
-  background-color: grey;
+th p{
+  color: black;
+  text-align: center;
+}
+.col-md-8{
+  background-color: rgba(255,255,255,0.8);
   opacity: .8;
 }
 .table {
   margin: 20px auto;
   background-color: white;
-  border-collapse: collapse;
+  border-radius: 4px;
+  border: 1px solid rgba(183,6,6,0.8);
 }
 .table, .td, .th {
   width: 1300px;
-  border: 2px solid black;
-}
-.q{
-   margin-left: 50px;
-}
-.q1{
-  margin-left: 220px;
-  margin-top: -38px;
-}
-.q2{
-  margin-left: 400px;
-  margin-top: -38px;
-}
-.q3{
-  margin-left: 600px;
-  margin-top: -38px;
-}
-.q4{
-  margin-left: 700px;
-  margin-top: -38px;
-}
-.q5{
-  margin-left: 860px;
-  margin-top: -38px;
-}
-.q6{
-  margin-left: 1030px;
-  margin-top: -38px;
-}
-.q7{
-  margin-left: 1200px;
-  margin-top: -38px;
+  border: 2px solid rgba(183,6,6,0.8);
 }
 .send{
   border-radius: 4px;
   background-color: #f4511e;
-  border:none;
+  border: 1px solid ;
   color: black;
   text-align: center;
   font-size: 14px;
@@ -74,7 +43,6 @@ p{
   width: 150px;
   transition: all 0.5s;
   cursor: pointer;
-  margin: 10px 20px;
 }
 .send span{
   cursor: pointer;
@@ -98,5 +66,13 @@ p{
 }
 .send{
   margin-left: 1150px;
-  margin-top: 100px;
+  margin-top: 50px;
+}
+.multiselect-container.dropdown-menu{
+  height: 25rem;
+  overflow:scroll;
+  width: 10rem;
+}
+.multiselect.dropdown-toggle.btn.btn-default{
+  padding: 0 2rem;
 }

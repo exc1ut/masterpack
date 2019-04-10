@@ -1,5 +1,11 @@
-body {
-  background: url("images/fon.jpg.jpg");
+.bobur
+{
+  text-decoration: none;
+  font-family: century gothic;
+  color: white;
+}
+.container{
+  margin-top: 9%;
 }
 .col-md-3{
 	background-color: #B70606;
@@ -18,12 +24,13 @@ body {
   color: #B70606;
 }
 .col-md-7{
-	background-color: rgba(246,246,246,0.7);
-	height: 380px;
+	background-color: rgba(198,186,182);
+	height: 280px;
   margin-top: 30px;
 }
 .col-md-7 p
 {
+
   font-family: century gothic;
   color: #B70606;
 }
@@ -102,6 +109,7 @@ button:hover span:after{
    margin-left: 15px;
 }
 .bank{
+  padding: .3rem .3rem;
   color: white;
   font-size: 18px;
   margin-left: 50px;
@@ -117,4 +125,8 @@ button:hover span:after{
   font-size: 18px;
   margin-left: 360px;
   margin-top: -35px;
+}
+.col-md-3 input{
+  border-radius: 4px;
+  padding: .3rem .3rem;
 }

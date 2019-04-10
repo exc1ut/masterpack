@@ -1,8 +1,4 @@
-body
-{
-  background-image: url(fon.jpg.jpg);
-}
-img{
+a img{
 	width: 400px;
 	height: 150px;
 }
@@ -21,9 +17,10 @@ img{
 }
 .button{
   border-radius: 4px;
-  background-color: #f4511e;
-  border:none;
-  color: white;
+  background-color: rgba(255,255,255,0.8);
+  border:1px solid rgba(183,6,6,0.8);
+  color: #B70606;
+  font-family: century gothic;
   text-align: center;
   font-size: 14px;
   padding: 20px;
@@ -52,17 +49,15 @@ img{
 .button:hover span:after{
   opacity: 1;
 }
-
-
 table {
   margin: 20px auto;
   background-color: white;
-  border-collapse: collapse;
 }
 
 table, td, th {
   width: 1000px;
-  border: 2px solid black;
+  padding: .3rem .3rem;
+  border: 2px solid rgba(183,6,6,0.8);
 }
 .navbar{
     width: 100%;

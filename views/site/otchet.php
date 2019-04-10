@@ -11,7 +11,7 @@ $this->registerCssFile('/css/schetprixod.css');
 
 
 <div class="navbar">
-    <a href="<?= Url::toRoute(['/'])?>"> <img src="/images/logo.png"></a>
+    <a href="<?= Url::toRoute(['/'])?>">Главный</a>
     <a href="<?= Url::toRoute(['site/dogovor'])?>">Рег.дог</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.поставшика</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.клиента</a>
@@ -21,18 +21,23 @@ $this->registerCssFile('/css/schetprixod.css');
     <a href="">Склад ГП</a>
     <a href="">Склад допюсырья</a>
 </div>
-<div class="col-md-12">
+<div class="col-md-2">
+    
+</div>
+<div class="col-md-8">
     <table class="colums" id="dateTable">
         <tr>
-            <div class="q">
+           <th>
                 <p>Поставшик</p>
-            </div>
-            <div class="q1">
+            </th>
+            <th>
                 <p>Дата(От)</p>
-            </div>
-            <div class="q2">
+            </th>
+            <th>
                 <p>Дата(до)</p>
-            </div>
+            </th>
+        </tr>
+        <tr>
             <td>
                 <select id="chkveg" multiple="multiple">-->
                                 <? foreach($items as $key => $item):?>
@@ -46,7 +51,7 @@ $this->registerCssFile('/css/schetprixod.css');
                 <input id="start_date" type="date" />
             </td>
             <td>
-                        <input id="end_date" type="date" />
+                 <input id="end_date" type="date" />
             </td>
         </tr>
     </table>
@@ -55,6 +60,9 @@ $this->registerCssFile('/css/schetprixod.css');
        <a href="<?=Url::toRoute('site/table')?>"><button> Change view to table</button></a>-->
    <? endif;?>
 </div>
+<div class="col-md-2">
+    
+</div>
 
 </div>
 <div>
@@ -62,7 +70,3 @@ $this->registerCssFile('/css/schetprixod.css');
 
 </table>
 </div>
-
-
-
-

@@ -1,74 +1,22 @@
-body
-{
-  background-image: url(fon.jpg.jpg);
-}
+
 .colums{
   margin-left: 75px;
 }
-select{
-  margin: 0 auto;
-  width: 100px;
+ td select{
+  width: 95%;
   height: 30px;
-  margin-left: 15px;
+  margin: 0 10px;
 }
-input{
-  margin-left: 5px;
-}
-p{
-  color: white;
+th p{
+  margin: 10px; 
+  color: black;
   font-size: 18px;
+  font-family:century gothic;
 }
 .col-md-12{
-  height: 300px;
-  background-color: grey;
+  height: 550px;
+  background-color: rgba(255,255,255,0.8);
   opacity: .8;
-}
-.table {
-  margin: 20px auto;
-  background-color: white;
-  border-collapse: collapse;
-}
-.table, .td, .th {
-  width: 1500px;
-  border: 2px solid black;
-}
-.q{
-   margin-left: 130px;
-}
-.q1{
-  margin-left: 220px;
-  margin-top: -38px;
-}
-.q2{
-  margin-left: 420px;
-  margin-top: -38px;
-}
-.q3{
-  margin-left:  650px;
-  margin-top: -38px;
-}
-.q4{
-  margin-left: 810px;
-  margin-top: -38px;
-}
-.q5{
-  margin-left: 940px;
-  margin-top: -38px;
-}
-.q6{
-  margin-left: 1050px;
-  margin-top: -38px;
-}
-.q7{
-  margin-left: 1150px;
-  margin-top: -38px;
-}
-.q8{
-  margin-left: 1330px;
-  margin-top: -38px;
-}
-button{
-  width: 150px;
 }
 .send{
   border-radius: 4px;
@@ -81,7 +29,6 @@ button{
   width: 150px;
   transition: all 0.5s;
   cursor: pointer;
-  margin: 10px 20px;
 }
 .send span{
   cursor: pointer;
@@ -104,6 +51,6 @@ button{
   opacity: 1;
 }
 .send{
-  margin-left: 1340px;
-  margin-top: 100px;
+  margin-left: 1150px;
+  margin-top: 50px;
 }

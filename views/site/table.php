@@ -1,17 +1,17 @@
 <?
+use yii\helpers\Url;
 use yii\helpers\Html;
 use app\assets\SkladAsset;
 SkladAsset::register($this);
 
 $this->registerCssFile('/css/bootstrap.css');
 $this->registerJsFile('/js/jquery.js');
-$this->registerCssFile('/css/schet.css');
+$this->registerCssFile('/css/main.css');
 $this->registerCssFile('/css/ostatok_table.css');
 ?>
-
 <div class="container">
  <div class="row1">
- 	<a href="header.html"><img src="/images/logo.png"></a>
+ 	<a href="<?= Url::toRoute(['/'])?>"><img src="/images/logo.png"></a>
  </div>
  <div class="row2">
 <select id="chkveg" multiple="multiple">-->

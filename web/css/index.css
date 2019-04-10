@@ -1,7 +1,4 @@
-body
-{
-  background-image: url(fon.jpg.jpg);
-}
+
 img{
 	width: 200px;
 	height: 50px;
@@ -16,7 +13,7 @@ img{
   background-color: #B70606;
   opacity: .8;
   width: 250px;
-  margin-left: -80px;
+  height: 350px;
 }
 .col-md-2 input
 {
@@ -28,12 +25,12 @@ img{
   color: white;
   font-family: century gothic;
 }
-.col-md-10{
-  background-color: rgba(246,246,246,0.8);
+.col-md-9{
+  background-color: rgba(198,186,182);
   opacity: .8;
-  height: 323px;
+  height: 350px;
 }
-.col-md-10 input
+.col-md-9 input
 {
   background-color: rgba(183,6,6,0.7);
   border-color: rgba(183,6,6,0.5);
@@ -109,6 +106,7 @@ button:hover span:after{
    margin-bottom: 5px;
 }
 .main{
+  padding: .3rem .3rem;
   color: white;
   font-size: 18px;
   margin-left: 30px;
@@ -205,4 +203,11 @@ button:hover span:after{
 {
   font-family: century gothic;
   color: rgba(183,6,6,1);
+}
+.col-md-2 input{
+  border-radius: 4px;
+  padding: .3rem .3rem;
+}
+.col-md-2 p{
+  font-size: 16px;
 }

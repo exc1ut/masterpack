@@ -1,6 +1,7 @@
 <?php
 
 use app\assets\RegistrationAsset;
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -8,7 +9,7 @@ RegistrationAsset::register($this);
 ?>
 
 <div class="navbar">
-    <a href="header.html"> <img src="/images/logo.png"></a>
+    <a href="<?= Url::toRoute(['/'])?>"> Главный</a>
     <a href="<?= Url::toRoute(['site/dogovor'])?>">Рег.дог</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.поставшика</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.клиента</a>
@@ -18,7 +19,7 @@ RegistrationAsset::register($this);
     <a href="">Склад ГП</a>
     <a href="">Склад допюсырья</a>
 </div>
-<form method="post" action="registration">
+<form id="form" method="post" action="registration" name="myForm" onsubmit="return validateForm(event)">
     <?=Html :: hiddenInput(\Yii :: $app->getRequest()->csrfParam, \Yii :: $app->getRequest()->getCsrfToken(), []);?>
 <div class="container">
     <div class="row">
@@ -26,43 +27,49 @@ RegistrationAsset::register($this);
 
         </div>
         <div class="col-md-3">
-            <p>Имя</p>
-            <input type="text" name="ClientRegistration[name]">
-            <p>Адрес</p>
-            <input type="text" name="ClientRegistration[address]">
-            <p>ИНН</p>
-            <input type="number" name="ClientRegistration[inn]">
-            <p>ОКЭД</p>
-            <input type="number" name="ClientRegistration[oked]">
+            <p></p>
+            <input name="ClientRegistration[name]" placeholder="Имя">
+            <div class="bobur">
+            <a href="<?=Url::toRoute('site/addbank')?>">Изменить</a>
+            </div>
+            <p></p>
+            <input required type="text" name="ClientRegistration[address]" placeholder="Адрес">
+            <p></p>
+            <input required type="number" name="ClientRegistration[inn]" placeholder="ИНН">
+            <p></p>
+            <input required type="number" name="ClientRegistration[oked]" placeholder="ОКЭД">
             <p></p>
             <input type="button" value="Добавить счёт" onclick="add('dateTable')"/>
             <button class="button" type="submit">
                 <span>Сохранить</span>
             </button>
-            <button class="button">
-                <span>Назад</span>
-            </button>
         </div>
         <div class="col-md-7">
             <table class="columns" id="dateTable">
                 <tr>
+                        
                     <div class="bank">
                         <p>Банк</p>
                     </div>
+                
+                
                     <div class="mfo">
                         <p>МФО</p>
                     </div>
+                
+                
                     <div class="schet">
                         <p>Счёт</p>
                     </div>
+  
                     <td>
-                        <input type="text" name="PostavshikBank[bank_name][]" style="width: 200px; margin-bottom: 10px;">
+                        <input  type="text" name="PostavshikBank[bank_name][]" style="width: 200px; margin-bottom: 10px;">
                     </td>
                     <td>
                         <input type="text" name="PostavshikBank[bank_mfo][]" style="width: 100px; margin-bottom: 10px;">
                     </td>
                     <td>
-                        <input type="number" name="PostavshikBank[schet][]" style="width: 200px; margin-bottom: 10px;">
+                        <input  type="number" name="PostavshikBank[schet][]" style="width: 200px; margin-bottom: 10px;">
                     </td>
                 </tr>
             </table>
@@ -191,5 +198,51 @@ RegistrationAsset::register($this);
                     break;
             }
         }
+    } 
+ function validateForm(e) {
+
+
+    e.preventDefault();
+    localStorage.removeItem("myKey");
+  var x = document.forms["myForm"]["ClientRegistration[name]"].value;
+  var link = 'http://myproject/site/unique?name='+x;
+
+  fetch(link).then(res => res.json()).then(json => {
+        var form = document.getElementById("form");
+        var bool = json;
+        var mfo_empty = false;
+        var name_empty = false;
+        var schet_empty = false; 
+        var mfo = document.getElementsByName("PostavshikBank[bank_mfo][]");
+        var name = document.getElementsByName("PostavshikBank[bank_name][]");
+        var schet = document.getElementsByName("PostavshikBank[schet][]");
+        for(var key in mfo)
+        {
+            if(mfo[key].value == "" || name[key].value == "" ||schet[key].value == "")
+            {
+                if(!(mfo[key].value == "" && name[key].value == "" &&schet[key].value == ""))
+                {
+                mfo_empty = true;
+                }
+            }
+        }
+        if(bool == true || mfo_empty == true || name_empty == true || schet_empty == true) {
+            if(bool == true)
+            {
+        alert("Этот ползователь уже сушествует, пожалуйста нажмите Изменить");
+        localStorage.setItem('myKey', bool);
+            }
+            else if(mfo_empty == true || name_empty == true || schet_empty == true)
+            {
+
+        alert("Заполните");
+            }
+    } else 
+    {
+        form.submit();
     }
+    });
+    
+}
+
 </script>

@@ -155,6 +155,7 @@ function addRow()
         var td = document.createElement('td');
         var select = document.createElement('select');
         select.setAttribute('data-name','client_id');
+        select.setAttribute('name','postavshik_schet_faktura_id[]');
         select.setAttribute('onchange','loadSortedItems(this,'+i+');');
         var option = document.createElement('option');
         option.text = "select";
@@ -172,6 +173,7 @@ function addRow()
         var td = document.createElement('td');
         var select = document.createElement('select');
         select.setAttribute('data-name','dogovor_id');
+        select.setAttribute('name','kratkoe_naimenovanie[]');
         select.setAttribute('onchange','loadSortedItems(this,'+i+');');
         var option = document.createElement('option');
         option.text = "select";
@@ -222,7 +224,7 @@ function addRow()
 
         var td = document.createElement('td');
         var select = document.createElement('select');
-        select.setAttribute('data-name','format');
+        select.setAttribute('data-name','ves');
         select.setAttribute('onchange','loadSortedItems(this,'+i+');');
         var option = document.createElement('option');
         option.text = "select";
@@ -319,7 +321,14 @@ function addRow()
         option.value = key;
         select.appendChild(option);
     }
+    if(dataName !== select.getAttribute('data-name'))
+    {
     td.appendChild(select);
+    }
+    else 
+    {
+        td.appendChild(e);
+    }
     row[0].appendChild(td);
 
 
@@ -336,7 +345,14 @@ function addRow()
         select.appendChild(option);
         console.log(key);
     }
+    if(dataName !== select.getAttribute('data-name'))
+    {
     td.appendChild(select);
+    }
+    else 
+    {
+        td.appendChild(e);
+    }
     row[0].appendChild(td);
 
 
@@ -353,7 +369,14 @@ function addRow()
         option.value = key;
         select.appendChild(option);
     }
+    if(dataName !== select.getAttribute('data-name'))
+    {
     td.appendChild(select);
+    }
+    else 
+    {
+        td.appendChild(e);
+    }
     row[0].appendChild(td);
 
     var td = document.createElement('td');
@@ -367,7 +390,14 @@ function addRow()
         option.value = key;
         select.appendChild(option);
     }
+    if(dataName !== select.getAttribute('data-name'))
+    {
     td.appendChild(select);
+    }
+    else 
+    {
+        td.appendChild(e);
+    }
 
     row[0].appendChild(td);
 
@@ -382,14 +412,21 @@ function addRow()
         option.value = key;
         select.appendChild(option);
     }
+    if(dataName !== select.getAttribute('data-name'))
+    {
     td.appendChild(select);
+    }
+    else 
+    {
+        td.appendChild(e);
+    }
 
     row[0].appendChild(td);
 
 
         var td = document.createElement('td');
         var select = document.createElement('select');
-        select.setAttribute('data-name','format');
+        select.setAttribute('data-name','ves');
         select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
         for(var key in json.ves)
         {
@@ -398,7 +435,14 @@ function addRow()
             option.value = key;
             select.appendChild(option);
         }
-        td.appendChild(select);
+        if(dataName !== select.getAttribute('data-name'))
+    {
+    td.appendChild(select);
+    }
+    else 
+    {
+        td.appendChild(e);
+    }
         row[0].appendChild(td);
 
 
@@ -413,7 +457,14 @@ function addRow()
         option.value = key;
         select.appendChild(option);
     }
+    if(dataName !== select.getAttribute('data-name'))
+    {
     td.appendChild(select);
+    }
+    else 
+    {
+        td.appendChild(e);
+    }
     row[0].appendChild(td);
 
 
@@ -429,7 +480,14 @@ function addRow()
         option.value = key;
         select.appendChild(option);
     }
+    if(dataName !== select.getAttribute('data-name'))
+    {
     td.appendChild(select);
+    }
+    else 
+    {
+        td.appendChild(e);
+    }
     row[0].appendChild(td);
 
     var td = document.createElement('td');
@@ -443,7 +501,14 @@ function addRow()
         option.value = key;
         select.appendChild(option);
     }
+    if(dataName !== select.getAttribute('data-name'))
+    {
     td.appendChild(select);
+    }
+    else 
+    {
+        td.appendChild(e);
+    }
     row[0].appendChild(td);
 
         console.log(row);

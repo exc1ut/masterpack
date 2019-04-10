@@ -1,6 +1,8 @@
 <?
+use app\assets\PublicAsset;
 use yii\helpers\Html;
 use yii\helpers\Url;
+PublicAsset::register($this);
 $this->registerCssFile('https://cdn.jsdelivr.net/npm/handsontable-pro@latest/dist/handsontable.full.min.css');
 $this->registerCssFile('https://handsontable.com/static/css/main.css');
 $this->registerCssFile('/css/otchet.css');
@@ -9,6 +11,7 @@ $this->registerCssFile('/css/otchet.css');
 
 
 <div class="navbar">
+    <a href="<?= Url::toRoute(['/'])?>">Главный</a>
     <a href="<?= Url::toRoute(['site/dogovor'])?>">Рег.дог</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.поставшика</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.клиента</a>
@@ -21,7 +24,7 @@ $this->registerCssFile('/css/otchet.css');
 <section>
     <div class="container">
         <div class="block-flex">
-            <a href="header.html"> <img src="/images/logo.png"></a>
+            <a href="<?= Url::toRoute(['/'])?>"> <img src="/images/logo.png"></a>
         </div>
     </div>
 </section>
@@ -56,22 +59,6 @@ $this->registerCssFile('/css/otchet.css');
             <th>Дата</th>
             <th>Время</th>
         </tr>
-        <?if($ostatok !== null):?>
-                    <? foreach($ostatok as $ok):?>
-                        <tr>
-                            <td><?=$ok["id"]?></td>
-                            <td><?=$ok["postavshik"]?></td>
-                            <td><?=$ok["dogovor_nomer"]?> от <?=$ok["dogovor_date_ru"]?></td>
-                            <td><?=$ok["schet_factura_noemer"]?>  от <?=$ok["dates"]?></td>
-                            <td><?=$ok["tip"]?></td>
-                            <td><?=$ok["ves"]?></td>
-                            <td><?=$ok["format"]?></td>
-                            <td><?=$ok["dater"]?></td>
-                            <td><?=$ok["time"]?></td>
-
-                        </tr>
-                    <?  endforeach; ?>
-                <? endif;?>
                 <?if($rashod !== null):?>
                     <? foreach($rashod as $rh):?>
                         <tr>

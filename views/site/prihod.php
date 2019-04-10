@@ -8,7 +8,7 @@ PAsset::register($this);
 ?>
 
 <div class="navbar">
-  <a href="<?= Url::toRoute(['/'])?>"> <img src="/images/logo.png"></a>
+    <a href="<?= Url::toRoute(['/'])?>"> Главный</a>
     <a href="<?= Url::toRoute(['site/dogovor'])?>">Рег.дог</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.поставшика</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.клиента</a>
@@ -18,7 +18,7 @@ PAsset::register($this);
     <a href="">Склад ГП</a>
     <a href="">Склад допюсырья</a>
 </div>
-<form method="post" action="prihod">
+<form id="form"  name="myForm" onsubmit="return validateForm(event)" method="post" action="prihod">
 <div class="sidenav">
     <a href="#" id="about"  class="about">
      <div id="mySidenav">
@@ -48,15 +48,15 @@ PAsset::register($this);
 
         <div class="da2">
             <p>Счет-Фактура</p>
-            <input type="text" name="PostavshikSchetFaktura[schet_faktura_nomer]" placeholder="Фактура">
+            <input required type="text" name="PostavshikSchetFaktura[schet_faktura_nomer]" placeholder="Фактура">
         </div>
         <div class="da3">
             <p>Дата</p>
-            <input type="date" name="PostavshikSchetFaktura[schet_faktura_date]" placeholder="ДД/ММ/ГГ">
+            <input required type="date" name="PostavshikSchetFaktura[schet_faktura_date]" placeholder="ДД/ММ/ГГ">
         </div>
         <div class="da4">
             <p>Гос№ Автомашина</p>
-            <input type="text" name="PostavshikSchetFaktura[auto]" placeholder="Введите № автомашины">
+            <input required type="text" name="PostavshikSchetFaktura[auto]" placeholder="Введите № автомашины">
         </div>
     </div>
     <div id="skladItems" id class="col2">
@@ -85,3 +85,40 @@ PAsset::register($this);
 </div>
 </form>
 </div>
+<script type="text/javascript">
+    function validateForm(e) {
+
+
+    e.preventDefault();
+    localStorage.removeItem("myKey");
+        var form = document.getElementById("form");
+        var mfo_empty = false;
+        var name_empty = false;
+        var schet_empty = false; 
+        var tip = document.getElementsByName("SkladSirya[postavshik_schet_faktura_id][]");
+        var format = document.getElementsByName("SkladSirya[format][]");
+        var ves = document.getElementsByName("SkladSirya[ves][]");
+        
+        var id = document.getElementsByName("SkladSirya[postavshik_schet_faktura_id][]");
+
+        for(var key in format)
+        {
+            if(format[key].value == "" || ves[key].value == "" || tip[key].value == "")
+            {
+                if(!(format[key].value == "" && ves[key].value == "" && tip[key].value == ""))
+                {
+                 mfo_empty = true;
+                }
+            }
+        }
+        if(mfo_empty == true) {
+            alert("Заполните");
+            return false;
+                } 
+    else 
+    {
+        form.submit();
+    }
+    
+}
+</script>

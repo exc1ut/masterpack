@@ -1,9 +1,4 @@
-body
-{
-	margin: 0;
-    padding: 0;
-	background-image: url(fon.jpg.jpg);
-}
+
 .logo img{
    width: 30%;
    height: 30%;
@@ -173,8 +168,43 @@ body
   top: 80%;
   background-color: #4CAF50;
 }
+.mySidenav{
 
-
+}
+.prinyat{
+  border-radius: 4px;
+  opacity: .8;
+  background-color:red;
+  border:none;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  padding: 10px;
+  width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 10px 20px;
+}
+.prinyat span{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+.prinyat span:after{
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+.prinyat:hover span{
+  padding-right: 25px;
+}
+.prinyat:hover span:after{
+  opacity: 1;
+}
 
 
 

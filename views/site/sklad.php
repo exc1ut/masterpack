@@ -14,6 +14,7 @@ SkladAsset::register($this);
 
 
 <div class="navbar">
+    <a href="<?= Url::toRoute(['/'])?>">Главный</a>
     <a href="<?= Url::toRoute(['site/dogovor'])?>">Рег.дог</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.поставшика</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.клиента</a>
@@ -65,8 +66,8 @@ SkladAsset::register($this);
             <th>Номер дата договора</th>
             <th>Номер счет-фактуры</th>
             <th>Тип</th>
-            <th>Вес</th>
             <th>Формат</th>
+            <th>Вес</th>
             <th>Дата</th>
             <th>Время</th>
         </tr>
@@ -79,8 +80,8 @@ SkladAsset::register($this);
                             <td><?=$item["dogovor_nomer"]?> от <?=$item["dogovor_date_ru"]?></td>
                             <td><?=$item["schet_factura_noemer"]?> от <?=$item["dates"]?></td>
                             <td><?=$item["tip"]?></td>
-                            <td><?=$item["ves"]?></td>
                             <td><?=$item["format"]?></td>
+                            <td><?=$item["ves"]?></td>
                             <td><?=$item["dater"]?></td>
                             <td><?=$item["time"]?></td>
 

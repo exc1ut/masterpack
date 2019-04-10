@@ -17,7 +17,7 @@ DogovorAsset::register($this);
 
 
 <div class="navbar">
-   <a href="header.html"> <img src="/images/logo.png"></a>
+   <a href="<?= Url::toRoute(['/'])?>"> Главный</a>
     <a href="<?= Url::toRoute(['site/dogovor'])?>">Рег.дог</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.поставшика</a>
     <a href="<?= Url::toRoute(['site/registration'])?>">Рег.клиента</a>
@@ -27,7 +27,7 @@ DogovorAsset::register($this);
     <a href="">Склад ГП</a>
     <a href="">Склад допюсырья</a>
 </div>
-<form method="post" action="dogovor">
+<form id="form" class="form" name="myForm" onsubmit="return validateForm(event)" method="post" action="dogovor">
     <?=Html :: hiddenInput(\Yii :: $app->getRequest()->csrfParam, \Yii :: $app->getRequest()->getCsrfToken(), []);?>
 <div class="container">
     <div class="row">
@@ -35,9 +35,9 @@ DogovorAsset::register($this);
             <p>Имя</p>
             <?= Html::activeDropDownList($model, 'postavshik',$items) ?>
             <p>Договор №</p>
-            <input type="text" name="Dogovor[dogovor_nomer]">
+            <input required type="text" name="Dogovor[dogovor_nomer]">
             <p>Дата</p>
-            <input type="date" name="Dogovor[date]">
+            <input required type="date" name="Dogovor[date]">
             <p></p>
             <input type="button" value="Добавить товар" onclick="add('dateTable')"/>
             <button class="button" type="submit">
@@ -47,7 +47,7 @@ DogovorAsset::register($this);
                 <span>Назад</span>
             </button>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-9">
             <table class="columns" id="dateTable">
                 <tr>
                     <div class="main">
@@ -85,13 +85,13 @@ DogovorAsset::register($this);
                         <input type="text" name="DogovorTable[kratkoe_naimenovanie][]" style="width:80px;">
                     </td>
                     <td>
-                        <input type="text" name="DogovorTable[measure][]" style="width:80px;">
+                        <input  type="text" name="DogovorTable[measure][]" style="width:80px;">
                     </td>
                     <td>
-                        <input type="text" name="DogovorTable[cost1][]" style="width:80px;">
+                        <input  type="text" name="DogovorTable[cost1][]" style="width:80px;">
                     </td>
                     <td>
-                        <input type="text" name="DogovorTable[nds][]" style="width: 80px;">
+                        <input  type="text" name="DogovorTable[nds][]" style="width: 80px;">
                     </td>
                     <td>
                         <input type="text" name="DogovorTable[cost2][]" style="width: 80px;">
@@ -132,160 +132,47 @@ DogovorAsset::register($this);
         }
     }
 </script>
+<script type="text/javascript">
+     function validateForm(e) {
 
 
+    e.preventDefault();
+    localStorage.removeItem("myKey");
+        var form = document.getElementById("form");
+        var mfo_empty = false;
+        var name_empty = false;
+        var schet_empty = false; 
+        var tovar = document.getElementsByName("DogovorTable[tovar][]");
+        var kn = document.getElementsByName("DogovorTable[kratkoe_naimenovanie][]");
+        var measure = document.getElementsByName("DogovorTable[measure][]");
+        var cost1 = document.getElementsByName("DogovorTable[cost1][]");
+        var cost2 = document.getElementsByName("DogovorTable[cost2][]");
+        var nds = document.getElementsByName("DogovorTable[nds][]");
+        var usd1 = document.getElementsByName("DogovorTable[usd1][]");
+        var usd2 = document.getElementsByName("DogovorTable[usd2][]");
+        for(var key in tovar)
+        {
+            if(tovar[key].value == "" || kn[key].value == "" || measure[key].value == ""|| cost1[key].value == "" || nds[key].value == "" || cost2[key].value == "" || usd1[key].value == "" || usd2[key].value == "")
+            {
+                if(!(tovar[key].value == "" && kn[key].value == "" && measure[key].value == ""&& cost1[key].value == ""))
+                {
+                 if(nds[key].value == "" && cost2[key].value == "" && usd1[key].value == "" && usd2[key].value == "")   
+                 {
+                mfo_empty = true;
+                }
+                }
 
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<div class="container">-->
-<!--    <div class="navbar">-->
-<!--        <img src="/css/images/logo.png">-->
-<!--        <a href="index2.html">Рег.дог</a>-->
-<!--        <a href="index3.html">Рег.клиента</a>-->
-<!--        <a href="schet.html">Склад сырья</a>-->
-<!--        <a href="">Склад-1</a>-->
-<!--        <a href="">Склад-2</a>-->
-<!--        <a href="">Склад ГП</a>-->
-<!--        <a href="">Склад допюсырья</a>-->
-<!--    </div>-->
-<!--</div>-->
-<!--<section>-->
-<!--    <form method="post" action="dogovor">-->
-<!--        --><?//=Html :: hiddenInput(\Yii :: $app->getRequest()->csrfParam, \Yii :: $app->getRequest()->getCsrfToken(), []);?>
-<!--    <div class="col1">-->
-<!---->
-<!--        <div class="d-flex">-->
-<!--            <p> Имя </p>-->
-<!--            --><?//= Html::activeDropDownList($model, 'postavshik',$items) ?>
-<!--            <p> Договор №</p>-->
-<!--            <input type="text" name="Dogovor[dogovor_nomer]" placeholder="Договор №.">-->
-<!--            <p>Дата</p>-->
-<!--            <input type="date" name="Dogovor[date]">-->
-<!--            <p>Colums</p>-->
-<!--            <input type="number" id="inputValue" name="columns" placeholder="1" value="1"  style="width: 115px;">-->
-<!--            <button type="button" id="addColumns"><span> Create</span> </button>-->
-<!--        </div>-->
-<!--        <button type="submit" class="button">-->
-<!--            <span>Сохранить</span>-->
-<!--        </button>-->
-<!--        <button class="button">-->
-<!--            <span>Назад</span>-->
-<!--        </button>-->
-<!--    </div>-->
-<!--    <div class="col2" id="columnsDiv">-->
-<!--    </div>-->
-<!--    </form>-->
-<!--</section>-->
-<!---->
-<!---->
-<!--<script type="text/javascript">-->
-<!--    window.onload = function () {-->
-<!---->
-<!--        var buttonAddColumns = document.querySelector('#addColumns');-->
-<!--        var columnsDiv = document.querySelector('#columnsDiv');-->
-<!--        var counter = 0;-->
-<!--        tableCreate();-->
-<!---->
-<!--        buttonAddColumns.addEventListener("click", tableCreate);-->
-<!--        function tableCreate() {-->
-<!--            var columnsDiv = document.querySelector('#columnsDiv');-->
-<!--            columnsDiv.innerHTML = '';-->
-<!--            var inputValue = document.getElementsByName('columns')[0].value-->
-<!--            var body = document.getElementById('columnsDiv');-->
-<!--            var tbl = document.createElement('table');-->
-<!--            tbl.setAttribute('border', '1');-->
-<!--            var tbdy = document.createElement('tbody');-->
-<!--            var tr = document.createElement('tr');-->
-<!--            var th = document.createElement('th');-->
-<!--            th.appendChild(document.createTextNode('Наим. Товара'))-->
-<!--            tr.appendChild(th);-->
-<!--            var th = document.createElement('th');-->
-<!--            th.appendChild(document.createTextNode('Краткое наим'))-->
-<!--            tr.appendChild(th)-->
-<!--            var th = document.createElement('th');-->
-<!--            th.appendChild(document.createTextNode('Ед. изм'))-->
-<!--            tr.appendChild(th)-->
-<!--            var th = document.createElement('th');-->
-<!--            th.appendChild(document.createTextNode('Цена 1'))-->
-<!--            tr.appendChild(th)-->
-<!--            var th = document.createElement('th');-->
-<!--            th.appendChild(document.createTextNode('НДС'))-->
-<!--            tr.appendChild(th)-->
-<!--            var th = document.createElement('th');-->
-<!--            th.appendChild(document.createTextNode('Цена 2'))-->
-<!--            tr.appendChild(th)-->
-<!--            var th = document.createElement('th');-->
-<!--            th.appendChild(document.createTextNode('USD 1'))-->
-<!--            tr.appendChild(th)-->
-<!--            var th = document.createElement('th');-->
-<!--            th.appendChild(document.createTextNode('USD 2'))-->
-<!--            tr.appendChild(th)-->
-<!--            tbdy.appendChild(tr);-->
-<!--            for (var i = 0; i < inputValue; i++) {-->
-<!--                var tr = document.createElement('tr');-->
-<!--                        var td = document.createElement('td');-->
-<!--                        var input = document.createElement('input');-->
-<!--                        input.name = "DogovorTable[tovar][]";-->
-<!--                        input.setAttribute('style', 'width: 100px;');-->
-<!--                        td.appendChild(input);-->
-<!--                        tr.appendChild(td);-->
-<!--                var td = document.createElement('td');-->
-<!--                var input = document.createElement('input');-->
-<!--                input.name = "DogovorTable[kratkoe_naimenovanie][]"-->
-<!--                input.setAttribute('style', 'width: 100px;');-->
-<!--                td.appendChild(input);-->
-<!--                tr.appendChild(td)-->
-<!--                tbdy.appendChild(tr);-->
-<!--                var td = document.createElement('td');-->
-<!--                var input = document.createElement('input');-->
-<!--                input.name = "DogovorTable[measure][]";-->
-<!--                input.setAttribute('style', 'width: 100px;');-->
-<!--                td.appendChild(input);-->
-<!--                tr.appendChild(td)-->
-<!--                var td = document.createElement('td');-->
-<!--                var input = document.createElement('input');-->
-<!--                input.name = "DogovorTable[cost1][]";-->
-<!--                input.setAttribute('style', 'width: 100px;');-->
-<!--                td.appendChild(input);-->
-<!--                tr.appendChild(td)-->
-<!--                var td = document.createElement('td');-->
-<!--                var input = document.createElement('input');-->
-<!--                input.name = "DogovorTable[nds][]";-->
-<!--                input.setAttribute('style', 'width: 100px;');-->
-<!--                td.appendChild(input);-->
-<!--                tr.appendChild(td)-->
-<!--                var td = document.createElement('td');-->
-<!--                var input = document.createElement('input');-->
-<!--                input.name = "DogovorTable[cost2][]";-->
-<!--                input.setAttribute('style', 'width: 100px;');-->
-<!--                td.appendChild(input);-->
-<!--                tr.appendChild(td)-->
-<!--                var td = document.createElement('td');-->
-<!--                var input = document.createElement('input');-->
-<!--                input.name = "DogovorTable[usd1][]";-->
-<!--                input.setAttribute('style', 'width: 100px;');-->
-<!--                td.appendChild(input);-->
-<!--                tr.appendChild(td)-->
-<!--                var td = document.createElement('td');-->
-<!--                var input = document.createElement('input');-->
-<!--                input.name = "DogovorTable[usd2][]";-->
-<!--                input.setAttribute('style', 'width: 100px;');-->
-<!--                td.appendChild(input);-->
-<!--                tr.appendChild(td)-->
-<!--            }-->
-<!--            tbl.appendChild(tbdy);-->
-<!--            body.appendChild(tbl)-->
-<!--        }-->
-<!---->
-<!--    }-->
-<!--</script>-->
+               
+            }
+        }
+        if(mfo_empty == true) {
+            alert("Заполните");
+            return false;
+                } 
+    else 
+    {
+        form.submit();
+    }
+    
+}
+</script>
