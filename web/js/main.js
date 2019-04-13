@@ -800,7 +800,7 @@ $('#btnget').click(function(){
 function def(e,tr)
     {
         e.preventDefault();
-
+        request[tr] ="";
         var url = 'http://myproject/site/getallitems';
     console.log(url);
     fetch(url).then(res=>res.json()).then(json => {
