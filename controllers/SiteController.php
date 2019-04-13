@@ -380,7 +380,7 @@ class SiteController extends Controller
                 foreach($dogovor->tip as $tip)
                 {
                     $items["schet"][] = $tip->schet_faktura_nomer;
-                    foreach($tip->sklad as $sklad)
+                    foreach($tip->ostatok as $sklad)
                     {
                         $items["id"][] = $sklad->id;
                         $items["ves"][] = $sklad->ves;
