@@ -352,15 +352,15 @@ class SiteController extends Controller
         $dogovor_model = new Dogovor();
         $dogovor =  ArrayHelper::map($dogovor_model->find()->all(), 'id', 'dogovor_nomer');
         $arr = [
-            'clients'=>$clients,
-            'tip'=>$tip,
-            'id'=>$id,
-            'ves'=>$ves,
-            'format'=>$format,
-            'date'=>$date,
-            'time'=>$time,
-            'dogovor'=>$dogovor,
-            'schet'=>$schet,
+            'clients'=>array_unique($clients),
+            'tip'=>array_unique($tip),
+            'id'=>array_unique($id),
+            'ves'=>array_unique($ves),
+            'format'=>array_unique($format),
+            'date'=>array_unique($date),
+            'time'=>array_unique($time),
+            'dogovor'=>array_unique($dogovor),
+            'schet'=>array_unique($schet),
         ];
        return json_encode($arr, true);
     }
