@@ -51,7 +51,7 @@ $this->registerCssFile('/css/prixod.css');
 
         for(var key in id)
         {
-            if(id[key].value == "")
+            if(id[key].value == "" || id[key].value == "Выбрать")
             {
                  mfo_empty = true;
             }
