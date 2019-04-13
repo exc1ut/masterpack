@@ -406,7 +406,7 @@ class SiteController extends Controller
                 foreach($tips as $tip)
                 {
                     $dogovor_items["schet"][] = $tip->schet_faktura_nomer;
-                    foreach($tip->sklad as $sklad)
+                    foreach($tip->ostatok as $sklad)
                     {
                         $dogovor_items["ves"][] = $sklad->ves;
                         $dogovor_items["id"][] = $sklad->id;
@@ -428,7 +428,7 @@ class SiteController extends Controller
             $schet_client= $schets->dogovor->client;
             $schet_items["client_name"][] = $schet_client->name;
             $schet_items["dogovors"][] = $schet_dogovor->dogovor_nomer;
-            $sklads = $schets->sklad;
+            $sklads = $schets->ostatok;
             $schet_items["schet"][] = $schets->schet_faktura_nomer;
                 foreach($sklads as $sklad)
                 {
@@ -443,7 +443,7 @@ class SiteController extends Controller
             $arrays[] = $schet_items;
         }
         if($id !== 0 || $tip_id!==0 || $format!==0 || $ves!==0 || $date!==0 ||$time!==0) {
-            $sklad_id_model  = new SkladSirya();
+            $sklad_id_model  = new Ostatok();
             $sklad_id_tip = $sklad_id_model->find()->andWhere(['and',
             ($id!==0)?['id'=>$id]:'',
            ($tip_id!==0)?['kratkoe_naimenovanie'=>$tip_id]:'',
