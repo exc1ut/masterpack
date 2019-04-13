@@ -146,7 +146,7 @@ function addRow()
         {
             var option = document.createElement('option');
             option.text = json.id[key];
-            option.value = key;
+            option.value = json.id[key];
             select.appendChild(option);
         }
         td.appendChild(select);
@@ -164,7 +164,7 @@ function addRow()
         {
             var option = document.createElement('option');
             option.text = json.clients[key];
-            option.value = key;
+            option.value = json.clients[key];
             select.appendChild(option);
         }
         td.appendChild(select);
@@ -182,7 +182,7 @@ function addRow()
         {
             var option = document.createElement('option');
             option.text = json.dogovor[key];
-            option.value = key;
+            option.value = json.dogovor[key];
             select.appendChild(option);
         }
         td.appendChild(select);
@@ -199,7 +199,7 @@ function addRow()
         {
             var option = document.createElement('option');
             option.text = json.schet[key];
-            option.value = key;
+            option.value = json.schet[key];
             select.appendChild(option);
         }
         td.appendChild(select);
@@ -216,7 +216,7 @@ function addRow()
         {
             var option = document.createElement('option');
             option.text = json.tip[key];
-            option.value = key;
+            option.value =  json.tip[key];
             select.appendChild(option);
         }
         td.appendChild(select);
@@ -233,7 +233,7 @@ function addRow()
         {
             var option = document.createElement('option');
             option.text = json.ves[key];
-            option.value = key;
+            option.value =  json.ves[key];
             select.appendChild(option);
         }
         td.appendChild(select);
@@ -250,7 +250,7 @@ function addRow()
         {
             var option = document.createElement('option');
             option.text = json.format[key];
-            option.value = key;
+            option.value = json.format[key];
             select.appendChild(option);
         }
         td.appendChild(select);
@@ -267,7 +267,7 @@ function addRow()
         {
             var option = document.createElement('option');
             option.text = json.date[key];
-            option.value = key;
+            option.value =  json.date[key];
             select.appendChild(option);
         }
         td.appendChild(select);
@@ -284,10 +284,17 @@ function addRow()
         {
             var option = document.createElement('option');
             option.text = json.time[key];
-            option.value = key;
+            option.value = json.time[key];
             select.appendChild(option);
         }
         td.appendChild(select);
+        tr.appendChild(td);
+
+        var td = document.createElement('td');
+        var button = document.createElement('button');
+        button.setAttribute('onclick','def(event,'+i+');');
+        button.innerHTML = "Сброс";
+        td.appendChild(button);
         tr.appendChild(td);
 
         tbdy.appendChild(tr);
@@ -297,6 +304,10 @@ function addRow()
     table.appendChild(tbdy);
 })
 }
+
+
+
+
     function loadSortedItems(e,tr) {
     var dataName = e.getAttribute('data-name');
     request[tr] ? request[tr] += dataName + '=' + e.value + '&' : request[tr] = dataName + '=' + e.value + '&';
@@ -314,11 +325,19 @@ function addRow()
     select.setAttribute('data-name','id');
     select.setAttribute('name','id[]');
     select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+    var count = Object.keys(json.schet);
+        var numb = count.length;
+        if(numb > 1)
+        {
+            var option = document.createElement('option');
+            option.text = "Выбрать";
+            select.appendChild(option)
+        }
     for(var key in json.id)
     {
         var option = document.createElement('option');
         option.text = json.id[key];
-        option.value = key;
+        option.value =  json.id[key];
         select.appendChild(option);
     }
     if(dataName !== select.getAttribute('data-name'))
@@ -337,11 +356,20 @@ function addRow()
     var select = document.createElement('select');
     select.setAttribute('data-name','client_id');
     select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+    var count = Object.keys(json.client_name);
+    var numb = count.length;
+    console.log()
+    if(numb > 1)
+    {
+        var option = document.createElement('option');
+        option.value = "Выбрать";
+        select.appendChild(option)
+    }
     for(var key in json.client_name)
     {
         var option = document.createElement('option');
         option.text = json.client_name[key];
-        option.value = key;
+        option.value = json.client_name[key];
         select.appendChild(option);
         console.log(key);
     }
@@ -362,11 +390,19 @@ function addRow()
     var select = document.createElement('select');
     select.setAttribute('data-name','dogovor_id');
     select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var count = Object.keys(json.dogovors);
+        var numb = count.length;
+        if(numb > 1)
+        {
+            var option = document.createElement('option');
+            option.text = "Выбрать";
+            select.appendChild(option)
+        }
     for(var key in json.dogovors)
     {
         var option = document.createElement('option');
         option.text = json.dogovors[key];
-        option.value = key;
+        option.value = json.dogovors[key];
         select.appendChild(option);
     }
     if(dataName !== select.getAttribute('data-name'))
@@ -383,11 +419,19 @@ function addRow()
     var select = document.createElement('select');
     select.setAttribute('data-name','schet');
     select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var count = Object.keys(json.schet);
+        var numb = count.length;
+        if(numb > 1)
+        {
+            var option = document.createElement('option');
+            option.text = "Выбрать";
+            select.appendChild(option)
+        }
     for(var key in json.schet)
     {
         var option = document.createElement('option');
         option.text = json.schet[key];
-        option.value = key;
+        option.value = json.schet[key];
         select.appendChild(option);
     }
     if(dataName !== select.getAttribute('data-name'))
@@ -405,11 +449,19 @@ function addRow()
     var select = document.createElement('select');
     select.setAttribute('data-name','tip_id');
     select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var count = Object.keys(json.tip);
+        var numb = count.length;
+        if(numb > 1)
+        {
+            var option = document.createElement('option');
+            option.text = "Выбрать";
+            select.appendChild(option)
+        }
     for(var key in json.tip)
     {
         var option = document.createElement('option');
         option.text = json.tip[key];
-        option.value = key;
+        option.value = json.tip[key];
         select.appendChild(option);
     }
     if(dataName !== select.getAttribute('data-name'))
@@ -428,11 +480,19 @@ function addRow()
         var select = document.createElement('select');
         select.setAttribute('data-name','ves');
         select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var count = Object.keys(json.ves);
+        var numb = count.length;
+        if(numb > 1)
+        {
+            var option = document.createElement('option');
+            option.text = "Выбрать";
+            select.appendChild(option)
+        }
         for(var key in json.ves)
         {
             var option = document.createElement('option');
             option.text = json.ves[key];
-            option.value = key;
+            option.value = json.ves[key];
             select.appendChild(option);
         }
         if(dataName !== select.getAttribute('data-name'))
@@ -450,11 +510,19 @@ function addRow()
     var select = document.createElement('select');
     select.setAttribute('data-name','format');
     select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var count = Object.keys(json.format);
+        var numb = count.length;
+        if(numb > 1)
+        {
+            var option = document.createElement('option');
+            option.text = "Выбрать";
+            select.appendChild(option)
+        }
     for(var key in json.format)
     {
         var option = document.createElement('option');
         option.text = json.format[key];
-        option.value = key;
+        option.value = json.format[key];
         select.appendChild(option);
     }
     if(dataName !== select.getAttribute('data-name'))
@@ -473,11 +541,19 @@ function addRow()
     var select = document.createElement('select');
     select.setAttribute('data-name','date');
     select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var count = Object.keys(json.date);
+        var numb = count.length;
+        if(numb > 1)
+        {
+            var option = document.createElement('option');
+            option.text = "Выбрать";
+            select.appendChild(option)
+        }
     for(var key in json.date)
     {
         var option = document.createElement('option');
         option.text = json.date[key];
-        option.value = key;
+        option.value =  json.date[key];
         select.appendChild(option);
     }
     if(dataName !== select.getAttribute('data-name'))
@@ -494,11 +570,19 @@ function addRow()
     var select = document.createElement('select');
     select.setAttribute('data-name','time');
     select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var count = Object.keys(json.time);
+        var numb = count.length;
+        if(numb > 1)
+        {
+            var option = document.createElement('option');
+            option.text = "Выбрать";
+            select.appendChild(option)
+        }
     for(var key in json.time)
     {
         var option = document.createElement('option');
         option.text = json.time[key];
-        option.value = key;
+        option.value = json.time[key];
         select.appendChild(option);
     }
     if(dataName !== select.getAttribute('data-name'))
@@ -510,6 +594,13 @@ function addRow()
         td.appendChild(e);
     }
     row[0].appendChild(td);
+
+    var td = document.createElement('td');
+        var button = document.createElement('button');
+        button.setAttribute('onclick','def(event,'+tr+');');
+        button.innerHTML = "Сброс";
+        td.appendChild(button);
+        row[0].appendChild(td);
 
         console.log(row);
     });}
@@ -706,3 +797,182 @@ $('#btnget').click(function(){
 
 
 
+function def(e,tr)
+    {
+        e.preventDefault();
+
+        var url = 'http://myproject/site/getallitems';
+    console.log(url);
+    fetch(url).then(res=>res.json()).then(json => {
+        console.log(json)
+        console.log(request);
+        var row = $("[data-target = "+ tr +"]");
+        row[0].innerHTML = "";
+        var td = document.createElement('td');
+        var select = document.createElement('select');
+        select.setAttribute('data-name','id');
+        select.setAttribute('name','id[]');
+        select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var option = document.createElement('option');
+        option.text = "select";
+        select.appendChild(option);
+        for(var key in json.id)
+        {
+            var option = document.createElement('option');
+            option.text = json.id[key];
+            option.value = json.id[key];
+            select.appendChild(option);
+        }
+        td.appendChild(select);
+        row[0].appendChild(td);
+
+        var td = document.createElement('td');
+        var select = document.createElement('select');
+        select.setAttribute('data-name','client_id');
+        select.setAttribute('name','postavshik_schet_faktura_id[]');
+        select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var option = document.createElement('option');
+        option.text = "select";
+        select.appendChild(option);
+        for(var key in json.clients)
+        {
+            var option = document.createElement('option');
+            option.text = json.clients[key];
+            option.value = json.clients[key];
+            select.appendChild(option);
+        }
+        td.appendChild(select);
+        row[0].appendChild(td);
+
+        var td = document.createElement('td');
+        var select = document.createElement('select');
+        select.setAttribute('data-name','dogovor_id');
+        select.setAttribute('name','kratkoe_naimenovanie[]');
+        select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var option = document.createElement('option');
+        option.text = "select";
+        select.appendChild(option);
+        for(var key in json.dogovor)
+        {
+            var option = document.createElement('option');
+            option.text = json.dogovor[key];
+            option.value = json.dogovor[key];
+            select.appendChild(option);
+        }
+        td.appendChild(select);
+        row[0].appendChild(td);
+
+        var td = document.createElement('td');
+        var select = document.createElement('select');
+        select.setAttribute('data-name','schet');
+        select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var option = document.createElement('option');
+        option.text = "select";
+        select.appendChild(option);
+        for(var key in json.schet)
+        {
+            var option = document.createElement('option');
+            option.text = json.schet[key];
+            option.value = json.schet[key];
+            select.appendChild(option);
+        }
+        td.appendChild(select);
+        row[0].appendChild(td);
+
+        var td = document.createElement('td');
+        var select = document.createElement('select');
+        select.setAttribute('data-name','tip_id');
+        select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var option = document.createElement('option');
+        option.text = "select";
+        select.appendChild(option);
+        for(var key in json.tip)
+        {
+            var option = document.createElement('option');
+            option.text = json.tip[key];
+            option.value =  json.tip[key];
+            select.appendChild(option);
+        }
+        td.appendChild(select);
+        row[0].appendChild(td);
+
+        var td = document.createElement('td');
+        var select = document.createElement('select');
+        select.setAttribute('data-name','ves');
+        select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var option = document.createElement('option');
+        option.text = "select";
+        select.appendChild(option);
+        for(var key in json.ves)
+        {
+            var option = document.createElement('option');
+            option.text = json.ves[key];
+            option.value =  json.ves[key];
+            select.appendChild(option);
+        }
+        td.appendChild(select);
+        row[0].appendChild(td);
+
+        var td = document.createElement('td');
+        var select = document.createElement('select');
+        select.setAttribute('data-name','format');
+        select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var option = document.createElement('option');
+        option.text = "select";
+        select.appendChild(option);
+        for(var key in json.format)
+        {
+            var option = document.createElement('option');
+            option.text = json.format[key];
+            option.value = json.format[key];
+            select.appendChild(option);
+        }
+        td.appendChild(select);
+        row[0].appendChild(td);
+
+        var td = document.createElement('td');
+        var select = document.createElement('select');
+        select.setAttribute('data-name','date');
+        select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var option = document.createElement('option');
+        option.text = "select";
+        select.appendChild(option);
+        for(var key in json.date)
+        {
+            var option = document.createElement('option');
+            option.text = json.date[key];
+            option.value =  json.date[key];
+            select.appendChild(option);
+        }
+        td.appendChild(select);
+        row[0].appendChild(td);
+
+        var td = document.createElement('td');
+        var select = document.createElement('select');
+        select.setAttribute('data-name','time');
+        select.setAttribute('onchange','loadSortedItems(this,'+tr+');');
+        var option = document.createElement('option');
+        option.text = "select";
+        select.appendChild(option);
+        for(var key in json.time)
+        {
+            var option = document.createElement('option');
+            option.text = json.time[key];
+            option.value = json.time[key];
+            select.appendChild(option);
+        }
+        td.appendChild(select);
+        row[0].appendChild(td);
+
+        var td = document.createElement('td');
+        var button = document.createElement('button');
+        button.setAttribute('onclick','default(event,this,'+tr+');');
+        button.innerHTML = "Сброс";
+        td.appendChild(button);
+        row[0].appendChild(td);
+
+        
+    })
+    return false;
+
+    }

@@ -247,6 +247,7 @@ class SiteController extends Controller
         Yii::$app->formatter->locale = 'ru-RU';
         $sklad_sirya = new SkladSirya();
         $sklad_sirya = $sklad_sirya->find()->all();
+        krsort($sklad_sirya);
         foreach($sklad_sirya as $sklad)
         {
             Yii::$app->formatter->locale = 'ru-RU';
@@ -307,6 +308,7 @@ class SiteController extends Controller
             for($i=0;$i<$count;$i++)
             {
                 $sirya = new SkladSirya();
+                $ostatok = new Ostatok();
                 $dogovor = new DogovorTable();
                 $sirya->postavshik_schet_faktura_id = $schet->id;
                 $sirya->format = $_POST["SkladSirya"]["format"][$i];
@@ -316,9 +318,19 @@ class SiteController extends Controller
                 $dg = $dogovor->findOne($_POST["SkladSirya"]["postavshik_schet_faktura_id"][$i]);
                 $sirya->kratkoe_naimenovanie = $dg["kratkoe_naimenovanie"];
                 $sirya->time = $time;
+
+                $ostatok->postavshik_schet_faktura_id = $schet->id;
+                $ostatok->format = $_POST["SkladSirya"]["format"][$i];
+                $ostatok->ves = $_POST["SkladSirya"]["ves"][$i];
+                $ostatok->date = $date;
+                $ostatok->is_come = 1;
+                $dg = $dogovor->findOne($_POST["SkladSirya"]["postavshik_schet_faktura_id"][$i]);
+                $ostatok->kratkoe_naimenovanie = $dg["kratkoe_naimenovanie"];
+                $ostatok->time = $time;
                 if($_POST["SkladSirya"]["postavshik_schet_faktura_id"][$i]!== "")
                 {
                     $sirya->save() or print_r($sirya->errors);
+                    $ostatok->save() or print_r($sirya->errors);
                 }
             }
         }
@@ -333,7 +345,7 @@ class SiteController extends Controller
     public function actionRashod()
     {
 
-        $sklad_model = new SkladSirya();
+        $sklad_model = new Ostatok();
         if($_POST)
         {
             foreach($_POST["id"] as $key=>$id)
@@ -398,25 +410,28 @@ class SiteController extends Controller
         if($client_id !== 0) {
 
             $client_model  = new ClientRegistration();
-            $clients = $client_model->findOne($client_id);
+            $client = $client_model->find()->where(["name"=>$client_id])->all();
+            foreach($client as $clients)
+            {
             $dogovors = $clients->dogovors;
-            $items["client_name"][$clients->id] = $clients->name;
+            $items["client_name"][] = $clients->name;
             foreach($dogovors as $dogovor)
             {
-                $items["dogovors"][$dogovor->id] = $dogovor->dogovor_nomer  ;
+                $items["dogovors"][] = $dogovor->dogovor_nomer  ;
                 foreach($dogovor->tip as $tip)
                 {
-                    $items["schet"][$tip->id] = $tip->schet_faktura_nomer;
+                    $items["schet"][] = $tip->schet_faktura_nomer;
                     foreach($tip->sklad as $sklad)
                     {
-                        $items["id"][$sklad->id] = $sklad->id;
-                        $items["ves"][$sklad->id] = $sklad->ves;
-                        $items["tip"][$sklad->id] = $sklad->kratkoe_naimenovanie;
-                        $items["format"][$sklad->id] = $sklad->format;
-                        $items["date"][$sklad->id] = $sklad->date;
-                        $items["time"][$sklad->id] = $sklad->time;
+                        $items["id"][] = $sklad->id;
+                        $items["ves"][] = $sklad->ves;
+                        $items["tip"][] = $sklad->kratkoe_naimenovanie;
+                        $items["format"][] = $sklad->format;
+                        $items["date"][] = $sklad->date;
+                        $items["time"][] = $sklad->time;
                     }
                 }
+            }
             }
             $arrays[] = $items;
 
@@ -424,175 +439,93 @@ class SiteController extends Controller
         }
         if($dogovor_id !== 0) {
             $dogovor_model  = new Dogovor();
-            $dogovors = $dogovor_model->findOne($dogovor_id);
+            $dogovor = $dogovor_model->find()->where(["dogovor_nomer"=>$dogovor_id])->all();
+            foreach($dogovor as $dogovors)
+            {
             $tips = $dogovors->tip;
 
             $dogovor_client = $dogovors->client;
 
-            $dogovor_items["client_name"][$dogovor_client->id] = $dogovor_client->name;
-            $dogovor_items["dogovors"][$dogovors->id] = $dogovors->dogovor_nomer;
+            $dogovor_items["client_name"][] = $dogovor_client->name;
+            $dogovor_items["dogovors"][] = $dogovors->dogovor_nomer;
 
                 foreach($tips as $tip)
                 {
-                    $dogovor_items["schet"][$tip->id] = $tip->schet_faktura_nomer;
+                    $dogovor_items["schet"][] = $tip->schet_faktura_nomer;
                     foreach($tip->sklad as $sklad)
                     {
 
-                        $dogovor_items["ves"][$sklad->id] = $sklad->ves;
-                        $dogovor_items["id"][$sklad->id] = $sklad->id;
-                        $dogovor_items["tip"][$sklad->id] = $sklad->kratkoe_naimenovanie;
-                        $dogovor_items["format"][$sklad->id] = $sklad->format;
-                        $dogovor_items["date"][$sklad->id] = $sklad->date;
-                        $dogovor_items["time"][$sklad->id] = $sklad->time;
+                        $dogovor_items["ves"][] = $sklad->ves;
+                        $dogovor_items["id"][] = $sklad->id;
+                        $dogovor_items["tip"][] = $sklad->kratkoe_naimenovanie;
+                        $dogovor_items["format"][] = $sklad->format;
+                        $dogovor_items["date"][] = $sklad->date;
+                        $dogovor_items["time"][] = $sklad->time;
                     }
                 }
+            }
                 $arrays[] = $dogovor_items;
             }
 
         if($schet !== 0) {
             $schet_model  = new PostavshikSchetFaktura();
-            $schets = $schet_model->findOne($schet);
+            $schet = $schet_model->find()->where(["schet_faktura_nomer"=>$schet])->all();
 
 
+            foreach($schet as $schets)
+            {
             $schet_dogovor = $schets->dogovor;
             $schet_client= $schets->dogovor->client;
 
-            $schet_items["client_name"][$schet_client->id] = $schet_client->name;
-            $schet_items["dogovors"][$schet_dogovor->id] = $schet_dogovor->dogovor_nomer;
+            $schet_items["client_name"][] = $schet_client->name;
+            $schet_items["dogovors"][] = $schet_dogovor->dogovor_nomer;
 
             $sklads = $schets->sklad;
-            $schet_items["schet"][$schets->id] = $schets->schet_faktura_nomer;
+            $schet_items["schet"][] = $schets->schet_faktura_nomer;
 
                 foreach($sklads as $sklad)
                 {
 
-                    $schet_items["ves"][$sklad->id] = $sklad->ves;
-                    $schet_items["id"][$sklad->id] = $sklad->id;
-                    $schet_items["tip"][$sklad->id] = $sklad->kratkoe_naimenovanie;
-                    $schet_items["format"][$sklad->id] = $sklad->format;
-                    $schet_items["date"][$sklad->id] = $sklad->date;
-                    $schet_items["time"][$sklad->id] = $sklad->time;
+                    $schet_items["ves"][] = $sklad->ves;
+                    $schet_items["id"][] = $sklad->id;
+                    $schet_items["tip"][] = $sklad->kratkoe_naimenovanie;
+                    $schet_items["format"][] = $sklad->format;
+                    $schet_items["date"][] = $sklad->date;
+                    $schet_items["time"][] = $sklad->time;
                 }
+            }
             $arrays[] = $schet_items;
         }
-
-        if($tip_id !== 0) {
-            $sklad_model  = new SkladSirya();
-            $sklad_tips = $sklad_model->findOne($tip_id);
-            $tip_schet = $sklad_tips->schetid;
-            $tip_client = $tip_schet->dogovor->client->name;
-            $tip_dogovor = $tip_schet->dogovor->dogovor_nomer;
-            $tip_schet_nomer = $tip_schet->schet_faktura_nomer;
-            $tip_items["client_name"][$tip_schet->dogovor->client->id] = $tip_client;
-            $tip_items["dogovors"][$tip_schet->dogovor->id] = $tip_dogovor;
-            $tip_items["id"][$sklad_tips->id] = $sklad_tips->id;
-            $tip_items["schet"][$tip_schet->id] = $tip_schet_nomer;
-            $tip_items["ves"][$sklad_tips->id] = $sklad_tips->ves;
-            $tip_items["tip"][$sklad_tips->id] = $sklad_tips->kratkoe_naimenovanie;
-            $tip_items["format"][$sklad_tips->id] = $sklad_tips->format;
-            $tip_items["date"][$sklad_tips->id] = $sklad_tips->date;
-            $tip_items["time"][$sklad_tips->id] = $sklad_tips->time;
-
-
-            $arrays[] = $tip_items;
-        }
-        if($id !== 0) {
+        if($id !== 0 || $tip_id!==0 || $format!==0 || $ves!==0 || $date!==0 ||$time!==0) {
             $sklad_id_model  = new SkladSirya();
-            $sklad_id_tips = $sklad_id_model->findOne($id);
+
+            $sklad_id_tip = $sklad_id_model->find()->andWhere(['and',
+            ($id!==0)?['id'=>$id]:'',
+           ($tip_id!==0)?['kratkoe_naimenovanie'=>$tip_id]:'',
+           ($format!==0)?['format'=>$format]:'',
+           ($ves!==0)?['ves'=>$ves]:'',
+           ($date!==0)?['date'=>$date]:'',
+           ($time!==0)?['time'=>$time]:'',
+       ])->all();
+            foreach($sklad_id_tip as $sklad_id_tips)
+            {
             $sklad_id_tips_schet = $sklad_id_tips->schetid;
             $tip_client = $sklad_id_tips_schet->dogovor->client->name;
             $tip_dogovor = $sklad_id_tips_schet->dogovor->dogovor_nomer;
             $id_schet_nomer = $sklad_id_tips_schet->schet_faktura_nomer;
-            $id_items["client_name"][$sklad_id_tips_schet->dogovor->client->id] = $tip_client;
-            $id_items["dogovors"][$sklad_id_tips_schet->dogovor->id] = $tip_dogovor;
-            $id_items["id"][$sklad_id_tips->id] = $sklad_id_tips->id;
-            $id_items["schet"][$sklad_id_tips_schet->id] = $id_schet_nomer;
-            $id_items["ves"][$sklad_id_tips->id] = $sklad_id_tips->ves;
-            $id_items["tip"][$sklad_id_tips->id] = $sklad_id_tips->kratkoe_naimenovanie;
-            $id_items["format"][$sklad_id_tips->id] = $sklad_id_tips->format;
-            $id_items["date"][$sklad_id_tips->id] = $sklad_id_tips->date;
-            $id_items["time"][$sklad_id_tips->id] = $sklad_id_tips->time;
-
-
+            $id_items["client_name"][] = $tip_client;
+            $id_items["dogovors"][] = $tip_dogovor;
+            $id_items["id"][] = $sklad_id_tips->id;
+            $id_items["schet"][] = $id_schet_nomer;
+            $id_items["ves"][] = $sklad_id_tips->ves;
+            $id_items["tip"][] = $sklad_id_tips->kratkoe_naimenovanie;
+            $id_items["format"][] = $sklad_id_tips->format;
+            $id_items["date"][] = $sklad_id_tips->date;
+            $id_items["time"][] = $sklad_id_tips->time;
+            
+            }
             $arrays[] = $id_items;
-        }
-        if($ves !== 0) {
-            $ves_model  = new SkladSirya();
-            $sklad_ves = $ves_model->findOne($ves);
-            $sklad_ves_schet = $sklad_ves->schetid;
-            $ves_client = $sklad_ves_schet->dogovor->client->name;
-            $ves_dogovor = $sklad_ves_schet->dogovor->dogovor_nomer;
-            $ves_schet = $sklad_ves_schet->schet_faktura_nomer;
-            $ves_items["client_name"][$sklad_ves_schet->dogovor->client->id] = $ves_client;
-            $ves_items["dogovors"][$sklad_ves_schet->dogovor->id] = $ves_dogovor;
-            $ves_items["id"][$sklad_ves->id] = $sklad_ves->id;
-            $ves_items["schet"][$sklad_ves_schet->id] = $ves_schet;
-            $ves_items["ves"][$sklad_ves->id] = $sklad_ves->ves;
-            $ves_items["tip"][$sklad_ves->id] = $sklad_ves->kratkoe_naimenovanie;
-            $ves_items["format"][$sklad_ves->id] = $sklad_ves->format;
-            $ves_items["date"][$sklad_ves->id] = $sklad_ves->date;
-            $ves_items["time"][$sklad_ves->id] = $sklad_ves->time;
-
-
-            $arrays[] = $ves_items;
-        }
-        if($date !== 0) {
-            $date_model  = new SkladSirya();
-            $sklad_date = $date_model->findOne($date);
-            $sklad_date_schet = $sklad_date->schetid;
-            $date_client = $sklad_date_schet->dogovor->client->name;
-            $date_dogovor = $sklad_date_schet->dogovor->dogovor_nomer;
-            $date_schet = $sklad_date_schet->schet_faktura_nomer;
-            $date_items["client_name"][$sklad_date_schet->dogovor->client->id] = $date_client;
-            $date_items["dogovors"][$sklad_date_schet->dogovor->id] = $date_dogovor;
-            $date_items["id"][$sklad_date->id] = $sklad_date->id;
-            $date_items["schet"][$sklad_date_schet->id] = $date_schet;
-            $date_items["ves"][$sklad_date->id] = $sklad_date->ves;
-            $date_items["tip"][$sklad_date->id] = $sklad_date->kratkoe_naimenovanie;
-            $date_items["format"][$sklad_date->id] = $sklad_date->format;
-            $date_items["date"][$sklad_date->id] = $sklad_date->date;
-            $date_items["time"][$sklad_date->id] = $sklad_date->time;
-
-
-            $arrays[] = $date_items;
-        }
-        if($format !== 0) {
-            $format_model  = new SkladSirya();
-            $sklad_format = $format_model->findOne($format);
-            $sklad_format_schet = $sklad_format->schetid;
-            $format_client = $sklad_format_schet->dogovor->client->name;
-            $format_dogovor = $sklad_format_schet->dogovor->dogovor_nomer;
-            $format_schet = $sklad_format_schet->schet_faktura_nomer;
-            $format_items["client_name"][$sklad_format_schet->dogovor->client->id] = $format_client;
-            $format_items["dogovors"][$sklad_format_schet->dogovor->id] = $format_dogovor;
-            $format_items["id"][$sklad_format->id] = $sklad_format->id;
-            $format_items["schet"][$sklad_format_schet->id] = $format_schet;
-            $format_items["ves"][$sklad_format->id] = $sklad_format->ves;
-            $format_items["tip"][$sklad_format->id] = $sklad_format->kratkoe_naimenovanie;
-            $format_items["format"][$sklad_format->id] = $sklad_format->format;
-            $format_items["date"][$sklad_format->id] = $sklad_format->date;
-            $format_items["time"][$sklad_format->id] = $sklad_format->time;
-            $arrays[] = $format_items;
-        }
-        if($time !== 0) {
-            $time_model  = new SkladSirya();
-            $sklad_time = $time_model->findOne($time);
-            $sklad_time_schet = $sklad_time->schetid;
-            $time_client = $sklad_time_schet->dogovor->client->name;
-            $time_dogovor = $sklad_time_schet->dogovor->dogovor_nomer;
-            $time_schet = $sklad_time_schet->schet_faktura_nomer;
-            $time_items["client_name"][$sklad_time_schet->dogovor->client->id] = $time_client;
-            $time_items["dogovors"][$sklad_time_schet->dogovor->id] = $time_dogovor;
-            $time_items["id"][$sklad_time->id] = $sklad_time->id;
-            $time_items["schet"][$sklad_time_schet->id] = $time_schet;
-            $time_items["ves"][$sklad_time->id] = $sklad_time->ves;
-            $time_items["tip"][$sklad_time->id] = $sklad_time->kratkoe_naimenovanie;
-            $time_items["format"][$sklad_time->id] = $sklad_time->format;
-            $time_items["date"][$sklad_time->id] = $sklad_time->date;
-            $time_items["time"][$sklad_time->id] = $sklad_time->time;
-            $arrays[] = $time_items;
-        }
-
+         }
 
         $sorted = [];
         foreach($arrays as $array)
@@ -600,31 +533,31 @@ class SiteController extends Controller
             $sorted==null&&$sorted=$array;
 
             if(count($sorted["client_name"])>=count($array["client_name"])) {
-                $sorted["client_name"] =$array["client_name"] ;
+                $sorted["client_name"] =($array["client_name"]!==null)?array_unique($array["client_name"]):'';
             }
             if(count($sorted["id"])>=count($array["id"])) {
-                $sorted["id"] =$array["id"] ;
+                $sorted["id"] =($array["id"]!==null)?array_unique($array["id"]):'';
             }
             if(count($sorted["dogovors"])>=count($array["dogovors"])) {
-                $sorted["dogovors"] =$array["dogovors"] ;
+                $sorted["dogovors"] = ($array["dogovors"]!==null)?array_unique($array["dogovors"]):'';
             }
             if(count($sorted["schet"])>=count($array["schet"])) {
-                $sorted["schet"] =$array["schet"] ;
+                $sorted["schet"] =($array["schet"]!==null)?array_unique($array["schet"]):'';
             }
             if(count($sorted["ves"])>=count($array["ves"])) {
-                $sorted["ves"] =$array["ves"] ;
+                $sorted["ves"] =($array["ves"]!==null)?array_unique($array["ves"]):'' ;
             }
             if(count($sorted["tip"])>=count($array["tip"])) {
-                $sorted["tip"] =$array["tip"] ;
+                $sorted["tip"] =($array["tip"]!==null)?array_unique($array["tip"]):'';
             }
             if(count($sorted["format"])>=count($array["format"])) {
-                $sorted["format"] =$array["format"] ;
+                $sorted["format"] =($array["format"]!==null)?array_unique($array["format"]):'' ;
             }
             if(count($sorted["date"])>=count($array["date"])) {
-                $sorted["date"] =$array["date"] ;
+                $sorted["date"] =($array["date"]!==null)?array_unique($array["date"]) :'';
             }
             if(count($sorted["time"])>=count($array["time"])) {
-                $sorted["time"] =$array["time"] ;
+                $sorted["time"] =($array["time"]!==null)?array_unique($array["time"]):'';
             }
 
         }
@@ -636,6 +569,7 @@ class SiteController extends Controller
         Yii::$app->formatter->locale = 'ru-RU';
         $sklad_sirya = new SkladSirya();
         $sklad_sirya = $sklad_sirya->find()->all();
+        krsort($sklad_sirya);
         foreach($sklad_sirya as $sklad)
         {
             Yii::$app->formatter->locale = 'ru-RU';
@@ -674,6 +608,7 @@ class SiteController extends Controller
 
         $ost = new Ostatok();
         $ost = $ost->find()->all();
+        krsort($ost);
         foreach($ost as $sklad)
         {
             Yii::$app->formatter->locale = 'ru-RU';
@@ -794,9 +729,21 @@ class SiteController extends Controller
     public function actionGetotchet($client,$start_date=0,$end_date=0,$model_name)
     {
         $values = explode(",",$client);
-        $model = new Dogovor();
+        $model = ($model_name == rashod)?new Rashod():new SkladSirya;
         $items = [];
-        $queries = $model->find()->where(['between', 'date',$start_date, $end_date])->andWhere(['postavshik'=>$values])->all();
+        $queries = [];
+        $res = $model->find()->where(['between', 'date',$start_date, $end_date])->all();
+        krsort($res);
+        foreach ($res as $query) {
+            foreach ($values as $value) {
+                if($value == $query->schetid->dogovor->client->id)
+                {
+                    $queries[] = $query;
+                }
+            }
+        }
+
+
         $itog = [];
         $itog["ves"] = 0;
         $itog["cost"] = 0;
@@ -804,56 +751,40 @@ class SiteController extends Controller
         $i = 0;
         foreach($queries as $key=>$query)
         {
-            foreach($query->tip as $schet)
-            {
-                if($model_name == "ostatok")
-                {
-                    $model_n=$schet->ostatok;
-                }
-                elseif($model_name == "rashod")
-                {
-                    $model_n = $schet->rashod;
-                }
-                else
-                {
-                    $model_n = $schet->sklad;
-                }
-                foreach($model_n as $sklad)
-                {
+            
+                
+                
                     $ves = [];
                     $tip_all = [];
                     $id = [];
 
-                    $client = $query->client->name;
 
 
-                    foreach($query->dogovors as $dogovor)
+                    foreach($query->schetid->dogovor->dogovors as $dogovor)
                     {
-                        if($dogovor->kratkoe_naimenovanie == $sklad->kratkoe_naimenovanie)
+                        if($dogovor->kratkoe_naimenovanie == $query->kratkoe_naimenovanie)
                         {
-                            $cost = $dogovor->cost1;
+                            $cost = $dogovor->cost1*$query->ves;
                         }
                         $itog["cost"] += $cost;
                     }
 
-                    $id[] = $sklad->id;
-                    $ves[] = $sklad->ves;
-                    $tip_all = $sklad->kratkoe_naimenovanie;
+                    $id[] = $query->id;
+                    $ves[] = $query->ves;
+                    $tip_all = $query->kratkoe_naimenovanie;
                     $itog["ves"] += array_sum($ves);
-                    $items[$i]["dogovor_nomer"]=$query->dogovor_nomer;
+                    $items[$i]["dogovor_nomer"]=$query->schetid->dogovor->dogovor_nomer;
                     $items[$i]["cost"] = $cost;
-                    $items[$i]["client"] = $query->client->name;
-                    $items[$i]["id"] = $sklad->id;
+                    $items[$i]["client"] = $query->schetid->dogovor->client->name;
+                    $items[$i]["id"] = $query->id;
                     $items[$i]["ves"] = $ves;
                     $items[$i]["tip"] = $tip_all;
                     $items[$i]["cost"] = $cost;
-                    $items[$i]["schet"] = $schet->schet_faktura_nomer;
-                    $items[$i]["format"] = $sklad->format;
-                    $items[$i]["date"] = $sklad->date;
-                    $items[$i]["time"] = $sklad->time;
+                    $items[$i]["schet"] = $query->schetid->schet_faktura_nomer;
+                    $items[$i]["format"] = $query->format;
+                    $items[$i]["date"] = $query->date;
+                    $items[$i]["time"] = $query->time;
                     $i++;
-                }
-            }
 
 
         }
@@ -865,6 +796,7 @@ class SiteController extends Controller
         $model_name = "ostatok";
         $client_model = new ClientRegistration();
         $clients = $client_model->find()->all();
+        krsort($clients);
         $items = ArrayHelper::map($clients, 'id', 'name');
         return $this->render('otchet', [
                 'model' => $client_model,
@@ -886,8 +818,9 @@ class SiteController extends Controller
             return false;
         }
 
-        $model = new SkladSirya();
+        $model = new Ostatok();
         $query = $model->find()->all();
+        krsort($query);
 
         $headers = [];
         foreach($query as $key=>$value)
@@ -908,6 +841,7 @@ class SiteController extends Controller
             foreach ($headers as $key2=>$header)
             {
                 $formats = $model->find()->where(['kratkoe_naimenovanie' => $value->kratkoe_naimenovanie])->andWhere(['format'=>$header])->all();
+                krsort($formats);
 
                 $formatscount = 0;
                 foreach ($formats as $format)
@@ -935,7 +869,7 @@ class SiteController extends Controller
         }
 
 
-        $postavshik = new SkladSirya();
+        $postavshik = new Ostatok();
         $allpostavshik = $postavshik->find()->all();
         $kn =  ArrayHelper::map($allpostavshik, 'kratkoe_naimenovanie', 'kratkoe_naimenovanie');
         $format =  ArrayHelper::map($allpostavshik, 'format', 'format');
@@ -962,7 +896,7 @@ class SiteController extends Controller
             return false;
         }
 
-        $model = new SkladSirya();
+        $model = new Ostatok();
         $query = $model->find()->where(["format"=>$ft])->andWhere(["kratkoe_naimenovanie"=>$tip])->andWhere(["date"=>$date])->all();
 
         $headers = [];

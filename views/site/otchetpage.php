@@ -59,8 +59,8 @@ $this->registerCssFile('/css/otchet.css');
             <th>Дата</th>
             <th>Время</th>
         </tr>
-                <?if($rashod !== null):?>
-                    <? foreach($rashod as $rh):?>
+                <?if($ostatok !== null):?>
+                    <? foreach($ostatok as $rh):?>
                         <tr>
                             <td><?=$rh["id"]?></td>
                             <td><?=$rh["postavshik"]?></td>
@@ -71,23 +71,6 @@ $this->registerCssFile('/css/otchet.css');
                             <td><?=$rh["format"]?></td>
                             <td><?=$rh["dater"]?></td>
                             <td><?=$rh["time"]?></td>
-
-                        </tr>
-                    <?  endforeach; ?>
-                <? endif;?>
-                <?if($prihod !== null):?>
-                    <? foreach($prihod as $pr):?>
-                        <tr>
-                            <td><?=$pr["id"]?></td>
-                            <td><?=$pr["postavshik"]?></td>
-                            <td><?=$pr["dogovor_nomer"]?> от <?=$pr["dogovor_date_ru"]?></td>
-                            <td><?=$pr["schet_factura_noemer"]?>  от <?=$pr["dates"]?></td>
-                            <td><?=$pr["tip"]?></td>
-                            <td><?=$pr["ves"]?></td>
-                            <td><?=$pr["format"]?></td>
-                            <td><?=$pr["dater"]?></td>
-                            <td><?=$pr["time"]?></td>
-
                         </tr>
                     <?  endforeach; ?>
                 <? endif;?>
