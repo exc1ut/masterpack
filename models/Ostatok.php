@@ -55,4 +55,8 @@ class Ostatok extends \yii\db\ActiveRecord
             'time' => 'Time',
         ];
     }
+    public function getSchetid()
+    {
+        return $this->hasOne(PostavshikSchetFaktura::className(), ['id' => 'postavshik_schet_faktura_id']);
+    }
 }

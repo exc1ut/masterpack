@@ -340,7 +340,7 @@ class SiteController extends Controller
     {
         $client_model = new ClientRegistration();
         $clients =  ArrayHelper::map($client_model->find()->all(), 'id', 'name');
-        $sklad_model = new SkladSirya();
+        $sklad_model = new Ostatok();
         $id =  ArrayHelper::map($sklad_model->find()->all(), 'id', 'id');
         $tip =  ArrayHelper::map($sklad_model->find()->all(), 'id', 'kratkoe_naimenovanie');
         $ves =  ArrayHelper::map($sklad_model->find()->all(), 'id', 'ves');
