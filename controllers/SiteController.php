@@ -551,7 +551,7 @@ class SiteController extends Controller
         foreach($ost as $sklad)
         {
             Yii::$app->formatter->locale = 'ru-RU';
-            $sk =  new SkladSirya();
+            $sk =  new Ostatok();
             $sk = $sk->findOne($sklad["id"]);
             $factura = $sk->schetid->dogovor->client->name;
             $id = $sklad["id"];
