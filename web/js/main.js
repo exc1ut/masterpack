@@ -644,10 +644,18 @@ $('#btnget').click(function(){
             td.appendChild(t);
             tr.appendChild(td);
         }
+            function addVes(text)
+        {
+            var td = document.createElement('td');
+            var t = document.createTextNode(text + ' kg ');
+            td.appendChild(t);
+            tr.appendChild(td);
+        }
         var table = document.getElementById('table');
         var rownumb = json[0].length;
 
         $('#tbody').remove();
+        $('caption').remove();    
         var tbdy = document.createElement('tbody');
         tbdy.setAttribute('id','tbody');
         var tr = document.createElement('tr');
@@ -671,7 +679,7 @@ $('#btnget').click(function(){
         addColoumn('');
         addColoumn('');
         addColoumn('');
-        addColoumn(json[1].ves);
+        addVes(json[1].ves);
         addColoumn('');
         addColoumn('');
         addColoumn('');
@@ -687,7 +695,7 @@ $('#btnget').click(function(){
             addColoumn(json[0][i].dogovor_nomer);
             addColoumn(json[0][i].schet);
             addColoumn(json[0][i].tip);
-            addColoumn(json[0][i].ves);
+            addVes(json[0][i].ves)
             addColoumn(json[0][i].format);
             addColoumn(json[0][i].date);
             addColoumn(json[0][i].time);
@@ -704,7 +712,7 @@ $('#btnget').click(function(){
         addColoumn('');
         addColoumn('');
         addColoumn('');
-        addColoumn(json[1].ves);
+        addVes(json[1].ves);
         addColoumn('');
         addColoumn('');
         addColoumn('');
@@ -750,6 +758,8 @@ $('#btnget').click(function(){
             var table = document.getElementById('excelTable');
 
             $('tbody').remove();
+            $('caption').remove();
+            
             var tbdy = document.createElement('tbody');
 
             var tr = document.createElement('tr');
@@ -776,7 +786,7 @@ $('#btnget').click(function(){
 
 
             table.appendChild(tbdy);
-            $("#table").tableExport({formats: ["xlsx"]});0
+            $("#excelTable").tableExport({formats: ["xlsx"]});
 
 
 

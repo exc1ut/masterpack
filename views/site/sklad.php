@@ -81,7 +81,7 @@ SkladAsset::register($this);
                             <td><?=$item["schet_factura_noemer"]?> от <?=$item["dates"]?></td>
                             <td><?=$item["tip"]?></td>
                             <td><?=$item["format"]?></td>
-                            <td><?=$item["ves"]?></td>
+                            <td><?=$item["ves"]?> kg </td>
                             <td><?=$item["dater"]?></td>
                             <td><?=$item["time"]?></td>
 

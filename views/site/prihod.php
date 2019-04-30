@@ -73,11 +73,11 @@ PAsset::register($this);
         </div>
         <div class="da6">
             <p>Формат</p>v
-            <input type="text" name="SkladSirya[format][]" placeholder="">
+            <input type="number" name="SkladSirya[format][]" placeholder="">
         </div>
         <div class="da7">
             <p>Вес</p>
-            <input type="text" name="SkladSirya[ves][]" placeholder="">
+            <input type="number" name="SkladSirya[ves][]" placeholder="">
         </div>
         </div>
     </div>
